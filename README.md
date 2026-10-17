@@ -37,6 +37,8 @@ pnpm test:e2e
 
 The build also generates Korean/English 1200×630 share cards from the portrait and YAML identity/tagline. Static Open Graph/Twitter metadata selects the matching card for each language route, with English at `/` for crawlers. Image URLs are versioned when rendering inputs change. See the [share-card asset contract](docs/assets-guide.md#share-card-assets).
 
+Astro startup prepares compact Korean font subsets from all public YAML text; dev mode refreshes them after YAML changes. `.font-cache/` is ignored and requires no manual downloads. Early preloads plus optional font loading prevent a late typeface swap on slow first visits; readable system fonts remain the fallback. PDF/share-card exports explicitly wait for the intended fonts. See the [font-loading policy](docs/design-guide.md#font-loading).
+
 - `/ko/`, `/en/`: profile pages
 - `/ko/resume/`, `/en/resume/`: print resumes
 - `/ko/compose/`, `/en/compose/`: select three achievements/company in click order, then open a custom print resume and use Print / Save as PDF. This is browser-local and is not automatically published.

@@ -38,6 +38,7 @@
     "pdfjs-dist": "6.4.299",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.1",
-    "sharp": "0.35.5"
+    "sharp": "0.35.5",
+    "subset-font": "2.9.0"
   }
 }

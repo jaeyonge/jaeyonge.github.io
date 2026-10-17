@@ -78,6 +78,12 @@ try {
     `,
     });
     await page.evaluate(async () => {
+      await Promise.all(
+        Array.from(document.fonts, (font) => {
+          font.display = 'block';
+          return font.load();
+        }),
+      );
       await document.fonts.ready;
       await document.querySelector('.social-card img').decode();
     });

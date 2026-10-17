@@ -1,6 +1,7 @@
 ---
 import { data, contentHash, profileId } from '../lib/content.mjs';
 import { socialImagePath, socialSize } from '../lib/social.mjs';
+import { fontAssets, fontCss } from '../lib/fonts.mjs';
 import '../styles/global.css';
 import '../styles/print.css';
 const {
@@ -24,6 +25,12 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <slot name="head" />
+    <style is:inline set:html={fontCss} />
+    {fontAssets
+      .filter((font) => lang === 'ko' || font.family === 'Inter' || font.weight === 600)
+      .map((font) => (
+        <link rel="preload" as="font" href={font.url} type="font/woff2" crossorigin="anonymous" />
+      ))}
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content={data.hero.summary[lang]} />

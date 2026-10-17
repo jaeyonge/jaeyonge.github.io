@@ -16,7 +16,17 @@ try {
     });
     await page.goto(`${server.url}/${lang}/resume/`, { waitUntil: 'networkidle' });
     await page.emulateMedia({ media: 'print', colorScheme: 'light', reducedMotion: 'reduce' });
-    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(async () => {
+      // Exports always use the intended fonts, independent of the screen's
+      // optional-loading policy or the timing of the first browser paint.
+      await Promise.all(
+        Array.from(document.fonts, (font) => {
+          font.display = 'block';
+          return font.load();
+        }),
+      );
+      await document.fonts.ready;
+    });
     await page.waitForFunction(() =>
       Array.from(document.images).every(
         (i) => !i.getClientRects().length || (i.complete && i.naturalWidth > 0),

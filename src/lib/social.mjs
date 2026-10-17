@@ -8,6 +8,9 @@ for (const file of [
   'design/tokens.css',
   'src/styles/global.css',
   'scripts/generate-social.mjs',
+  'scripts/prepare-fonts.mjs',
+  'src/lib/fonts.mjs',
+  'package.json',
 ])
   version.update(readFileSync(file));
 const imageVersion = version.digest('hex').slice(0, 12);
