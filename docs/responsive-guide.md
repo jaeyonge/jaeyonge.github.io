@@ -20,7 +20,7 @@ Test both languages and light/dark presentation where relevant. These are regres
 - Hero portrait and text reflow rather than squeeze into two narrow mobile columns. Preserve face placement and intrinsic image ratio; do not stretch or redraw the supplied portrait.
 - School rows reserve the same logo column; school names line up even when assets have different shapes. Dates may move below names on phones, keeping the same alignment.
 - Full research titles and Korean compound words must wrap cleanly. Primary title is the paper title; topic is secondary text.
-- Controls have accessible labels and usable touch targets. Header links, language/theme choices, compose selections and PDF downloads must remain reachable by touch and keyboard.
+- Controls have accessible labels and usable touch targets. Header links, language/theme choices and PDF downloads must remain reachable by touch and keyboard. Test compose selections separately in local development; authoring tools must never enter the public build.
 - All real content remains readable without JavaScript. Reduced-motion settings remove nonessential animation. Test OS themes and manual overrides.
 - Images must load from committed public assets and be checked after decoding before taking screenshots; a loaded URL alone does not prove an image has painted.
 

@@ -41,7 +41,7 @@ Astro startup prepares compact Korean font subsets from all public YAML text; de
 
 - `/ko/`, `/en/`: profile pages
 - `/ko/resume/`, `/en/resume/`: print resumes
-- `/ko/compose/`, `/en/compose/`: select three achievements/company in click order, then open a custom print resume and use Print / Save as PDF. This is browser-local and is not automatically published.
+- `/ko/compose/`, `/en/compose/`: **local development only** after `pnpm dev`. Open the local URL directly to select three achievements/company in click order, then print/save a custom resume. These routes and their URL-selection script are excluded from every production build; no public footer links to the authoring tool.
 - `/downloads/jaeyong-lee-resume-{ko,en}.pdf`: automatically generated general-profile PDFs
 
 Local profile authoring/export:

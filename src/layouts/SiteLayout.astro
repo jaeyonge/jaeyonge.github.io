@@ -141,7 +141,6 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
           {data.profile.links.map((l) => (
             <a href={l.url}>{l.label} ↗</a>
           ))}
-          {!print && <a href={`/${lang}/compose/`}>{u.selectTitle} ↗</a>}
         </div>
       </footer>
     )}

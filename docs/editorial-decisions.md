@@ -22,3 +22,4 @@
 
 - i-Scream Arts uses its original transparent logo in both themes, without a white backing. Preserve that choice in the registry and preparation script.
 - Hero eyebrow: “데이터로 이해하고, 시스템으로 해결합니다.” / “UNDERSTAND WITH DATA. SOLVE WITH SYSTEMS.”
+- Resume composition is an author-only local development tool. The public site must not include its footer link, route or URL-selection script. Preserve local composition and CLI/profile authoring.

@@ -24,6 +24,7 @@ This repository is a working environment for producing and improving Jaeyong Lee
 - Read `docs/responsive-guide.md` for every UI change. Smartphone and tablet support in portrait/landscape is mandatory; verify both languages, themes, no overflow and usable controls.
 - Use `design/tokens.css` and shared components. Read `docs/design-guide.md`. Keep subtle motion, visible keyboard focus, correct heading order and reduced-motion behavior. Never hide essential content behind animation or JS.
 - Languages use explicit URL, saved manual choice, ordered browser preferences, then English. No location, IP or timezone inference.
+- Resume composition and URL-driven achievement selection are authoring tools available only in local development. Never expose a compose link, compose page or author-selection script in a public build. Keep CLI/profile authoring available; an unlisted or noindex page is still public.
 
 ## Evaluate, fix, re-evaluate
 

@@ -3,7 +3,7 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import { data, selectedProfile } from '../../lib/content.mjs';
 import { renderText } from '../../lib/format.mjs';
 export function getStaticPaths() {
-  return [{ params: { lang: 'ko' } }, { params: { lang: 'en' } }];
+  return import.meta.env.DEV ? [{ params: { lang: 'ko' } }, { params: { lang: 'en' } }] : [];
 }
 const { lang } = Astro.params;
 const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));

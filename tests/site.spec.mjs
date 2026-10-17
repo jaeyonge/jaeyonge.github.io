@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
+import { data } from '../src/lib/content.mjs';
 
 for (const [path, lang] of [
   ['/', 'en'],
@@ -189,18 +190,23 @@ test('no-JS pages retain content and paper links', async ({ browser }) => {
   await expect(p.locator('a[lang="ko"]').first()).toBeVisible();
   await c.close();
 });
-test('composition enforces three choices and custom print shows selected IDs', async ({ page }) => {
-  await page.goto('/en/compose/');
-  const choices = page.locator('[data-company="toss-place"] input');
-  await choices.nth(0).uncheck();
-  await expect(page.getByRole('button', { name: 'Open print resume' })).toBeDisabled();
-  await choices.nth(3).check();
-  await page.getByRole('button', { name: 'Open print resume' }).click();
-  await expect(page).toHaveURL(/\/en\/resume\/\?selection=/);
-  await expect(page.locator('[data-entry="toss-place"] li')).toHaveCount(3);
-  await expect(page.locator('[data-entry="toss-place"]')).toContainText('300,000');
-  await expect(page.locator('[data-download]')).toHaveCount(0);
-});
+for (const lang of ['ko', 'en'])
+  test(`${lang}: public pages exclude authoring links, routes and URL selection`, async ({ page }) => {
+    await page.goto(`/${lang}/`);
+    await expect(page.locator('a[href*="/compose/"]')).toHaveCount(0);
+    expect((await page.request.get(`/${lang}/compose/`)).status()).toBe(404);
+    const selection = {
+      ...data.profiles.general.experience,
+      'toss-place': ['merchant-classification', 'session-integrity', 'log-workflow'],
+    };
+    const encoded = Buffer.from(JSON.stringify(selection)).toString('base64');
+    await page.goto(`/${lang}/resume/?selection=${encodeURIComponent(encoded)}`);
+    await expect(page.locator('script[data-author-selection]')).toHaveCount(0);
+    await expect(page.locator('[data-entry="toss-place"] li').first()).toContainText(
+      lang === 'ko' ? '결제 지표의 중복 이슈' : 'Initiated the company’s first workflow',
+    );
+    await expect(page.locator('[data-download]')).toHaveCount(1);
+  });
 const devices = [
   { name: 'small-phone', width: 320, height: 568 },
   { name: 'phone', width: 390, height: 844 },

@@ -7,18 +7,20 @@ export function getStaticPaths() {
   return [{ params: { lang: 'ko' } }, { params: { lang: 'en' } }];
 }
 const { lang } = Astro.params;
-const catalog = Object.fromEntries(
-  data.experience.map((e) => [
-    e.id,
-    Object.fromEntries(e.highlights.map((h) => [h.id, renderText(h, lang)])),
-  ]),
-);
+const catalog = import.meta.env.DEV
+  ? Object.fromEntries(
+      data.experience.map((e) => [
+        e.id,
+        Object.fromEntries(e.highlights.map((h) => [h.id, renderText(h, lang)])),
+      ]),
+    )
+  : null;
 ---
 
 <SiteLayout lang={lang} print>
   <ResumeBody lang={lang} print />
 </SiteLayout>
-<script is:inline define:vars={{ catalog }}>
+{import.meta.env.DEV && <script is:inline data-author-selection define:vars={{ catalog }}>
   try {
     const raw = new URLSearchParams(location.search).get('selection');
     if (raw) {
@@ -50,4 +52,4 @@ const catalog = Object.fromEntries(
   } catch {
     document.documentElement.dataset.selectionError = 'true';
   }
-</script>
+</script>}
