@@ -19,6 +19,8 @@ pnpm dev
 
 Open the printed local URL, then `/ko/` or `/en/`. Static pages remain readable without JS. Root routing uses stored language and ordered browser preferences, without geolocation. Theme follows the OS unless manually selected.
 
+The root URL runs language routing in an inline head script before rendering. Its neutral name/language-choice fallback prevents an English resume flashing while a Korean destination loads and remains usable with JavaScript disabled. Sharing metadata at the root remains English and does not depend on the redirect.
+
 ## Author and verify
 
 Edit **`content/resume.yaml`**. It contains bilingual copy, shared dates/facts, stable achievement IDs, and profiles selecting those IDs. Review both languages. `content/evidence.yaml` stores public-safe qualifications rather than private documents.

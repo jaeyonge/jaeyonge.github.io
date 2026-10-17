@@ -1,30 +1,23 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import ResumeBody from '../components/ResumeBody.astro';
+import { data } from '../lib/content.mjs';
+import { rootRedirectScript } from '../lib/locale.mjs';
 ---
 
-<SiteLayout lang="en">
-  <div class="root-language-links">
-    <a href="/ko/" lang="ko" data-language="ko">
-      한국어
-    </a>
-    <a href="/en/" lang="en" data-language="en">
-      English
-    </a>
-  </div>
-  <ResumeBody lang="en" />
+<SiteLayout lang="en" languageGateway>
+  <script slot="head" is:inline set:html={rootRedirectScript} />
+  <section class="language-gateway">
+    <h1>
+      {data.profile.name.en}
+      <span class="wordmark-dot">.</span>
+    </h1>
+    <nav class="root-language-links" aria-label="한국어 / English">
+      <a class="button secondary" href="/ko/" lang="ko" data-language="ko">
+        한국어
+      </a>
+      <a class="button secondary" href="/en/" lang="en" data-language="en">
+        English
+      </a>
+    </nav>
+  </section>
 </SiteLayout>
-<script>
-  import { resolveLanguage } from '../lib/locale.mjs';
-  let saved = null;
-  try {
-    saved = localStorage.getItem('resume-language');
-  } catch {}
-  const lang = resolveLanguage({
-    pathname: location.pathname,
-    saved,
-    languages: navigator.languages,
-    language: navigator.language,
-  });
-  location.replace(`/${lang}/${location.hash}`);
-</script>

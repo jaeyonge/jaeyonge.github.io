@@ -95,6 +95,67 @@ test('mobile Korean dark mode has no overflow and manual theme wins', async ({ p
   await expect(page).toHaveURL(/\/en\//);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
+for (const scenario of [
+  { name: 'Korean browser', locale: 'ko-KR', saved: null, target: 'ko' },
+  { name: 'saved English', locale: 'ko-KR', saved: 'en', target: 'en' },
+  { name: 'saved Korean', locale: 'en-US', saved: 'ko', target: 'ko' },
+  { name: 'blocked storage', locale: 'ko-KR', saved: null, target: 'ko', blocked: true },
+])
+  test(`root has no English-resume flash with deferred JS blocked: ${scenario.name}`, async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({ locale: scenario.locale });
+    let release;
+    const hold = new Promise((resolve) => {
+      release = resolve;
+    });
+    let reached;
+    const destinationRequested = new Promise((resolve) => {
+      reached = resolve;
+    });
+    try {
+      await context.addInitScript(({ saved, blocked }) => {
+        if (blocked)
+          Object.defineProperty(window, 'localStorage', {
+            get() {
+              throw new DOMException('Blocked', 'SecurityError');
+            },
+          });
+        else if (saved) localStorage.setItem('resume-language', saved);
+      }, scenario);
+      const page = await context.newPage();
+      await page.route('**/*', (route) =>
+        route.request().resourceType() === 'script' ? route.abort() : route.fallback(),
+      );
+      await page.route(
+        (url) => url.pathname === `/${scenario.target}/`,
+        async (route) => {
+          reached();
+          await hold;
+          await route.continue();
+        },
+      );
+      await page.goto('/?from=share#experience', { waitUntil: 'commit' });
+      await destinationRequested;
+      // Inspect the served root while the destination is held. Playwright's DOM APIs
+      // wait for pending navigation; the source itself must contain no English resume.
+      const rootResponse = await context.request.get('/');
+      const rootHtml = await rootResponse.text();
+      expect(rootHtml).not.toContain('id="about-title"');
+      expect(rootHtml).not.toContain('class="site-header"');
+      expect(rootHtml).not.toContain('class="site-footer"');
+      expect(rootHtml.indexOf('location.replace')).toBeGreaterThan(0);
+      expect(rootHtml.indexOf('location.replace')).toBeLessThan(rootHtml.indexOf('</head>'));
+      release();
+      await expect(page).toHaveURL(`http://127.0.0.1:4322/${scenario.target}/?from=share#experience`);
+      await expect(page.locator('html')).toHaveAttribute('lang', scenario.target);
+      await expect(page.locator('#about-title')).toBeVisible();
+    } finally {
+      release();
+      await context.close();
+    }
+  });
+
 test('root respects browser language; explicit URL survives opposite preference', async ({
   browser,
 }) => {

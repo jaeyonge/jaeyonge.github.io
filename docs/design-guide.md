@@ -15,3 +15,5 @@ Read `docs/assets-guide.md` for every logo change. Do not ship a screenshot-only
 Smartphones and tablets are first-class targets. Follow [responsive-guide.md](responsive-guide.md), test the required phone/tablet sizes in both orientations, and verify shared institution alignment, portrait reflow and full paper-title wrapping. Desktop-only validation is incomplete.
 
 The hero uses a prominent portrait beside the main heading, rather than an avatar-sized thumbnail. Keep the photo aligned with the heading on desktop/tablet; on phones, place it between the identity/links and the introduction. Control the responsive sizes through the portrait tokens and preserve the supplied image proportions.
+
+The root URL is a language gateway, not an English resume rendered before redirecting. Run its shared language resolver in a synchronous inline head script, independent of external JavaScript. Keep only the name and accessible Korean/English links as the neutral no-JS fallback; never hide content using a JS-only visibility gate. Preserve static English share metadata for crawlers, saved-language precedence, and query/hash during navigation.
