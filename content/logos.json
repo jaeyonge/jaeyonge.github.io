@@ -1,0 +1,51 @@
+{
+  "toss-place": {
+    "light": "/assets/logos/toss-place-wordmark.png",
+    "dark": "/assets/logos/toss-place-wordmark-white.png",
+    "presentation": "wordmark",
+    "width": 4882,
+    "height": 800
+  },
+  "doeat": {
+    "light": "/assets/logos/doeat-wordmark.svg",
+    "dark": "/assets/logos/doeat-wordmark.svg",
+    "presentation": "wordmark",
+    "width": 120,
+    "height": 34
+  },
+  "iscream-arts": {
+    "light": "/assets/logos/iscream-arts-wordmark.png",
+    "dark": "/assets/logos/iscream-arts-wordmark.png",
+    "presentation": "wordmark",
+    "width": 412,
+    "height": 144
+  },
+  "snu": {
+    "light": "/assets/logos/snu-emblem.png",
+    "dark": "/assets/logos/snu-emblem.png",
+    "presentation": "mark light-mat",
+    "width": 2116,
+    "height": 2195
+  },
+  "sejong-science-high": {
+    "light": "/assets/logos/sejong-science-high.svg",
+    "dark": "/assets/logos/sejong-science-high.svg",
+    "presentation": "mark",
+    "width": 42,
+    "height": 42
+  },
+  "gyeongnam-science-high": {
+    "light": "/assets/logos/gyeongnam-science-high.svg",
+    "dark": "/assets/logos/gyeongnam-science-high.svg",
+    "presentation": "mark",
+    "width": 142,
+    "height": 145
+  },
+  "seoul-high": {
+    "light": "/assets/logos/seoul-high.svg",
+    "dark": "/assets/logos/seoul-high.svg",
+    "presentation": "mark",
+    "width": 36,
+    "height": 42
+  }
+}

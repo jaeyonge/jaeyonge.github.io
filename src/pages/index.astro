@@ -1,0 +1,30 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import ResumeBody from '../components/ResumeBody.astro';
+---
+
+<SiteLayout lang="en">
+  <div class="root-language-links">
+    <a href="/ko/" lang="ko" data-language="ko">
+      한국어
+    </a>
+    <a href="/en/" lang="en" data-language="en">
+      English
+    </a>
+  </div>
+  <ResumeBody lang="en" />
+</SiteLayout>
+<script>
+  import { resolveLanguage } from '../lib/locale.mjs';
+  let saved = null;
+  try {
+    saved = localStorage.getItem('resume-language');
+  } catch {}
+  const lang = resolveLanguage({
+    pathname: location.pathname,
+    saved,
+    languages: navigator.languages,
+    language: navigator.language,
+  });
+  location.replace(`/${lang}/${location.hash}`);
+</script>

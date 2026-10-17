@@ -1,0 +1,153 @@
+import { test, expect } from '@playwright/test';
+for (const lang of ['ko', 'en'])
+  for (const theme of ['light', 'dark'])
+    test(`${lang} ${theme}: sections, real logo requests, no overflow`, async ({ page }) => {
+      const errors = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
+      await page.goto(`/${lang}/`);
+      await page.selectOption('#theme', theme);
+      await page.evaluate(() => document.fonts.ready);
+      expect(await page.locator('section').evaluateAll((nodes) => nodes.map((n) => n.id))).toEqual([
+        'about',
+        'experience',
+        'research',
+        'education',
+        'awards',
+      ]);
+      await expect(page.locator('[data-entry]')).toHaveCount(3);
+      for (const block of await page.locator('[data-entry]').all())
+        await expect(block.locator('li')).toHaveCount(3);
+      for (const block of await page.locator('[data-research]').all())
+        await expect(block.locator('li')).toHaveCount(3);
+      await page.locator('#education').scrollIntoViewIfNeeded();
+      await page.waitForFunction(() =>
+        Array.from(document.images).every(
+          (i) => !i.getClientRects().length || (i.complete && i.naturalWidth > 0),
+        ),
+      );
+      expect(
+        await page
+          .locator('[data-logo="snu"]')
+          .first()
+          .evaluate((e) => getComputedStyle(e).backgroundColor),
+      ).toBe('rgb(255, 255, 255)');
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      expect(errors).toEqual([]);
+      for (const src of await page
+        .locator('img')
+        .evaluateAll((imgs) => [...new Set(imgs.map((i) => i.getAttribute('src')))])) {
+        const r = await page.request.get(src);
+        expect(r.ok(), src).toBeTruthy();
+      }
+      const pdf = await page.request.get(`/downloads/jaeyong-lee-resume-${lang}.pdf`);
+      expect(pdf.ok()).toBeTruthy();
+      expect((await pdf.body()).subarray(0, 4).toString()).toBe('%PDF');
+    });
+test('mobile Korean dark mode has no overflow and manual theme wins', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
+  await page.goto('/ko/');
+  await page.selectOption('#theme', 'dark');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.getByRole('link', { name: '언어 선택' }).click();
+  await expect(page).toHaveURL(/\/en\//);
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+});
+test('root respects browser language; explicit URL survives opposite preference', async ({
+  browser,
+}) => {
+  const c = await browser.newContext({ locale: 'ko-KR' });
+  const p = await c.newPage();
+  await p.goto('/');
+  await expect(p).toHaveURL(/\/ko\//);
+  await p.goto('/en/');
+  await expect(p).toHaveURL(/\/en\//);
+  await c.close();
+});
+test('storage failure does not break explicit-page language navigation', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', {
+      get() {
+        throw new DOMException('Blocked', 'SecurityError');
+      },
+    });
+  });
+  await page.goto('/ko/');
+  await page.getByRole('link', { name: '언어 선택' }).click();
+  await expect(page).toHaveURL(/\/en\//);
+});
+test('no-JS pages retain content and paper links', async ({ browser }) => {
+  const c = await browser.newContext({ javaScriptEnabled: false });
+  const p = await c.newPage();
+  await p.goto('/ko/');
+  await expect(p.locator('[data-entry]')).toHaveCount(3);
+  await expect(p.locator('a[href="https://doi.org/10.1145/3746252.3761133"]')).toBeVisible();
+  await p.goto('/');
+  await expect(p.locator('a[lang="ko"]').first()).toBeVisible();
+  await c.close();
+});
+test('composition enforces three choices and custom print shows selected IDs', async ({ page }) => {
+  await page.goto('/en/compose/');
+  const choices = page.locator('[data-company="toss-place"] input');
+  await choices.nth(0).uncheck();
+  await expect(page.getByRole('button', { name: 'Open print resume' })).toBeDisabled();
+  await choices.nth(3).check();
+  await page.getByRole('button', { name: 'Open print resume' }).click();
+  await expect(page).toHaveURL(/\/en\/resume\/\?selection=/);
+  await expect(page.locator('[data-entry="toss-place"] li')).toHaveCount(3);
+  await expect(page.locator('[data-entry="toss-place"]')).toContainText('300,000');
+  await expect(page.locator('[data-download]')).toHaveCount(0);
+});
+const devices = [
+  { name: 'small-phone', width: 320, height: 568 },
+  { name: 'phone', width: 390, height: 844 },
+  { name: 'tablet-portrait', width: 768, height: 1024 },
+  { name: 'tablet-landscape', width: 1024, height: 768 },
+  { name: 'large-tablet-portrait', width: 820, height: 1180 },
+  { name: 'large-tablet-landscape', width: 1180, height: 820 },
+  { name: 'desktop', width: 1440, height: 1000 },
+];
+for (const device of devices)
+  for (const lang of ['ko', 'en'])
+    test(`${device.name} ${lang}: portrait, complete papers and aligned school names`, async ({
+      page,
+    }) => {
+      await page.setViewportSize(device);
+      await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' });
+      await page.goto(`/${lang}/`);
+      const portrait = page.locator('.hero-portrait img');
+      await expect(portrait).toBeVisible();
+      await portrait.evaluate((i) => i.decode());
+      expect(await portrait.evaluate((i) => i.naturalWidth > 0)).toBe(true);
+      await expect(page.locator('.hero-profile-links a')).toHaveCount(3);
+      await expect(page.locator('[data-research="pedagogy-r1"] h3')).toHaveText(
+        'Pedagogy-R1: Pedagogical Large Reasoning Model and Well-balanced Educational Benchmark',
+      );
+      await expect(page.locator('[data-research="drawing-assessment"] h3')).toHaveText(
+        'Automated Assessment of Student Hand Drawings in Free-Response Items on the Particulate Nature of Matter',
+      );
+      const schools = await page
+        .locator('.teaching-entry h3')
+        .evaluateAll((nodes) => nodes.map((n) => n.getBoundingClientRect().left));
+      expect(Math.abs(schools[0] - schools[1])).toBeLessThan(1);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      await page.locator('#awards').scrollIntoViewIfNeeded();
+      const gap = await page
+        .locator('.award-entry')
+        .evaluateAll(
+          (nodes) => nodes[2].getBoundingClientRect().top - nodes[1].getBoundingClientRect().bottom,
+        );
+      expect(gap).toBeLessThanOrEqual(26);
+    });
+test('i-Scream Arts keeps a transparent presentation in both themes', async ({ page }) => {
+  for (const theme of ['light', 'dark']) {
+    await page.goto('/ko/');
+    await page.selectOption('#theme', theme);
+    const logo = page.locator('[data-logo="iscream-arts"]');
+    await logo.scrollIntoViewIfNeeded();
+    expect(await logo.evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
+    await expect(logo).not.toHaveClass(/light-mat/);
+  }
+});

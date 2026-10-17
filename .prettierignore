@@ -1,0 +1,7 @@
+sources/
+tmp/
+dist/
+node_modules/
+design/vendor/
+public/
+pnpm-lock.yaml

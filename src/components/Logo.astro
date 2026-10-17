@@ -1,0 +1,39 @@
+---
+import registry from '../../content/logos.json';
+const { id } = Astro.props;
+const logo = registry[id];
+if (!logo) throw new Error(`Missing logo ${id}`);
+---
+
+<span class:list={['logo', logo.presentation]} aria-hidden="true" data-logo={id}>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset={logo.dark} />
+    <img
+      class="logo-auto"
+      src={logo.light}
+      alt=""
+      width={logo.width}
+      height={logo.height}
+      loading="lazy"
+      decoding="sync"
+    />
+  </picture>
+  <img
+    class="logo-light"
+    src={logo.light}
+    alt=""
+    width={logo.width}
+    height={logo.height}
+    loading="lazy"
+    decoding="sync"
+  />
+  <img
+    class="logo-dark"
+    src={logo.dark}
+    alt=""
+    width={logo.width}
+    height={logo.height}
+    loading="lazy"
+    decoding="sync"
+  />
+</span>

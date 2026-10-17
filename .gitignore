@@ -1,0 +1,12 @@
+# Local evidence and editorial working files
+/sources/
+/tmp/
+/node_modules/
+/dist/
+/.astro/
+/test-results/
+/playwright-report/
+/.design-cache/
+/.env
+/.env.*
+.DS_Store

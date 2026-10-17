@@ -1,0 +1,132 @@
+---
+import { data, contentHash, profileId } from '../lib/content.mjs';
+import '../styles/global.css';
+import '../styles/print.css';
+const { lang = 'en', print = false, title = data.profile.name[lang] } = Astro.props;
+const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
+const other = lang === 'ko' ? 'en' : 'ko';
+const tail = Astro.url.pathname.replace(/^\/(ko|en)/, '');
+---
+
+<!doctype html>
+<html lang={lang} data-page={print ? 'resume' : 'profile'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content={data.hero.summary[lang]} />
+    <meta name="content-hash" content={contentHash} />
+    <meta name="resume-profile" content={profileId} />
+    <meta name="robots" content={print ? 'noindex,follow' : 'index,follow'} />
+    <title>{title} · {data.profile.role[lang]}</title>
+    <link rel="canonical" href={`https://jaeyonge.github.io${Astro.url.pathname}`} />
+    <link rel="alternate" hreflang={other} href={`https://jaeyonge.github.io/${other}${tail}`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('resume-theme');
+        if (['light', 'dark'].includes(t)) document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      {u.skip}
+    </a>
+    <header class="site-header">
+      <nav aria-label={u.menu}>
+        <a class="wordmark" href={`/${lang}/`}>
+          Jaeyong Lee
+          <span class="wordmark-dot" aria-hidden="true">
+            .
+          </span>
+        </a>
+        <div class="nav-links">
+          {['experience', 'research', 'education'].map((id, i) => (
+            <a href={`/${lang}/#${id}`}>{u.section[i + 1]}</a>
+          ))}
+        </div>
+        <div class="header-controls">
+          <label class="sr-only" for="theme">
+            {u.theme}
+          </label>
+          <select id="theme" name="theme" aria-label={u.theme}>
+            <option value="system">{u.system}</option>
+            <option value="light">{u.light}</option>
+            <option value="dark">{u.dark}</option>
+          </select>
+          <a
+            class="language-switch"
+            href={`/${other}${tail}`}
+            hreflang={other}
+            lang={other}
+            data-language={other}
+            aria-label={u.language}
+          >
+            {other === 'ko' ? '한국어' : 'EN'}
+          </a>
+        </div>
+      </nav>
+    </header>
+    {print && (
+      <aside class="print-toolbar">
+        <a class="text-link" href={`/${lang}/`}>
+          ← {u.back}
+        </a>
+        <button class="button primary" data-print>
+          {u.print}
+        </button>
+        <a
+          class="button secondary"
+          data-download
+          href={`/downloads/jaeyong-lee-resume-${lang}.pdf`}
+          download
+        >
+          {u.download}
+        </a>
+      </aside>
+    )}
+    <main id="main" class:list={['page', print && 'resume-page']}>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>{u.footer}</p>
+      <div>
+        <a href={`mailto:${data.profile.email}`}>{data.profile.email}</a>
+        <span>{data.profile.location[lang]}</span>
+        <span>
+          {u.updated} {data.updated}
+        </span>
+      </div>
+      <div class="footer-links">
+        {data.profile.links.map((l) => (
+          <a href={l.url}>{l.label} ↗</a>
+        ))}
+        {!print && <a href={`/${lang}/compose/`}>{u.selectTitle} ↗</a>}
+      </div>
+    </footer>
+    <script>
+      const theme = document.querySelector<HTMLSelectElement>('#theme');
+      if (theme) {
+        theme.value = document.documentElement.dataset.theme || 'system';
+        theme.addEventListener('change', () => {
+          const value = theme.value;
+          if (value === 'system') delete document.documentElement.dataset.theme;
+          else document.documentElement.dataset.theme = value;
+          try {
+            localStorage.setItem('resume-theme', value);
+          } catch {}
+        });
+      }
+      document.querySelectorAll<HTMLAnchorElement>('[data-language]').forEach((link) =>
+        link.addEventListener('click', () => {
+          try {
+            localStorage.setItem('resume-language', link.dataset.language!);
+          } catch {}
+        }),
+      );
+      document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+    </script>
+  </body>
+</html>

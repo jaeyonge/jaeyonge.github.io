@@ -1,0 +1,35 @@
+{
+  "repository": "nexu-io/open-design",
+  "latestCheckedCommit": "78d5637cb49da07e81314d1544b5fc6d37c95084",
+  "appliedCommit": "78d5637cb49da07e81314d1544b5fc6d37c95084",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "9d95806a26532623360eb84bb17d298f394b55ef73fb4c0796d99b4319b2b0da"
+    },
+    {
+      "path": "design-systems/apple/DESIGN.md",
+      "sha256": "001c06b02855b8443b397bfef583be5dedfd96391dcae94d7e3050e64841ed4d"
+    },
+    {
+      "path": "design-systems/apple/tokens.css",
+      "sha256": "656eabbaf792e1614e13ff59336992c4ef0a5622a2ca3e07e13902ce0cf84370"
+    },
+    {
+      "path": "design-systems/apple/USAGE.md",
+      "sha256": "1a7ed55b973585682fca2c4cfc0510fc5589d913ce1f8f349ef8fb2c2a48a16b"
+    },
+    {
+      "path": "design-systems/apple/components.manifest.json",
+      "sha256": "03f61cfc773368cee5a2a7e31a57b043c2bc5e014974235c147ebf23a971b418"
+    },
+    {
+      "path": "skills/web-design-guidelines/references/guidelines.md",
+      "sha256": "934df9cec7c38850e579bd69618f8d8abef79bf059c476a002c49287852ce5b8"
+    },
+    {
+      "path": "skills/web-design-guidelines/LICENSE",
+      "sha256": "6cd1609c9c12233507cdd2ce0d32e9a721e3c27494951be06b90090deeeb7af2"
+    }
+  ]
+}

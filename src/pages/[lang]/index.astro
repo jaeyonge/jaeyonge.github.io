@@ -1,0 +1,12 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ResumeBody from '../../components/ResumeBody.astro';
+export function getStaticPaths() {
+  return [{ params: { lang: 'ko' } }, { params: { lang: 'en' } }];
+}
+const { lang } = Astro.params;
+---
+
+<SiteLayout lang={lang}>
+  <ResumeBody lang={lang} />
+</SiteLayout>

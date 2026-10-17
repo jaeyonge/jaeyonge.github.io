@@ -1,0 +1,68 @@
+@import './vendor/open-design/design-systems/apple/tokens.css';
+:root {
+  --font-text: Inter, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-text);
+  --content-width: 1100px;
+  --reading-width: 720px;
+  --body-line: 1.75;
+  --header-height: 76px;
+  --hero-size: clamp(42px, 5.6vw, 72px);
+  --section-size: clamp(28px, 3.2vw, 40px);
+  --small-size: 13px;
+  --nav-bg: rgba(255, 255, 255, 0.88);
+  --logo-mat: #fff;
+  --logo-size: 50px;
+  --wordmark-width: 134px;
+  --motion-fast: 180ms;
+  --motion-enter: 320ms;
+  --text-link: #0066cc;
+  --hero-space: 110px;
+  --entry-gap: 54px;
+  --print-text: #202124;
+  --print-muted: #5b6068;
+  --print-border: #d5d8dc;
+}
+html[data-theme='dark'] {
+  --bg: #101012;
+  --surface: #1b1b1e;
+  --surface-warm: #151518;
+  --fg: #f5f5f7;
+  --fg-2: #d5d5db;
+  --muted: #a4a4ad;
+  --meta: #a4a4ad;
+  --border: #424249;
+  --border-soft: #2b2b30;
+  --accent: #2997ff;
+  --accent-on: #fff;
+  --text-link: #55abff;
+  --nav-bg: rgba(16, 16, 18, 0.88);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) {
+    --bg: #101012;
+    --surface: #1b1b1e;
+    --surface-warm: #151518;
+    --fg: #f5f5f7;
+    --fg-2: #d5d5db;
+    --muted: #a4a4ad;
+    --meta: #a4a4ad;
+    --border: #424249;
+    --border-soft: #2b2b30;
+    --accent: #2997ff;
+    --accent-on: #fff;
+    --text-link: #55abff;
+    --nav-bg: rgba(16, 16, 18, 0.88);
+    color-scheme: dark;
+  }
+}
+:root {
+  --portrait-width: 360px;
+  --portrait-radius: 28px;
+  --hero-column-gap: 64px;
+  --hero-display-size: 64px;
+  --portrait-tablet-width: clamp(240px, 30vw, 320px);
+  --portrait-mobile-width: 200px;
+  --teaching-logo-column: 60px;
+  --compact-row-gap: 22px;
+}

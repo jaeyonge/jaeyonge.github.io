@@ -1,0 +1,53 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ResumeBody from '../../components/ResumeBody.astro';
+import { data } from '../../lib/content.mjs';
+import { renderText } from '../../lib/format.mjs';
+export function getStaticPaths() {
+  return [{ params: { lang: 'ko' } }, { params: { lang: 'en' } }];
+}
+const { lang } = Astro.params;
+const catalog = Object.fromEntries(
+  data.experience.map((e) => [
+    e.id,
+    Object.fromEntries(e.highlights.map((h) => [h.id, renderText(h, lang)])),
+  ]),
+);
+---
+
+<SiteLayout lang={lang} print>
+  <ResumeBody lang={lang} print />
+</SiteLayout>
+<script is:inline define:vars={{ catalog }}>
+  try {
+    const raw = new URLSearchParams(location.search).get('selection');
+    if (raw) {
+      const ids = JSON.parse(decodeURIComponent(escape(atob(raw))));
+      for (const [company, selected] of Object.entries(ids)) {
+        if (
+          !catalog[company] ||
+          !Array.isArray(selected) ||
+          selected.length !== 3 ||
+          new Set(selected).size !== 3 ||
+          !selected.every((id) => catalog[company][id])
+        )
+          throw Error('Invalid selection');
+      }
+      if (Object.keys(ids).length !== Object.keys(catalog).length)
+        throw Error('Invalid company selection');
+      for (const [company, selected] of Object.entries(ids)) {
+        const list = document.querySelector(`[data-entry="${company}"] ul`);
+        list.replaceChildren(
+          ...selected.map((id) => {
+            const li = document.createElement('li');
+            li.textContent = catalog[company][id];
+            return li;
+          }),
+        );
+      }
+      document.querySelector('[data-download]')?.remove();
+    }
+  } catch {
+    document.documentElement.dataset.selectionError = 'true';
+  }
+</script>

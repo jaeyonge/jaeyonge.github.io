@@ -1,0 +1,75 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { data, selectedProfile } from '../../lib/content.mjs';
+import { renderText } from '../../lib/format.mjs';
+export function getStaticPaths() {
+  return [{ params: { lang: 'ko' } }, { params: { lang: 'en' } }];
+}
+const { lang } = Astro.params;
+const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
+const initial = selectedProfile.experience;
+---
+
+<SiteLayout lang={lang} title={u.selectTitle}>
+  <header class="compose-header">
+    <h1>{u.selectTitle}</h1>
+    <p>
+      {u.selection}
+      <br />
+      {u.selectOrder}
+    </p>
+  </header>
+  <form id="compose" data-lang={lang}>
+    <div>
+      {data.experience.map((e) => (
+        <fieldset class="compose-entry" data-company={e.id}>
+          <legend>{e.company[lang]}</legend>
+          {e.highlights.map((h) => (
+            <label class="compose-choice">
+              <input type="checkbox" name={e.id} value={h.id} checked={initial[e.id].includes(h.id)} />
+              <span>{renderText(h, lang)}</span>
+            </label>
+          ))}
+        </fieldset>
+      ))}
+    </div>
+    <div class="compose-actions">
+      <button class="button primary" type="submit">
+        {u.selectApply} ↗
+      </button>
+      <p
+        class="compose-status"
+        role="status"
+        aria-live="polite"
+        data-count-message={u.selectCount}
+        data-ready-message={u.selectPreview}
+      >
+        {u.selectPreview}
+      </p>
+    </div>
+  </form>
+</SiteLayout>
+<script define:vars={{ initial }}>
+  const form = document.querySelector('#compose');
+  const order = structuredClone(initial);
+  const status = form.querySelector('[role="status"]');
+  const submit = form.querySelector('button');
+  function valid() {
+    return Object.values(order).every((x) => x.length === 3);
+  }
+  form.addEventListener('change', (event) => {
+    const c = event.target;
+    const ids = order[c.name];
+    if (!ids) return;
+    if (c.checked) ids.push(c.value);
+    else ids.splice(ids.indexOf(c.value), 1);
+    submit.disabled = !valid();
+    status.textContent = valid() ? status.dataset.readyMessage : status.dataset.countMessage;
+  });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!valid()) return;
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(order))));
+    location.href = `/${form.dataset.lang}/resume/?selection=${encodeURIComponent(encoded)}`;
+  });
+</script>

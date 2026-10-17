@@ -1,0 +1,561 @@
+schemaVersion: 1
+profile:
+  name:
+    ko: 이재용
+    en: Jaeyong Lee
+  role:
+    ko: DataOps Manager · 데이터 분석
+    en: DataOps Manager · Data Analytics
+  location:
+    ko: 서울, 대한민국
+    en: Seoul, South Korea
+  email: study@snu.ac.kr
+  phone: +82-10-2009-2131
+  links:
+    - label: LinkedIn
+      url: https://www.linkedin.com/in/ljys
+    - label: Google Scholar
+      url: https://scholar.google.com/citations?user=ha7atpsAAAAJ
+    - label: GitHub
+      url: https://github.com/jaeyonge
+  portrait:
+    src: /assets/images/jaeyong-lee.jpeg
+    width: 912
+    height: 1146
+    alt:
+      ko: 이재용 프로필 사진
+      en: Portrait of Jaeyong Lee
+hero:
+  eyebrow:
+    ko: 데이터로 이해하고, 시스템으로 해결합니다.
+    en: UNDERSTAND WITH DATA. SOLVE WITH SYSTEMS.
+  headline:
+    ko: |-
+      복잡한 문제를 풀고,
+      다시 쓸 수 있는 체계로.
+    en: |-
+      Solve the complex.
+      Build for repeatability.
+  summary:
+    ko:
+      결제·배달 O2O에서 복잡한 문제를 분석하고, 해결 과정을 반복해서 쓸 수 있는 기준·절차·자동화 도구로 만드는 데이터 분석가입니다. 사업 목표와 제품·기술을 이해해 의사결정에
+      필요한 정보와 실행안을 제안합니다. 문제를 중복과 누락 없이 나눠 코드·쿼리·원데이터로 범위와 원인을 검증하고, 검증과 개선을 반복하며 정립한 기준과 절차를 다른 지표와 제품으로
+      확장합니다.
+    en:
+      I turn complex payment and food-delivery problems into reusable standards, workflows and automation.
+      Combining business, product and technical understanding, I deliver decision-relevant analysis and
+      recommend actions. I decompose problems, verify their scope and causes against code, queries and
+      raw data, then iteratively refine and extend the methods to other metrics and products.
+ui:
+  section:
+    ko:
+      - 소개
+      - 경력
+      - 연구
+      - 학력
+      - 수상 및 어학
+    en:
+      - About
+      - Experience
+      - Research
+      - Education
+      - Awards & Languages
+  skip:
+    ko: 본문으로 바로가기
+    en: Skip to content
+  download:
+    ko: 이력서 PDF
+    en: Resume PDF
+  print:
+    ko: 인쇄
+    en: Print
+  paper:
+    ko: 논문 보기
+    en: Read paper
+  contact:
+    ko: 연락하기
+    en: Get in touch
+  present:
+    ko: 현재
+    en: Present
+  theme:
+    ko: 화면 테마
+    en: Color theme
+  system:
+    ko: 시스템
+    en: System
+  light:
+    ko: 라이트
+    en: Light
+  dark:
+    ko: 다크
+    en: Dark
+  language:
+    ko: 언어 선택
+    en: Choose language
+  footer:
+    ko: 기준을 세우고, 검증하고, 더 나은 체계로 만듭니다.
+    en: Define the standard. Verify it. Build a better system.
+  profile:
+    ko: 이력서 구성
+    en: Resume selection
+  selection:
+    ko: 지원할 직무에 맞게 성과를 선택하고 순서를 조정할 수 있습니다.
+    en: Select and reorder achievements for the role you are targeting.
+  selectTitle:
+    ko: 이력서 구성하기
+    en: Compose your resume
+  selectApply:
+    ko: 인쇄용 이력서 보기
+    en: Open print resume
+  selectCount:
+    ko: 회사별 세 항목을 선택해주세요.
+    en: Choose three achievements per company.
+  selectPreview:
+    ko: 선택한 항목으로 새 인쇄 페이지가 열립니다. PDF로 저장할 수도 있습니다.
+    en: Your selection opens in a print page. You can also save it as a PDF.
+  selectOrder:
+    ko: 선택 순서대로 표시합니다. 해제 후 다시 선택하면 순서가 바뀝니다.
+    en: Entries appear in selection order. Deselect and reselect to reorder.
+  selectLink:
+    ko: 인쇄 화면에서 PDF로 저장
+    en: Save as PDF from the print view
+  error:
+    ko: 선택 정보를 확인해주세요.
+    en: Check your selection.
+  close:
+    ko: 닫기
+    en: Close
+  back:
+    ko: 소개 페이지
+    en: Back to profile
+  selectionSaved:
+    ko: 선택을 반영했습니다.
+    en: Selection applied.
+  menu:
+    ko: 섹션 이동
+    en: Section navigation
+  updated:
+    ko: 콘텐츠 기준
+    en: Content as of
+experience:
+  - id: toss-place
+    company:
+      ko: 토스플레이스
+      en: Toss Place
+    role:
+      ko: DataOps Manager
+      en: DataOps Manager
+    start: 2026-01
+    end: null
+    location:
+      ko: 서울
+      en: Seoul
+    service:
+      ko: 오프라인 매장용 결제 단말기·POS 서비스
+      en: Payment terminals and POS software for offline merchants
+    logo: toss-place
+    highlights:
+      - id: payment-quality
+        text:
+          ko:
+            결제 지표의 중복 이슈 점검을 제안하고, 탐지·원인 분석·수정·재발 방지를 잇는 관리 체계를 전사 최초로 구축했습니다. 앱 코드·쿼리·원데이터를 대조해 로그 중복 전송을 밝혀내고
+            담당자 6명과 보고 16일 만에 연간 거래액의 {annualTransactionVolumePercent}%를 초과하는 규모의 중복 집계를 바로잡았습니다. 결제 지표
+            5개 묶음과 누락·중복 등 오류 유형 5가지를 교차한 25개 점검 항목을 정립하고, 이슈별로 원인이 된 코드와 검증 쿼리를 기록했습니다.
+          en:
+            Initiated the company’s first workflow for detecting, diagnosing, correcting and preventing duplicate
+            payment metrics. Traced duplicate log transmissions through app code, queries and raw data;
+            worked with 6 colleagues to correct duplicate records exceeding
+            {annualTransactionVolumePercent}% of annual transaction volume within 16 days of reporting.
+            Standardized 25 checks across 5 metric groups and 5 error types, recording causal code and
+            validation queries.
+        facts:
+          annualTransactionVolumePercent: 1
+        evidenceId: payment-quality
+        translationReviewed: true
+      - id: session-integrity
+        text:
+          ko:
+            POS·키오스크·프론트의 주문·결제·카드 리딩·VAN 통신·적립 등 8종의 세션에 정상 기준을 정의하고, 로그 데이터의 이상을 매일 자동 점검하는 집계 테이블·대시보드·Slack
+            알림을 구축했습니다.
+          en:
+            Standardized normal-state criteria for 8 order, payment, card-reading, VAN communication and loyalty
+            session types across POS, kiosks and customer-facing terminals. Automated daily log-integrity
+            checks with aggregation tables, dashboards and Slack alerts.
+        facts: {}
+        evidenceId: session-integrity
+        translationReviewed: true
+      - id: log-workflow
+        text:
+          ko:
+            로그 설계·등록·QA의 업무 절차를 정리하고 이를 연결한 사내 도구 wisdom을 개발·배포했습니다. AI 로그 설계 도구를 30개 사례에서 3회씩 평가하며 개선해 실제 등록 로그
+            재현율을 45%에서 71%로 높였습니다.
+          en:
+            Structured log design, registration, and QA workflows, then developed and released the internal tool
+            wisdom to connect them. Evaluated an AI log-design tool on 30 cases with 3 runs per case,
+            improving recall against registered logs from 45% to 71%.
+        facts: {}
+        evidenceId: log-workflow
+        translationReviewed: true
+      - id: merchant-classification
+        text:
+          ko:
+            브랜드·사업자등록번호·매장 정보를 연결해 약 30만 매장의 업종을 매일 갱신하고, 다른 팀이 직접 보정할 수 있는 절차를 마련했습니다. 업종 누락 288개를 확인하고 원인을 4가지로
+            분류했습니다.
+          en:
+            Linked brand, business-registration, and merchant data to update industry classifications for about
+            300,000 merchants daily. Created a correction workflow for other teams, identified 288
+            missing classifications, and grouped their causes into 4 types.
+        facts: {}
+        evidenceId: merchant-classification
+        translationReviewed: true
+      - id: product-log-analysis
+        text:
+          ko:
+            키오스크의 시간 초과 안내창이 뜬 주문 중 50%가 아직 주문 중이던 고객임을 확인해 대기 시간 변경의 근거를 마련했습니다. 대기 시간을 20초에서 40초로 바꾼 효과를
+            분석했습니다.
+          en:
+            Found that 50% of orders triggering a kiosk timeout prompt were still in progress, providing evidence
+            to revise the timeout. Analyzed the effect of increasing the waiting time from 20 to 40
+            seconds.
+        facts: {}
+        evidenceId: product-log-analysis
+        translationReviewed: true
+  - id: doeat
+    company:
+      ko: 두잇
+      en: Doeat
+    role:
+      ko: Data Analyst
+      en: Data Analyst
+    start: 2025-04
+    end: 2025-10
+    location:
+      ko: 서울
+      en: Seoul
+    service:
+      ko: 음식 주문·배달 O2O 서비스
+      en: Food ordering and delivery O2O platform
+    detail:
+      ko: 인턴 2025.04 - 2025.07 · Data Analyst 2025.07 - 2025.10
+      en: Intern, Apr - Jul 2025 · Data Analyst, Jul - Oct 2025
+    logo: doeat
+    highlights:
+      - id: promotion-analysis
+        text:
+          ko:
+            "'디저트 100원 딜'의 구매 전환을 높이기 위해 실시간 퍼널에서 결제 단계의 이탈 원인을 찾고 UX·안내 메시지 개선안을 제안했습니다. 개선 후 3분 내 완판과 전환율 50%p
+            상승을 기록했습니다."
+          en:
+            Analyzed the live purchase funnel for the “100-won Dessert Deal,” identified checkout drop-off
+            causes, and proposed UX and messaging changes to improve conversion. Following the changes,
+            the promotion sold out within 3 minutes and conversion increased by 50 percentage points.
+        facts: {}
+        evidenceId: promotion-analysis
+        translationReviewed: true
+      - id: metric-standards
+        text:
+          ko:
+            운행 시간·유휴 시간·시급 등 배송 KPI 50개 이상의 정의를 통일했습니다. 주문당 배송비의 데이터 소스와 비용 배분·윈도우 함수 로직을 정리하고 재무 보고서와 대조해 보고서 간
+            차이를 0.01원 미만으로 줄였습니다.
+          en:
+            Standardized definitions for more than 50 delivery KPIs, including driving time, idle time, and
+            hourly pay. Aligned data sources, cost allocation, and window-function logic for unit
+            delivery cost; reconciled the results against finance reports to bring differences below KRW
+            0.01.
+        facts: {}
+        evidenceId: metric-standards
+        translationReviewed: true
+      - id: data-marts
+        text:
+          ko:
+            메뉴 큐레이션·배송·재무 데이터 마트를 개발·운영하고 레거시 배송 ETL을 최신 운영 규칙에 맞게 재설계했습니다. Airflow 기반 파이프라인 10개 이상에 재시도·알림·모니터링을
+            적용해 수작업 데이터 갱신 업무를 70% 줄였습니다.
+          en:
+            Developed and operated data marts for menu curation, delivery, and finance, and redesigned legacy
+            delivery ETL around current operating rules. Added retries, alerts, and monitoring to more
+            than 10 Airflow pipelines, reducing manual data-refresh work by 70%.
+        facts: {}
+        evidenceId: data-marts
+        translationReviewed: true
+      - id: pricing-policy
+        text:
+          ko: 가격 변경과 배송 지연 보상 정책의 재무 영향을 분석했습니다. 느린 배송에 따른 리텐션 감소와 고객 재획득 비용을 산정해 가격·보상 의사결정을 지원했습니다.
+          en:
+            Analyzed the financial impact of pricing changes and compensation for delayed deliveries. Estimated
+            retention losses and customer reacquisition costs associated with slower delivery to support
+            pricing and compensation decisions.
+        facts: {}
+        evidenceId: pricing-policy
+        translationReviewed: true
+  - id: iscream-arts
+    company:
+      ko: (주)아이스크림아트
+      en: i-Scream Arts Co., Ltd.
+    role:
+      ko: AI 연구소 Data Scientist
+      en: Data Scientist, AI Laboratory
+    start: 2023-05
+    end: 2024-02
+    location:
+      ko: 서울
+      en: Seoul
+    service:
+      ko: 학생의 디지털 드로잉과 로그 데이터 분석
+      en: Digital drawing and behavioral log analysis for learners
+    logo: iscream-arts
+    highlights:
+      - id: drawing-pipeline
+        text:
+          ko:
+            디지털 드로잉 원본과 로그 데이터에서 색상 수·선 길이·채워진 면적을 추출하는 파이프라인을 Python과 Docker Compose로 구축했습니다. 수집·특징 추출·GPT-4V
+            리포트 생성을 연결해 학생 100명 이상의 드로잉 행동 분석을 자동화했습니다.
+          en:
+            Built a Python and Docker Compose pipeline to extract behavioral features from digital drawings and
+            logs, including color counts, stroke lengths, and filled areas. Connected data collection,
+            feature extraction, and GPT-4V report generation to automate drawing-behavior analysis for
+            more than 100 students.
+        facts: {}
+        evidenceId: drawing-pipeline
+        translationReviewed: true
+      - id: internal-tools
+        text:
+          ko:
+            드로잉 데이터 조회, AI 이미지 캡션 생성, OpenAI API 사용량·비용 모니터링을 지원하는 사내 Streamlit 앱을 개발했습니다. 데이터 엔지니어링 팀과 API 사용
+            기록을 저장·조회할 데이터베이스 스키마를 제안했습니다.
+          en:
+            Developed an internal Streamlit application for drawing-data retrieval, AI image captioning, and
+            OpenAI API usage and cost monitoring. Collaborated with data engineers to propose a database
+            schema for storing and querying API usage records.
+        facts: {}
+        evidenceId: internal-tools
+        translationReviewed: true
+      - id: dashboards
+        text:
+          ko: 이벤트 참여 현황과 사용자 유입 지표를 보여주는 대시보드 3종을 Pandas, Plotly, Streamlit으로 개발했습니다.
+          en:
+            Built 3 interactive dashboards with Pandas, Plotly, and Streamlit to track event participation and
+            user acquisition.
+        facts: {}
+        evidenceId: dashboards
+        translationReviewed: true
+teaching:
+  - id: seoul-high
+    company:
+      ko: 서울고등학교
+      en: Seoul High School
+    role:
+      ko: 화학 교사, 계약직
+      en: Chemistry Teacher, contract
+    start: 2022-08
+    end: 2023-02
+    logo: seoul-high
+  - id: sejong-science-high
+    company:
+      ko: 세종과학고등학교
+      en: Sejong Science High School
+    role:
+      ko: 화학 교사, 계약직
+      en: Chemistry Teacher, contract
+    start: 2022-03
+    end: 2022-08
+    logo: sejong-science-high
+research:
+  - id: pedagogy-r1
+    venue: CIKM
+    year: 2025
+    role:
+      ko: 공동저자
+      en: Coauthor
+    paper: https://doi.org/10.1145/3746252.3761133
+    highlights:
+      - id: pedagogy-scope
+        text:
+          ko: 교육용 추론 모델의 성능을 교과 지식·교수법 지식·학습자의 지식 상태 추적·서술형 답안 채점·교사의 의사결정 등 5개 영역에서 비교하는 연구에 참여했습니다.
+          en:
+            'Contributed to research comparing educational reasoning models across 5 domains: subject knowledge,
+            pedagogical knowledge, knowledge tracing, essay scoring, and teacher decision-making.'
+        facts: {}
+        evidenceId: pedagogy-scope
+        translationReviewed: true
+      - id: pedagogy-infrastructure
+        text:
+          ko: 여러 교육 과제에서 언어모델의 성능을 평가할 수 있도록 다중 GPU 분산 처리 기반의 평가 인프라를 구축했습니다.
+          en:
+            Built a multi-GPU distributed evaluation infrastructure to assess language models across educational
+            tasks.
+        facts: {}
+        evidenceId: pedagogy-infrastructure
+        translationReviewed: true
+      - id: pedagogy-reproducibility
+        text:
+          ko: 데이터셋 버전 관리와 평가 지표 자동 기록을 하나의 벤치마킹 파이프라인에 통합해 실험에 사용한 데이터와 결과를 추적하고 평가를 재현할 수 있도록 했습니다.
+          en:
+            Integrated dataset versioning and automated metric logging into a benchmarking pipeline, making
+            experimental data and results traceable and evaluations reproducible.
+        facts: {}
+        evidenceId: pedagogy-infrastructure
+        translationReviewed: true
+    topic:
+      ko: 교육용 AI 언어모델의 성능 평가
+      en: Evaluating AI reasoning models for education
+    paperTitle: 'Pedagogy-R1: Pedagogical Large Reasoning Model and Well-balanced Educational Benchmark'
+  - id: drawing-assessment
+    venue: Journal of Science Education and Technology
+    year: 2023
+    role:
+      ko: 연구 주도
+      en: Research Lead
+    paper: https://link.springer.com/article/10.1007/s10956-023-10042-3
+    highlights:
+      - id: drawing-scope
+        text:
+          ko:
+            학생 1,028명의 기체 입자 그림과 글 답안을 활용해 과학 개념 이해도를 자동 평가하는 연구를 주도했습니다. 기체를 입자로 표현했는지와 입자가 공간에 어떻게 분포하는지를
+            평가했습니다.
+          en:
+            Led research using drawings and written responses from 1,028 students to assess their understanding
+            of gas particles. Evaluated whether responses represented matter as particles and how those
+            particles were distributed in space.
+        facts: {}
+        evidenceId: drawing-paper
+        translationReviewed: true
+      - id: drawing-method
+        text:
+          ko: Inception-v3와 SVM으로 그림 답안을 분류하고, 글 답안에서 산출한 과학 개념 점수를 결합하는 그림·글 통합 평가 모델을 개발했습니다.
+          en:
+            Developed an integrated assessment model combining Inception-v3 and SVM classification of drawings
+            with scientific-concept scores derived from written responses.
+        facts: {}
+        evidenceId: drawing-paper
+        translationReviewed: true
+      - id: drawing-validation
+        text:
+          ko: 통합 모델의 평가 결과를 사람의 평가와 비교해 검증했으며, 최종 분류 모델에 따라 정확도 85.9~95.6%를 확인했습니다.
+          en:
+            Validated the combined assessment against human ratings; accuracy ranged from 85.9% to 95.6%,
+            depending on the final classifier.
+        facts: {}
+        evidenceId: drawing-paper
+        translationReviewed: true
+    topic:
+      ko: 학생의 그림 답안을 AI로 자동 평가하는 연구
+      en: Automated assessment of student drawings
+    paperTitle: Automated Assessment of Student Hand Drawings in Free-Response Items on the Particulate
+      Nature of Matter
+education:
+  - id: snu-graduate
+    school:
+      ko: 서울대학교 대학원
+      en: Seoul National University
+    program:
+      ko: 교육공학 및 응용데이터사이언스 융합전공
+      en: Educational Technology & Applied Data Science
+    status:
+      ko: 석사과정 수료
+      en: Master’s coursework completed
+    start: 2021-03
+    end: 2025-08
+    logo: snu
+  - id: snu-bachelor
+    school:
+      ko: 서울대학교
+      en: Seoul National University
+    program:
+      ko: 화학교육
+      en: Chemistry Education
+    status:
+      ko: 학사
+      en: Bachelor of Science
+    start: 2013-03
+    end: 2021-02
+    logo: snu
+  - id: gyeongnam-science-high
+    school:
+      ko: 경남과학고등학교
+      en: Gyeongnam Science High School
+    program:
+      ko: 조기졸업
+      en: Early graduation
+    status:
+      ko: ''
+      en: ''
+    start: 2011-03
+    end: 2013-02
+    logo: gyeongnam-science-high
+awards:
+  - id: openai-hackathon
+    title:
+      ko: 토스 커뮤니티 × OpenAI 사내 미니 해커톤 Workflow 부문 1위
+      en: 1st Place, Workflow Track · Toss Community × OpenAI Internal Mini Hackathon
+    date: 2026-05
+    description:
+      ko:
+        토스 계열사 구성원을 대상으로 OpenAI와 함께 연 사내 해커톤에서, 음식점·카페·베이커리 등에서 판매하는 음식 메뉴의 분류를 자동화하는 프로토타입을 제작했습니다. 토스플레이스
+        디자인 시스템과 Codex를 활용했습니다.
+      en:
+        Built a food-item classification prototype at an internal hackathon co-hosted with OpenAI for the
+        Toss group. The prototype covered offerings from restaurants, cafés and bakeries, using the Toss
+        Place design system and Codex.
+  - id: student-research
+    title:
+      ko: 서울대학교 학생자율연구 프로그램 대상
+      en: Grand Prize · SNU Student-Directed Research Program
+    date: 2021-02
+    description:
+      ko: ''
+      en: ''
+languages:
+  - id: toeic
+    title:
+      ko: 영어 · TOEIC 980점
+      en: English · TOEIC 980
+    issued: 2025-10
+    expires: 2027-10
+    description:
+      ko: 2025.10 취득 · 2027.10 만료
+      en: Earned Oct 2025 · Expires Oct 2027
+profiles:
+  general:
+    label:
+      ko: 전체 경력
+      en: General
+    public: true
+    experience:
+      toss-place:
+        - payment-quality
+        - session-integrity
+        - log-workflow
+      doeat:
+        - promotion-analysis
+        - metric-standards
+        - data-marts
+      iscream-arts:
+        - drawing-pipeline
+        - internal-tools
+        - dashboards
+    research:
+      - pedagogy-r1
+      - drawing-assessment
+  product:
+    label:
+      ko: 제품 분석 중심
+      en: Product analytics
+    public: false
+    experience:
+      toss-place:
+        - product-log-analysis
+        - payment-quality
+        - log-workflow
+      doeat:
+        - promotion-analysis
+        - pricing-policy
+        - metric-standards
+      iscream-arts:
+        - dashboards
+        - drawing-pipeline
+        - internal-tools
+    research:
+      - pedagogy-r1
+      - drawing-assessment
+updated: 2026-10-17

@@ -1,0 +1,42 @@
+{
+  "name": "jaeyong-lee-resume",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.8.0",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "task:start": "node scripts/sync-design.mjs",
+    "design:sync": "node scripts/sync-design.mjs",
+    "dev": "astro dev --host 127.0.0.1",
+    "content:check": "node scripts/validate-content.mjs",
+    "assets:check": "node scripts/validate-assets.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "resume:select": "node scripts/select-profile.mjs",
+    "resume:export": "node scripts/export-resume.mjs",
+    "pdf:generate": "node scripts/generate-pdf.mjs",
+    "pdf:check": "node scripts/validate-pdf.mjs",
+    "build:html": "astro build",
+    "build": "pnpm content:check && pnpm assets:check && astro build && pnpm pdf:generate && pnpm pdf:check && node scripts/validate-dist.mjs",
+    "check": "pnpm test && pnpm build && pnpm test:e2e",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.3.0",
+    "@fontsource/noto-sans-kr": "5.3.1",
+    "astro": "7.4.0",
+    "pdf-lib": "1.17.1",
+    "yaml": "2.9.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "pdfjs-dist": "6.4.299",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "sharp": "0.35.5"
+  }
+}

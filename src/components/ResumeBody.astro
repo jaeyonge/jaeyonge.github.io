@@ -1,0 +1,209 @@
+---
+import Logo from './Logo.astro';
+import { data, selectedExperience, selectedResearch } from '../lib/content.mjs';
+import { renderText, period, monthLabel } from '../lib/format.mjs';
+const { lang, print = false } = Astro.props;
+const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
+const headings = u.section;
+---
+
+{print && (
+  <header class="print-identity">
+    <h1>{data.profile.name[lang]}</h1>
+    <p>
+      {data.profile.role[lang]} · {data.profile.location[lang]}
+    </p>
+    <p>
+      <a href={`mailto:${data.profile.email}`}>{data.profile.email}</a> ·{' '}
+      <a href={`tel:${data.profile.phone}`}>{data.profile.phone}</a>
+    </p>
+    <div class="print-links">
+      {data.profile.links.map((l) => (
+        <a href={l.url}>{l.label}</a>
+      ))}
+    </div>
+  </header>
+)}
+<section id="about" class:list={['intro-section', !print && 'hero']} aria-labelledby="about-title">
+  <div class:list={['intro-layout', !print && 'with-portrait']}>
+    <div class="intro-main">
+      {print ? (
+        <h2 id="about-title">{headings[0]}</h2>
+      ) : (
+        <>
+          <p class="eyebrow">{data.hero.eyebrow[lang]}</p>
+          <h1 id="about-title">
+            {data.hero.headline[lang].split('\n').map((line, index) => (
+              <>
+                {index > 0 && <br />}
+                {line}
+              </>
+            ))}
+          </h1>
+          <p class="hero-identity">
+            {data.profile.name[lang]} <span>{data.profile.role[lang]}</span>
+          </p>
+          <div class="hero-profile-links">
+            {data.profile.links.map((l) => (
+              <a href={l.url}>
+                {l.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+    <div class="intro-details">
+      <p class="intro-copy">{data.hero.summary[lang]}</p>
+      {!print && (
+        <div class="hero-actions">
+          <a class="button primary" href={`/downloads/jaeyong-lee-resume-${lang}.pdf`} download>
+            {u.download}
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a class="text-link" href={`mailto:${data.profile.email}`}>
+            {u.contact}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      )}
+    </div>
+    {!print && (
+      <figure class="hero-portrait">
+        <img
+          src={data.profile.portrait.src}
+          width={data.profile.portrait.width}
+          height={data.profile.portrait.height}
+          alt={data.profile.portrait.alt[lang]}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+  </div>
+</section>
+<section id="experience" class="chapter" aria-labelledby="experience-title">
+  <div class="section-heading">
+    <span aria-hidden="true">01</span>
+    <h2 id="experience-title">{headings[1]}</h2>
+  </div>
+  <div class="entries">
+    {selectedExperience().map((e) => (
+      <article class="experience entry" data-entry={e.id}>
+        <header class="entry-header">
+          <div class="entry-organization">
+            <Logo id={e.logo} />
+            <h3>{e.company[lang]}</h3>
+          </div>
+          <p class="entry-role">{e.role[lang]}</p>
+          <p class="entry-date">
+            {period(e, lang, u.present)} · {e.location[lang]}
+          </p>
+          <p class="entry-service">{e.service[lang]}</p>
+          {e.detail && <p class="entry-detail">{e.detail[lang]}</p>}
+        </header>
+        <ul>
+          {e.highlights.map((h) => (
+            <li data-highlight={h.id}>{renderText(h, lang)}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+  <div class="teaching">
+    {data.teaching.map((e) => (
+      <article class="teaching-entry">
+        <Logo id={e.logo} />
+        <div>
+          <h3>{e.company[lang]}</h3>
+          <p>{e.role[lang]}</p>
+        </div>
+        <p class="entry-date">{period(e, lang, u.present)}</p>
+      </article>
+    ))}
+  </div>
+</section>
+<section id="research" class="chapter" aria-labelledby="research-title">
+  <div class="section-heading">
+    <span aria-hidden="true">02</span>
+    <h2 id="research-title">{headings[2]}</h2>
+  </div>
+  {selectedResearch().map((r) => (
+    <article class="research-entry entry" data-research={r.id}>
+      <header class="research-header">
+        <p class="eyebrow">{r.topic[lang]}</p>
+        <h3>{r.paperTitle}</h3>
+        <p class="entry-date">
+          {r.venue} · {r.year} · {r.role[lang]}
+        </p>
+        <a class="text-link" href={r.paper}>
+          {u.paper}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </header>
+      <ul>
+        {r.highlights.map((h) => (
+          <li>{renderText(h, lang)}</li>
+        ))}
+      </ul>
+    </article>
+  ))}
+</section>
+<section id="education" class="chapter" aria-labelledby="education-title">
+  <div class="section-heading">
+    <span aria-hidden="true">03</span>
+    <h2 id="education-title">{headings[3]}</h2>
+  </div>
+  <div class="education-list">
+    {data.education.map((e) => (
+      <article class="education-entry">
+        <Logo id={e.logo} />
+        <div>
+          <h3>{e.school[lang]}</h3>
+          <p>
+            {e.program[lang]}
+            {e.status[lang] && (
+              <>
+                {' '}
+                · <strong>{e.status[lang]}</strong>
+              </>
+            )}
+          </p>
+        </div>
+        <p class="entry-date">{period(e, lang, u.present)}</p>
+      </article>
+    ))}
+  </div>
+</section>
+<section id="awards" class="chapter" aria-labelledby="awards-title">
+  <div class="section-heading">
+    <span aria-hidden="true">04</span>
+    <h2 id="awards-title">{headings[4]}</h2>
+  </div>
+  <div class="awards-list">
+    {data.awards.map((a) => (
+      <article class="award-entry">
+        <span class="award-marker" aria-hidden="true">
+          ✳
+        </span>
+        <div>
+          <h3>{a.title[lang]}</h3>
+          {a.description[lang] && <p>{a.description[lang]}</p>}
+        </div>
+        <p class="entry-date">{monthLabel(a.date, lang)}</p>
+      </article>
+    ))}
+    {data.languages.map((l) => (
+      <article class="award-entry language-entry">
+        <span class="award-marker" aria-hidden="true">
+          Aa
+        </span>
+        <div>
+          <h3>{l.title[lang]}</h3>
+          <p>{l.description[lang]}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

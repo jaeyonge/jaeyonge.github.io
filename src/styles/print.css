@@ -1,0 +1,301 @@
+@page {
+  size: A4;
+  margin: 15mm 16mm;
+}
+@media print {
+  html,
+  html[data-theme],
+  html:not([data-theme='light']) {
+    --bg: #fff;
+    --surface: #fff;
+    --fg: var(--print-text);
+    --fg-2: var(--print-text);
+    --muted: var(--print-muted);
+    --border: var(--print-border);
+    --border-soft: var(--print-border);
+    --text-link: #174d81;
+    background: #fff;
+    color-scheme: light;
+  }
+  body {
+    background: #fff;
+    color: var(--print-text);
+    font-size: 9.5pt;
+    line-height: 1.5;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .site-header,
+  .site-footer,
+  .print-toolbar,
+  .skip-link,
+  .hero-actions,
+  .root-language-links {
+    display: none !important;
+  }
+  .page,
+  .resume-page {
+    max-width: none;
+    margin: 0 !important;
+    padding: 0;
+  }
+  .print-identity {
+    margin: 0 0 5mm;
+  }
+  .print-identity h1 {
+    font-size: 24pt;
+    margin-bottom: 1mm;
+  }
+  .print-identity p {
+    font-size: 9pt;
+    line-height: 1.5;
+  }
+  .print-links {
+    font-size: 9pt;
+  }
+  .intro-section,
+  .resume-page .intro-section {
+    margin: 0 0 5mm;
+    padding: 0;
+  }
+  .resume-page .intro-section h2 {
+    font-size: 12pt;
+  }
+  .intro-copy,
+  .resume-page .intro-copy {
+    font-size: 9.5pt;
+    line-height: 1.55;
+    margin-top: 2mm;
+    max-width: none;
+  }
+  .chapter {
+    padding: 5mm 0 3mm;
+    border-top: 0.6pt solid var(--print-border);
+  }
+  .section-heading {
+    gap: 3mm;
+    margin-bottom: 4mm;
+    break-after: avoid;
+  }
+  .section-heading h2 {
+    font-size: 13pt;
+  }
+  .section-heading > span {
+    font-size: 8pt;
+  }
+  .entry {
+    display: block;
+    break-inside: avoid;
+  }
+  .entry + .entry {
+    margin-top: 5mm;
+    padding-top: 4mm;
+  }
+  .entry-header {
+    margin-bottom: 2mm;
+    break-after: avoid;
+  }
+  .entry-organization {
+    display: block;
+  }
+  .entry-organization h3,
+  .education-entry h3,
+  .teaching-entry h3 {
+    font-size: 10.5pt;
+  }
+  .entry-organization .logo,
+  .award-marker {
+    display: none !important;
+  }
+  .research-header .eyebrow {
+    display: block;
+    font-size: 8pt;
+    margin: 0 0 1mm;
+    letter-spacing: 0;
+  }
+  .entry-role,
+  .entry-header .entry-date,
+  .entry-service,
+  .entry-detail {
+    display: inline;
+    font-size: 8.5pt;
+    margin: 0 3mm 0 0;
+  }
+  .entry ul {
+    font-size: 9.5pt;
+    line-height: 1.55;
+    padding-left: 4mm;
+  }
+  .entry li {
+    padding-left: 1mm;
+  }
+  .entry li + li {
+    margin-top: 1.8mm;
+  }
+  .teaching {
+    padding-top: 3mm;
+    margin-top: 4mm;
+    gap: 2mm;
+  }
+  .teaching-entry {
+    gap: 3mm;
+    flex-wrap: nowrap;
+    break-inside: avoid;
+  }
+  .teaching-entry .logo,
+  .education-entry .logo {
+    display: none !important;
+  }
+  .teaching-entry h3,
+  .teaching-entry p:not(.entry-date),
+  .entry-date {
+    font-size: 8.5pt;
+  }
+  .teaching-entry > .entry-date {
+    width: auto;
+    margin-left: auto;
+  }
+  .research-header {
+    margin-bottom: 2mm;
+    break-after: avoid;
+  }
+  .research-header h3 {
+    font-size: 10.5pt;
+  }
+  .research-header .entry-date {
+    display: inline;
+    font-size: 8.5pt;
+    margin-right: 3mm;
+  }
+  .research-header .text-link {
+    font-size: 8.5pt;
+    margin-top: 0;
+  }
+  .research-header .text-link span {
+    display: none;
+  }
+  .education-list {
+    gap: 3mm;
+  }
+  .education-entry {
+    gap: 2mm;
+    flex-wrap: nowrap;
+    break-inside: avoid;
+  }
+  .education-entry > div {
+    flex: 1;
+  }
+  .education-entry p:not(.entry-date) {
+    font-size: 9pt;
+    margin-top: 0;
+  }
+  .education-entry > .entry-date {
+    width: auto;
+    white-space: nowrap;
+    padding: 0;
+  }
+  .awards-list {
+    gap: 3mm;
+  }
+  .award-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2mm;
+    break-inside: avoid;
+  }
+  .award-entry h3 {
+    font-size: 9.5pt;
+  }
+  .award-entry p:not(.entry-date) {
+    font-size: 9pt;
+    line-height: 1.5;
+    margin-top: 1mm;
+  }
+  .award-entry > .entry-date {
+    grid-column: auto;
+  }
+  .text-link {
+    color: #174d81;
+  }
+  a {
+    text-decoration: none;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  .logo picture,
+  .logo-auto,
+  .logo-dark {
+    display: none !important;
+  }
+  .logo-light {
+    display: block !important;
+  }
+}
+/* Keep readable 9.5pt body text while removing website spacing from paper. */
+@media print {
+  .chapter {
+    padding: 3mm 0 2mm;
+  }
+  .section-heading {
+    margin-bottom: 3mm;
+  }
+  .entry + .entry {
+    margin-top: 3mm;
+    padding-top: 3mm;
+  }
+  .entry ul {
+    line-height: 1.5;
+  }
+  .entry li + li {
+    margin-top: 1mm;
+  }
+  .resume-page .intro-copy {
+    line-height: 1.5;
+  }
+  .education-list {
+    gap: 2mm;
+    break-inside: avoid;
+  }
+  .awards-list {
+    gap: 2mm;
+  }
+  .research-header .eyebrow {
+    margin-bottom: 0.5mm;
+  }
+  .teaching {
+    margin-top: 3mm;
+    padding-top: 2mm;
+  }
+}
+@media print {
+  .intro-layout {
+    display: block;
+  }
+  .hero-portrait,
+  .hero-profile-links {
+    display: none !important;
+  }
+  .teaching-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2mm;
+  }
+  .teaching-entry > .entry-date {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .award-marker {
+    display: none !important;
+  }
+  .awards-list {
+    gap: 2mm;
+  }
+}

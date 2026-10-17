@@ -1,0 +1,72 @@
+evidence:
+  dashboards:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  data-marts:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  drawing-paper:
+    basis: Published paper and owner-provided career records
+    note:
+      Published paper and owner-provided Research Lead role. Integrated drawing/text accuracy varies with
+      classifier.
+  drawing-pipeline:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  internal-tools:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  log-workflow:
+    basis: Owner-provided career records
+    note: 'Recall against registered logs: 30 cases, 3 runs each. Separate from the QA pilot accuracy.'
+  merchant-classification:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  metric-standards:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  payment-quality:
+    basis: Owner-provided career records
+    note: Duplicate-record correction exceeded 1% of annual transaction volume. Exact currency amount is
+      private and must not appear anywhere in public source or outputs. This is not customer charges or
+      cash savings. 25 checks cover 5 metric groups and 5 error types; company-first scope applies to the
+      duplicate-metric management workflow.
+  pedagogy-infrastructure:
+    basis: Owner-provided career records
+    note:
+      'Owner-provided individual contribution: distributed evaluation, dataset versioning and automatic
+      metric logging.'
+  pedagogy-scope:
+    basis: Published paper and owner-provided career records
+    note: Research scope from publisher abstract; not a claim that all methods were individually designed.
+  pricing-policy:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  product-log-analysis:
+    basis: Owner-provided career records
+    note:
+      Scope and figures are preserved from owner-provided career records. No additional measurement or
+      individual ownership is inferred.
+  promotion-analysis:
+    basis: Owner-provided career records
+    note:
+      Owner-provided outcome after changes. Conversion change is percentage points; baseline window and
+      causal attribution are not independently established.
+  session-integrity:
+    basis: Owner-provided career records
+    note: 8 session types across devices; includes order, payment, card-reading, VAN communication and
+      loyalty. The public resume omits recalculation scope and execution-cost comparisons at the owner’s request.
