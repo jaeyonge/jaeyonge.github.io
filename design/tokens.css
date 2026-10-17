@@ -2,7 +2,7 @@
 :root {
   --font-text: Inter, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: var(--font-text);
-  --content-width: 1100px;
+  --content-width: 740px;
   --reading-width: 720px;
   --body-line: 1.75;
   --header-height: 76px;
@@ -11,18 +11,20 @@
   --small-size: 13px;
   --nav-bg: rgba(255, 255, 255, 0.88);
   --logo-mat: #fff;
+  --white-wordmark-surface: #202124;
   --logo-size: 50px;
   --wordmark-width: 134px;
   --motion-fast: 180ms;
   --motion-enter: 320ms;
   --text-link: #0066cc;
-  --hero-space: 110px;
+  --hero-space: 64px;
   --entry-gap: 54px;
   --print-text: #202124;
   --print-muted: #5b6068;
   --print-border: #d5d8dc;
 }
 html[data-theme='dark'] {
+  --white-wordmark-surface: transparent;
   --bg: #101012;
   --surface: #1b1b1e;
   --surface-warm: #151518;
@@ -33,13 +35,14 @@ html[data-theme='dark'] {
   --border: #424249;
   --border-soft: #2b2b30;
   --accent: #2997ff;
-  --accent-on: #fff;
+  --accent-on: #101012;
   --text-link: #55abff;
   --nav-bg: rgba(16, 16, 18, 0.88);
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   html:not([data-theme='light']) {
+    --white-wordmark-surface: transparent;
     --bg: #101012;
     --surface: #1b1b1e;
     --surface-warm: #151518;
@@ -50,19 +53,26 @@ html[data-theme='dark'] {
     --border: #424249;
     --border-soft: #2b2b30;
     --accent: #2997ff;
-    --accent-on: #fff;
+    --accent-on: #101012;
     --text-link: #55abff;
     --nav-bg: rgba(16, 16, 18, 0.88);
     color-scheme: dark;
   }
 }
 :root {
-  --portrait-width: 360px;
+  --portrait-width: 220px;
   --portrait-radius: 28px;
-  --hero-column-gap: 64px;
-  --hero-display-size: 64px;
+  --hero-column-gap: 32px;
+  --hero-display-size: 40px;
+  --identity-size: 28px;
+  --evidence-label-size: 17px;
+  --paper-title-size: 23px;
   --portrait-tablet-width: clamp(240px, 30vw, 320px);
   --portrait-mobile-width: 200px;
   --teaching-logo-column: 60px;
   --compact-row-gap: 22px;
+  --career-identity-gap: 24px;
+  --career-reading-width: 960px;
+  --career-logo-width: 80px;
+  --career-mobile-logo-column: 72px;
 }

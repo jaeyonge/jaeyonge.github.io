@@ -83,6 +83,14 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
               <a href={`/${lang}/#${id}`}>{u.section[i + 1]}</a>
             ))}
           </div>
+          <details class="mobile-sections">
+            <summary aria-label={u.menu}>{u.sectionMenu}</summary>
+            <div>
+              {['about', 'experience', 'research', 'education', 'awards'].map((id, i) => (
+                <a href={`/${lang}/#${id}`}>{u.section[i]}</a>
+              ))}
+            </div>
+          </details>
           <div class="header-controls">
             <label class="sr-only" for="theme">
               {u.theme}
@@ -129,7 +137,6 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
     </main>
     {!languageGateway && (
       <footer class="site-footer">
-        <p>{u.footer}</p>
         <div>
           <a href={`mailto:${data.profile.email}`}>{data.profile.email}</a>
           <span>{data.profile.location[lang]}</span>
@@ -164,6 +171,11 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
           } catch {}
         }),
       );
+      document
+        .querySelectorAll('.mobile-sections a')
+        .forEach((link) =>
+          link.addEventListener('click', () => link.closest('details')?.removeAttribute('open')),
+        );
       document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
     </script>
   </body>

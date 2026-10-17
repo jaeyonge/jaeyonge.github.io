@@ -937,3 +937,505 @@ html[lang='ko'] li {
     white-space: normal;
   }
 }
+/* Reading-first profile. Header-only logo slots never reserve prose columns. */
+html[data-page='profile'] .hero {
+  padding: 52px 0 44px;
+}
+.hero .intro-layout.with-portrait {
+  grid-template-columns: minmax(0, 1fr) var(--portrait-width);
+  grid-template-areas: 'identity portrait';
+  gap: 32px;
+}
+.hero h1 {
+  font-size: var(--hero-display-size);
+  line-height: 1.2;
+}
+.hero-role {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.hero .intro-copy {
+  margin: 22px 0 0;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.hero-profile-links {
+  margin-top: 20px;
+  gap: 8px 18px;
+}
+.hero-profile-links a {
+  min-height: 32px;
+}
+.hero-actions {
+  margin-top: 20px;
+  gap: 24px;
+}
+.hero-portrait {
+  margin: 0;
+  border-radius: 18px;
+}
+.mobile-sections {
+  display: none;
+}
+.site-header nav {
+  gap: 20px;
+}
+.nav-links {
+  gap: 20px;
+}
+.site-footer {
+  padding-inline: max(24px, calc((100vw - var(--content-width)) / 2));
+}
+.chapter {
+  padding: 38px 0 44px;
+}
+.section-heading {
+  margin-bottom: 28px;
+  gap: 14px;
+}
+.section-heading h2 {
+  font-size: 28px;
+}
+.section-heading > span {
+  font-size: 12px;
+}
+.case-study,
+.research-study {
+  display: block;
+}
+.case-study .entry-header {
+  display: grid;
+  grid-template-columns: var(--career-logo-width) minmax(0, 1fr);
+  column-gap: 18px;
+  row-gap: 6px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+.case-study .entry-organization {
+  display: contents;
+}
+.case-study .entry-organization .logo {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  margin-top: 2px;
+}
+.case-study .entry-organization .logo.wordmark {
+  width: var(--career-logo-width);
+  height: 32px;
+}
+.case-study .entry-organization h3 {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 22px;
+  text-wrap: pretty;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.case-study .entry-context {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-width: 0;
+}
+.case-study .entry-role {
+  margin: 0;
+  font-size: 14px;
+  color: var(--fg);
+}
+.case-study .entry-date {
+  margin-top: 3px;
+  white-space: normal;
+}
+.case-study .entry-service {
+  margin-top: 6px;
+  font-size: 14px;
+}
+.case-study .entry-detail {
+  margin-top: 4px;
+}
+.case-study ul,
+.research-study ul {
+  display: block;
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  border: 0;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.case-study li,
+.research-study li {
+  display: list-item;
+  margin: 0;
+  padding-left: 4px;
+  border: 0;
+  color: var(--fg-2);
+  scroll-margin-top: 100px;
+}
+.case-study li + li,
+.research-study li + li {
+  margin-top: 14px;
+}
+.achievement-copy strong {
+  color: var(--fg);
+}
+.case-study + .case-study,
+.research-study + .research-study {
+  margin-top: 32px;
+  padding-top: 30px;
+}
+.research-study .research-header {
+  margin-bottom: 18px;
+  max-width: none;
+}
+.research-study .research-header .eyebrow {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.research-study .research-header h3 {
+  font-size: var(--paper-title-size);
+  line-height: 1.4;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.research-study .research-header .entry-date {
+  white-space: normal;
+  margin-top: 8px;
+}
+.research-study .research-header .text-link {
+  margin-top: 6px;
+  min-height: 36px;
+}
+.page:not(.resume-page) .teaching {
+  margin-top: 28px;
+  padding-top: 22px;
+  gap: 20px;
+}
+.page:not(.resume-page) .teaching-entry,
+.page:not(.resume-page) .education-entry {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 2px;
+  align-items: start;
+}
+.page:not(.resume-page) .teaching-entry .logo,
+.page:not(.resume-page) .education-entry .logo {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 36px;
+  height: 36px;
+  justify-self: start;
+}
+.page:not(.resume-page) .teaching-entry > div,
+.page:not(.resume-page) .education-entry > div {
+  grid-column: 2;
+  grid-row: 1;
+}
+.page:not(.resume-page) .teaching-entry > .entry-date,
+.page:not(.resume-page) .education-entry > .entry-date {
+  grid-column: 2;
+  grid-row: 2;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  white-space: normal;
+}
+.page:not(.resume-page) .education-list {
+  gap: 24px;
+}
+.page:not(.resume-page) .education-entry h3 {
+  font-size: 18px;
+}
+.page:not(.resume-page) .education-entry p:not(.entry-date) {
+  margin-top: 4px;
+}
+.page:not(.resume-page) .award-entry {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+.page:not(.resume-page) .award-marker {
+  display: none;
+}
+.page:not(.resume-page) .award-entry > .entry-date {
+  grid-column: 1;
+}
+.page:not(.resume-page) .awards-list {
+  gap: 22px;
+}
+.case-study [data-logo='doeat'] {
+  background: var(--white-wordmark-surface);
+  border-radius: 5px;
+  padding: 4px;
+}
+@media (max-width: 840px) {
+  .site-header nav,
+  .page,
+  .print-toolbar {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .mobile-sections {
+    display: block;
+    margin-left: auto;
+    position: relative;
+  }
+  .mobile-sections summary {
+    cursor: pointer;
+    font-size: 13px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+  }
+  .mobile-sections summary::after {
+    content: '⌄';
+    margin-left: 6px;
+  }
+  .mobile-sections summary:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .mobile-sections > div {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 170px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: var(--elev-raised);
+  }
+  .mobile-sections a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .header-controls {
+    margin-left: 0;
+    gap: 12px;
+  }
+  .site-header nav {
+    gap: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .hero .intro-layout.with-portrait {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'identity' 'portrait';
+    row-gap: 24px;
+  }
+  html[data-page='profile'] .hero {
+    padding: 32px 0 32px;
+  }
+  .hero h1 {
+    font-size: 34px;
+  }
+  .hero .intro-copy {
+    font-size: 16px;
+    margin-top: 18px;
+  }
+  .hero-portrait {
+    width: 180px;
+    justify-self: start;
+  }
+  .chapter {
+    padding: 30px 0 34px;
+  }
+  .section-heading {
+    margin-bottom: 24px;
+  }
+  .case-study .entry-organization h3 {
+    font-size: 20px;
+  }
+  .case-study {
+    --career-logo-width: 64px;
+  }
+  .case-study .entry-header {
+    column-gap: 14px;
+  }
+  .case-study .entry-service {
+    font-size: 13px;
+  }
+  .case-study ul,
+  .research-study ul {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .case-study + .case-study,
+  .research-study + .research-study {
+    margin-top: 26px;
+    padding-top: 24px;
+  }
+  .research-study .research-header h3 {
+    font-size: 21px;
+  }
+}
+@media (max-width: 374px) {
+  .site-header nav {
+    gap: 9px;
+  }
+  .site-header .wordmark {
+    font-size: 15px;
+  }
+  .header-controls {
+    gap: 8px;
+  }
+  .header-controls select {
+    max-width: 67px;
+    padding-inline: 6px;
+  }
+  .mobile-sections summary {
+    font-size: 12px;
+  }
+}
+@media print {
+  .mobile-sections {
+    display: none !important;
+  }
+  .entry-context {
+    display: contents;
+  }
+}
+
+/* Center the bounded reading area at intermediate widths as well. */
+.site-header nav,
+html[data-page='profile'] .page,
+.print-toolbar {
+  width: calc(100% - 48px);
+  margin-inline: auto;
+}
+html:has(.mobile-sections[open]) {
+  scroll-padding-top: 320px;
+}
+@media print {
+  .print-toolbar {
+    width: auto;
+  }
+}
+
+.hero-actions {
+  flex-wrap: wrap;
+}
+.hero-actions > a {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.hero-actions .text-link,
+.language-switch {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Logos belong only to the institution-name row. All following text reclaims both columns. */
+.page:not(.resume-page) .teaching-entry .logo,
+.page:not(.resume-page) .education-entry .logo {
+  grid-row: 1;
+}
+.page:not(.resume-page) .teaching-entry > div,
+.page:not(.resume-page) .education-entry > div {
+  display: contents;
+}
+.page:not(.resume-page) .teaching-entry h3,
+.page:not(.resume-page) .education-entry h3 {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+.page:not(.resume-page) .teaching-entry > div > p,
+.page:not(.resume-page) .education-entry > div > p {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: 4px;
+}
+.page:not(.resume-page) .teaching-entry > .entry-date,
+.page:not(.resume-page) .education-entry > .entry-date {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+/* One text edge: institution names, metadata and narrative. Marks sit on the right. */
+.case-study .entry-header {
+  grid-template-columns: minmax(0, 1fr) var(--career-logo-width);
+  row-gap: 6px;
+}
+.case-study .entry-organization h3 {
+  grid-column: 1;
+}
+.case-study .entry-organization .logo {
+  grid-column: 2;
+  justify-self: end;
+}
+.case-study .entry-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+.case-study .entry-context > p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.case-study .entry-context .entry-role {
+  color: var(--fg-2);
+}
+.case-study .entry-context .entry-detail {
+  line-height: 1.7;
+}
+.page:not(.resume-page) .case-study ul,
+.page:not(.resume-page) .research-study ul {
+  padding-left: 0;
+  list-style-position: outside;
+}
+.page:not(.resume-page) .case-study li,
+.page:not(.resume-page) .research-study li {
+  padding-left: 0;
+}
+.page:not(.resume-page) .teaching-entry,
+.page:not(.resume-page) .education-entry {
+  grid-template-columns: minmax(0, 1fr) 36px;
+}
+.page:not(.resume-page) .teaching-entry h3,
+.page:not(.resume-page) .education-entry h3 {
+  grid-column: 1;
+}
+.page:not(.resume-page) .teaching-entry .logo,
+.page:not(.resume-page) .education-entry .logo {
+  grid-column: 2;
+  justify-self: end;
+}
+.case-study .entry-context {
+  display: block;
+}
+.case-study .entry-context > p + p {
+  margin-top: 3px;
+}
+
+/* Separate employment phases; keep the newest role first in source. */
+.entry-detail {
+  white-space: pre-line;
+}
+
+/* Repeat the same role/date unit for one or several positions. */
+.case-study .entry-positions {
+  display: grid;
+  gap: 14px;
+}
+.case-study .entry-position {
+  display: grid;
+  gap: 3px;
+}
+.case-study .entry-position .entry-role,
+.case-study .entry-position .entry-date {
+  margin: 0;
+}
+.case-study .entry-position .entry-date {
+  font-size: 14px;
+  color: var(--muted);
+}

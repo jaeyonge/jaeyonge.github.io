@@ -15,3 +15,5 @@ Acquired from official pages on 2026-10-17. Logos remain the property of their r
 SNU’s official guide specifies an alumni/external-user permission process. Permission has not been inferred from file download. Review that condition before public use. The ignored acquisition manifest keeps source URLs, original hashes and dimensions.
 
 Background-edit generation was evaluated locally and rejected because it altered source details. Those generated candidates are not public assets. All shipped logo artwork uses the official source, with native SVG presentation masks where needed.
+
+Doeat's existing white wordmark is displayed on a dark backing in light mode to preserve legibility without recoloring or redrawing its artwork. Dark mode retains a transparent presentation.

@@ -4,6 +4,11 @@ const month = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/);
 const highlight = z.object({
   id: z.string().min(1),
   text: pair,
+  label: pair.optional(),
+  emphasis: z
+    .object({ ko: z.array(z.string().min(1)).min(1), en: z.array(z.string().min(1)).min(1) })
+    .strict()
+    .optional(),
   facts: z.record(z.string(), z.number()),
   evidenceId: z.string(),
   translationReviewed: z.literal(true),
@@ -17,6 +22,10 @@ const employment = z.object({
   location: pair,
   service: pair,
   detail: pair.optional(),
+  positions: z
+    .array(z.object({ role: pair, start: month, end: month.nullable() }).strict())
+    .min(1)
+    .optional(),
   logo: z.string(),
   highlights: z.array(highlight).min(3),
 });
@@ -36,7 +45,14 @@ export const resumeSchema = z.object({
     }),
     links: z.array(z.object({ label: z.string(), url: z.url() })),
   }),
-  hero: z.object({ eyebrow: pair, headline: pair, summary: pair }),
+  hero: z.object({
+    eyebrow: pair,
+    headline: pair,
+    summary: pair,
+    featured: z
+      .array(z.object({ highlight: z.string(), takeaway: pair, translationReviewed: z.literal(true) }))
+      .length(2),
+  }),
   ui: z.record(
     z.string(),
     z.union([pair, z.object({ ko: z.array(z.string()).length(5), en: z.array(z.string()).length(5) })]),

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import YAML from 'yaml';
 import { data } from '../src/lib/content.mjs';
-import { renderText } from '../src/lib/format.mjs';
+import { renderText, emphasisSegments } from '../src/lib/format.mjs';
 const evidence = YAML.parse(readFileSync('content/evidence.yaml', 'utf8')).evidence;
 const ids = new Set();
 for (const entry of [...data.experience, ...data.research]) {
@@ -50,3 +50,18 @@ assert.deepEqual(correction.facts, { annualTransactionVolumePercent: 1 });
 assert(correction.text.ko.includes('연간 거래액'));
 assert(correction.text.en.includes('annual transaction volume'));
 assert(!Object.keys(correction.facts).some((k) => /amount|currency/i.test(k)));
+
+for (const feature of data.hero.featured) {
+  assert(
+    data.experience.some((e) => e.highlights.some((h) => h.id === feature.highlight)),
+    `Unknown featured achievement ${feature.highlight}`,
+  );
+}
+
+for (const feature of data.hero.featured) {
+  const h = data.experience.flatMap((e) => e.highlights).find((h) => h.id === feature.highlight);
+  for (const lang of ['ko', 'en']) renderText({ text: feature.takeaway, facts: h.facts }, lang);
+}
+
+for (const entry of [...data.experience, ...data.research])
+  for (const h of entry.highlights) for (const lang of ['ko', 'en']) emphasisSegments(h, lang);

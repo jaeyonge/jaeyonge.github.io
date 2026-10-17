@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { data, selectedExperience, selectedResearch } from '../lib/content.mjs';
-import { renderText, period, monthLabel } from '../lib/format.mjs';
+import { renderText, emphasisSegments, period, monthLabel } from '../lib/format.mjs';
 const { lang, print = false } = Astro.props;
 const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
 const headings = u.section;
@@ -31,18 +31,13 @@ const headings = u.section;
         <h2 id="about-title">{headings[0]}</h2>
       ) : (
         <>
-          <p class="eyebrow">{data.hero.eyebrow[lang]}</p>
-          <h1 id="about-title">
-            {data.hero.headline[lang].split('\n').map((line, index) => (
-              <>
-                {index > 0 && <br />}
-                {line}
-              </>
-            ))}
-          </h1>
-          <p class="hero-identity">
-            {data.profile.name[lang]} <span>{data.profile.role[lang]}</span>
-          </p>
+          <h1 id="about-title">{data.profile.name[lang]}</h1>
+          <p class="hero-role">{data.profile.role[lang]}</p>
+        </>
+      )}
+      <p class="intro-copy">{data.hero.summary[lang]}</p>
+      {!print && (
+        <>
           <div class="hero-profile-links">
             {data.profile.links.map((l) => (
               <a href={l.url}>
@@ -51,22 +46,17 @@ const headings = u.section;
               </a>
             ))}
           </div>
+          <div class="hero-actions">
+            <a class="button primary" href={`/downloads/jaeyong-lee-resume-${lang}.pdf`} download>
+              {u.download}
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a class="text-link" href={`mailto:${data.profile.email}`}>
+              {u.contact}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </>
-      )}
-    </div>
-    <div class="intro-details">
-      <p class="intro-copy">{data.hero.summary[lang]}</p>
-      {!print && (
-        <div class="hero-actions">
-          <a class="button primary" href={`/downloads/jaeyong-lee-resume-${lang}.pdf`} download>
-            {u.download}
-            <span aria-hidden="true">↓</span>
-          </a>
-          <a class="text-link" href={`mailto:${data.profile.email}`}>
-            {u.contact}
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
       )}
     </div>
     {!print && (
@@ -90,22 +80,47 @@ const headings = u.section;
   </div>
   <div class="entries">
     {selectedExperience().map((e) => (
-      <article class="experience entry" data-entry={e.id}>
+      <article class:list={['experience', 'entry', !print && 'case-study']} data-entry={e.id}>
         <header class="entry-header">
           <div class="entry-organization">
             <Logo id={e.logo} />
             <h3>{e.company[lang]}</h3>
           </div>
-          <p class="entry-role">{e.role[lang]}</p>
-          <p class="entry-date">
-            {period(e, lang, u.present)} · {e.location[lang]}
-          </p>
-          <p class="entry-service">{e.service[lang]}</p>
-          {e.detail && <p class="entry-detail">{e.detail[lang]}</p>}
+          <div class="entry-context">
+            {print ? (
+              <>
+                <p class="entry-role">{e.role[lang]}</p>
+                <p class="entry-date">
+                  {period(e, lang, u.present)} · {e.location[lang]}
+                </p>
+                <p class="entry-service">{e.service[lang]}</p>
+                {e.detail && <p class="entry-detail">{e.detail[lang]}</p>}
+              </>
+            ) : (
+              <div class="entry-positions">
+                {(e.positions ?? [e]).map((position) => (
+                  <div class="entry-position">
+                    <p class="entry-role">{position.role[lang]}</p>
+                    <p class="entry-date">{period(position, lang, u.present).replace(' - ', '–')}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </header>
         <ul>
           {e.highlights.map((h) => (
-            <li data-highlight={h.id}>{renderText(h, lang)}</li>
+            <li id={`achievement-${h.id}`} data-highlight={h.id}>
+              {print ? (
+                renderText(h, lang)
+              ) : (
+                <span class="achievement-copy">
+                  {emphasisSegments(h, lang).map((part) =>
+                    part.strong ? <strong>{part.text}</strong> : part.text,
+                  )}
+                </span>
+              )}
+            </li>
           ))}
         </ul>
       </article>
@@ -130,21 +145,31 @@ const headings = u.section;
     <h2 id="research-title">{headings[2]}</h2>
   </div>
   {selectedResearch().map((r) => (
-    <article class="research-entry entry" data-research={r.id}>
+    <article class:list={['research-entry', 'entry', !print && 'research-study']} data-research={r.id}>
       <header class="research-header">
         <p class="eyebrow">{r.topic[lang]}</p>
         <h3>{r.paperTitle}</h3>
         <p class="entry-date">
           {r.venue} · {r.year} · {r.role[lang]}
         </p>
-        <a class="text-link" href={r.paper}>
+        <a class="text-link" href={r.paper} aria-label={`${u.paper}: ${r.paperTitle}`}>
           {u.paper}
           <span aria-hidden="true">↗</span>
         </a>
       </header>
       <ul>
         {r.highlights.map((h) => (
-          <li>{renderText(h, lang)}</li>
+          <li>
+            {print ? (
+              renderText(h, lang)
+            ) : (
+              <span class="achievement-copy">
+                {emphasisSegments(h, lang).map((part) =>
+                  part.strong ? <strong>{part.text}</strong> : part.text,
+                )}
+              </span>
+            )}
+          </li>
         ))}
       </ul>
     </article>

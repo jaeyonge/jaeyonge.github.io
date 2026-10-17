@@ -28,3 +28,23 @@ test('selected profile resolves ordered IDs and same underlying facts', () => {
   assert(renderText(h, 'ko').includes('1%를 초과'));
   assert(renderText(h, 'en').includes('1% of annual transaction volume'));
 });
+
+test('emphasis preserves prose and fact formatting in source order', async () => {
+  const { emphasisSegments } = await import('../src/lib/format.mjs');
+  const item = {
+    text: { en: 'Built checks; reduced manual work by {percent}%.' },
+    facts: { percent: 70 },
+    emphasis: { en: ['reduced manual work by {percent}%', 'Built checks'] },
+  };
+  const parts = emphasisSegments(item, 'en');
+  assert.equal(parts.map((p) => p.text).join(''), renderText(item, 'en'));
+  assert.deepEqual(
+    parts.filter((p) => p.strong).map((p) => p.text),
+    ['Built checks', 'reduced manual work by 70%'],
+  );
+  for (const phrases of [['missing'], ['Built', 'Built checks'], ['Built', 'Built']])
+    assert.throws(() => emphasisSegments({ ...item, emphasis: { en: phrases } }, 'en'));
+  assert.throws(() =>
+    emphasisSegments({ text: { en: 'check check' }, facts: {}, emphasis: { en: ['check'] } }, 'en'),
+  );
+});

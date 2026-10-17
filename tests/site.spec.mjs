@@ -240,6 +240,48 @@ for (const device of devices)
         .evaluateAll((nodes) => nodes.map((n) => n.getBoundingClientRect().left));
       expect(Math.abs(schools[0] - schools[1])).toBeLessThan(1);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      const careerGrid = await page.locator('.case-study').evaluateAll((entries) =>
+        entries.map((entry) => {
+          const x = (selector) => entry.querySelector(selector).getBoundingClientRect().left;
+          return {
+            company: x('h3'),
+            evidence: x('li > span'),
+            list: x('ul'),
+            metadata: [...entry.querySelectorAll('.entry-context p')].map(
+              (e) => e.getBoundingClientRect().left,
+            ),
+            logoLeft: x('.logo'),
+            logoRight: entry.querySelector('.logo').getBoundingClientRect().right,
+            right: entry.getBoundingClientRect().right,
+          };
+        }),
+      );
+      for (const grid of careerGrid) {
+        for (const x of [grid.list, grid.evidence, ...grid.metadata])
+          expect(Math.abs(x - grid.company)).toBeLessThan(1);
+        expect(Math.abs(grid.company - careerGrid[0].company)).toBeLessThan(1);
+        expect(Math.abs(grid.right - grid.logoRight)).toBeLessThan(1);
+        expect(grid.logoLeft).toBeGreaterThan(grid.company);
+      }
+      await expect(page.locator('[data-entry="doeat"] .entry-context p')).toHaveCount(4);
+      for (const row of await page.locator('.teaching-entry').all()) {
+        const layout = await row.evaluate((e) => {
+          const name = e.querySelector('h3').getBoundingClientRect();
+          const role = e.querySelector('div > p').getBoundingClientRect();
+          const date = e.querySelector('.entry-date').getBoundingClientRect();
+          return {
+            nameX: name.left,
+            roleX: role.left,
+            dateX: date.left,
+            roleBottom: role.bottom,
+            dateTop: date.top,
+          };
+        });
+        expect(Math.abs(layout.nameX - layout.dateX)).toBeLessThan(1);
+        expect(Math.abs(layout.nameX - layout.roleX)).toBeLessThan(1);
+        expect(layout.dateTop - layout.roleBottom).toBeGreaterThanOrEqual(0);
+        expect(layout.dateTop - layout.roleBottom).toBeLessThanOrEqual(6);
+      }
       await page.locator('#awards').scrollIntoViewIfNeeded();
       const gap = await page
         .locator('.award-entry')
@@ -258,3 +300,59 @@ test('i-Scream Arts keeps a transparent presentation in both themes', async ({ p
     await expect(logo).not.toHaveClass(/light-mat/);
   }
 });
+
+for (const lang of ['ko', 'en'])
+  test(`${lang}: reading layout and mobile section navigation work without JavaScript`, async ({
+    browser,
+  }) => {
+    const c = await browser.newContext({
+      javaScriptEnabled: false,
+      viewport: { width: 390, height: 844 },
+      reducedMotion: 'reduce',
+    });
+    try {
+      const p = await c.newPage();
+      await p.goto(`/${lang}/`);
+      await expect(p.locator('#about-title')).toHaveText(data.profile.name[lang]);
+      await expect(p.locator('.featured-work, .achievement-label, .chapter-lead')).toHaveCount(0);
+      for (const item of await p.locator('[data-entry] li, [data-research] li').all()) {
+        expect(await item.locator('strong').count()).toBeGreaterThan(0);
+        await expect(item.locator('.achievement-copy')).toHaveCount(1);
+      }
+      const menu = p.locator('.mobile-sections');
+      await menu.locator('summary').click();
+      await menu.locator(`a[href="/${lang}/#research"]`).click();
+      await expect(p).toHaveURL(/#research$/);
+      await expect(p.locator('#research-title')).toBeInViewport();
+      await p.goto(`/${lang}/resume/`);
+      await expect(p.locator('.achievement-copy')).toHaveCount(0);
+    } finally {
+      await c.close();
+    }
+  });
+
+for (const theme of ['light', 'dark'])
+  test(`${theme}: PDF action text meets normal-text contrast`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/ko/');
+    await page.selectOption('#theme', theme);
+    const ratio = await page.locator('.hero .button.primary').evaluate((e) => {
+      const c = getComputedStyle(e);
+      const rgb = (s) =>
+        s
+          .match(/[\d.]+/g)
+          .slice(0, 3)
+          .map(Number);
+      const lum = (a) => {
+        const v = a.map((x) => {
+          x /= 255;
+          return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+      };
+      const a = lum(rgb(c.color)),
+        b = lum(rgb(c.backgroundColor));
+      return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+    });
+    expect(ratio).toBeGreaterThanOrEqual(4.5);
+  });
