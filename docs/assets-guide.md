@@ -33,3 +33,9 @@ The app imports the registry and uses `/assets/logos/...` URLs. A file in `sourc
 - If a public asset is missing, treat it as a release failure. Do not hide the failure behind a silent blank image. Institution names remain readable even if image loading fails.
 
 Official-source availability is not a grant of rights. Keep explicit source use conditions in provenance notes. The SNU UI guide asks alumni/external users to obtain permission for use; the current local preview does not establish such permission.
+
+## Share-card assets
+
+The selected portrait lives in tracked `public/assets/images/`. Share cards are generated build outputs, not new source images: `scripts/generate-social.mjs` renders Korean/English 1200×630 PNGs into `dist/assets/social/` using that portrait, YAML identity/tagline, self-hosted fonts and shared design tokens. It needs no `sources/` files. Do not manually edit generated cards or commit `dist/`.
+
+`src/lib/social.mjs` versions image URLs using the content and rendering inputs so a changed portrait, copy or design gets a new image URL. Static Open Graph and Twitter metadata must use absolute HTTPS URLs. `/ko/` selects Korean, `/en/` selects English, and `/` exposes an English card without JavaScript. Share crawlers cannot rely on client-side language detection. Verify actual image decoding/dimensions and inspect both cards at full and small preview sizes. Existing shares may retain a platform-cached preview even after a successful deployment.

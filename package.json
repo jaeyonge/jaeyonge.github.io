@@ -18,9 +18,10 @@
     "resume:select": "node scripts/select-profile.mjs",
     "resume:export": "node scripts/export-resume.mjs",
     "pdf:generate": "node scripts/generate-pdf.mjs",
+    "social:generate": "node scripts/generate-social.mjs",
     "pdf:check": "node scripts/validate-pdf.mjs",
     "build:html": "astro build",
-    "build": "pnpm content:check && pnpm assets:check && astro build && pnpm pdf:generate && pnpm pdf:check && node scripts/validate-dist.mjs",
+    "build": "pnpm content:check && pnpm assets:check && astro build && pnpm social:generate && pnpm pdf:generate && pnpm pdf:check && node scripts/validate-dist.mjs",
     "check": "pnpm test && pnpm build && pnpm test:e2e",
     "format": "prettier --write ."
   },

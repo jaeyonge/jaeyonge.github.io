@@ -1,4 +1,44 @@
 import { test, expect } from '@playwright/test';
+import sharp from 'sharp';
+
+for (const [path, lang] of [
+  ['/', 'en'],
+  ['/ko/', 'ko'],
+  ['/en/', 'en'],
+])
+  test(`${path}: crawler receives localized share metadata and a real social card without JS`, async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    try {
+      const page = await context.newPage();
+      await page.goto(path);
+      const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+      expect(image).toMatch(
+        new RegExp(`^https://jaeyonge\\.github\\.io/assets/social/profile-${lang}-[a-f0-9]{12}\\.png$`),
+      );
+      expect(await page.locator('meta[property="og:url"]').getAttribute('content')).toBe(
+        `https://jaeyonge.github.io${path}`,
+      );
+      expect(await page.locator('meta[property="og:locale"]').getAttribute('content')).toBe(
+        lang === 'ko' ? 'ko_KR' : 'en_US',
+      );
+      expect(await page.locator('meta[property="og:image:alt"]').getAttribute('content')).toContain(
+        lang === 'ko' ? '이재용' : 'Jaeyong Lee',
+      );
+      expect(await page.locator('meta[name="twitter:card"]').getAttribute('content')).toBe(
+        'summary_large_image',
+      );
+      expect(await page.locator('meta[name="twitter:image"]').getAttribute('content')).toBe(image);
+      const response = await page.request.get(new URL(image).pathname);
+      expect(response.ok()).toBe(true);
+      expect(response.headers()['content-type']).toContain('image/png');
+      const metadata = await sharp(await response.body()).metadata();
+      expect([metadata.width, metadata.height]).toEqual([1200, 630]);
+    } finally {
+      await context.close();
+    }
+  });
 for (const lang of ['ko', 'en'])
   for (const theme of ['light', 'dark'])
     test(`${lang} ${theme}: sections, real logo requests, no overflow`, async ({ page }) => {

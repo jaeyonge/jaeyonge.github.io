@@ -33,6 +33,8 @@ pnpm test:e2e
 
 `pnpm check` runs the full sequence. The build creates static HTML, both language PDFs and a matching content/design metadata file. PDF failure stops the deployment bundle. Fonts are self-hosted. Output is in ignored `dist/`; do not manually edit it.
 
+The build also generates Korean/English 1200×630 share cards from the portrait and YAML identity/tagline. Static Open Graph/Twitter metadata selects the matching card for each language route, with English at `/` for crawlers. Image URLs are versioned when rendering inputs change. See the [share-card asset contract](docs/assets-guide.md#share-card-assets).
+
 - `/ko/`, `/en/`: profile pages
 - `/ko/resume/`, `/en/resume/`: print resumes
 - `/ko/compose/`, `/en/compose/`: select three achievements/company in click order, then open a custom print resume and use Print / Save as PDF. This is browser-local and is not automatically published.
