@@ -1439,3 +1439,54 @@ html:has(.mobile-sections[open]) {
   font-size: 14px;
   color: var(--muted);
 }
+
+/* Company-first hierarchy with compact inline role/date rows. */
+.case-study .entry-header {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
+}
+.case-study .entry-context {
+  grid-column: 1;
+  grid-row: 2;
+}
+.case-study .entry-organization {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+}
+.case-study .entry-organization h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.6;
+}
+.case-study .entry-position {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 12px;
+}
+.case-study .entry-position .entry-role {
+  font-size: 16px;
+  color: var(--fg);
+  line-height: 1.6;
+}
+.case-study .entry-position .entry-date {
+  white-space: nowrap;
+  line-height: 1.6;
+}
+.case-study .entry-positions {
+  gap: 8px;
+}
+.case-study .entry-organization {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--career-logo-width);
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .case-study .entry-organization h3 {
+    font-size: 20px;
+  }
+}

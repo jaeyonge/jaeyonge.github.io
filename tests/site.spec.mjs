@@ -247,7 +247,7 @@ for (const device of devices)
             company: x('h3'),
             evidence: x('li > span'),
             list: x('ul'),
-            metadata: [...entry.querySelectorAll('.entry-context p')].map(
+            metadata: [...entry.querySelectorAll('.entry-role')].map(
               (e) => e.getBoundingClientRect().left,
             ),
             logoLeft: x('.logo'),
@@ -264,6 +264,14 @@ for (const device of devices)
         expect(grid.logoLeft).toBeGreaterThan(grid.company);
       }
       await expect(page.locator('[data-entry="doeat"] .entry-context p')).toHaveCount(4);
+      for (const entry of await page.locator('.case-study').all()) {
+        const rows = await entry.evaluate((e) => ({
+          rolesTop: e.querySelector('.entry-context').getBoundingClientRect().top,
+          companyBottom: e.querySelector('.entry-organization').getBoundingClientRect().bottom,
+        }));
+        expect(rows.rolesTop).toBeGreaterThan(rows.companyBottom);
+      }
+
       for (const row of await page.locator('.teaching-entry').all()) {
         const layout = await row.evaluate((e) => {
           const name = e.querySelector('h3').getBoundingClientRect();

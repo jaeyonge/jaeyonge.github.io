@@ -100,7 +100,9 @@ const headings = u.section;
               <div class="entry-positions">
                 {(e.positions ?? [e]).map((position) => (
                   <div class="entry-position">
-                    <p class="entry-role">{position.role[lang]}</p>
+                    <p class="entry-role">
+                      <strong>{position.role[lang]}</strong>
+                    </p>
                     <p class="entry-date">{period(position, lang, u.present).replace(' - ', '–')}</p>
                   </div>
                 ))}
