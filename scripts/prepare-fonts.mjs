@@ -7,10 +7,12 @@ export async function prepareFonts() {
   const text =
     JSON.stringify(YAML.parse(await readFile('content/resume.yaml', 'utf8'))) + ' ←↑→↓↗•…0123456789';
   await mkdir('.font-cache', { recursive: true });
-  for (const family of ['noto-sans-kr', 'nanum-gothic']) {
-    for (const weight of family === 'nanum-gothic' ? [400, 700] : [400, 600]) {
+  for (const family of ['noto-sans-kr', 'source-han-serif-kr']) {
+    for (const weight of [400, 600]) {
       const source = await readFile(
-        `node_modules/@fontsource/${family}/files/${family}-korean-${weight}-normal.woff2`,
+        family === 'source-han-serif-kr'
+          ? `vendor/fonts/source-han-serif-kr/SourceHanSerifKR-${weight === 400 ? 'Regular' : 'SemiBold'}.otf`
+          : `node_modules/@fontsource/${family}/files/${family}-korean-${weight}-normal.woff2`,
       );
       const bytes = await subsetFont(source, text, {
         targetFormat: 'woff2',

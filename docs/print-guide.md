@@ -18,9 +18,9 @@ Selection and presentation may differ from the website; selected sentences and e
 
 ## Typography and preview
 
-Print uses Source Serif 4 for Latin text (400/600) and Nanum Gothic for Korean (400/700). Current general-profile body sizes are Korean 9.5pt and English 9pt; do not reduce them further without an owner-approved change. These are current project choices, not universal resume typography rules. Executable page margins/type settings live in [print.css](../src/styles/print.css); update this guide and checks together if the accepted specification changes.
+Print uses Source Serif 4 for Latin text (400/600) and Source Han Serif KR (본명조) for Korean (400/600). Current general-profile body sizes are Korean 10pt with 1.3 leading and English 9pt with 1.25 leading; do not reduce them further without an owner-approved change. These are current project choices, not universal resume typography rules. Executable page margins/type settings live in [print.css](../src/styles/print.css); update this guide and checks together if the accepted specification changes.
 
-Self-host pinned Fontsource fonts with OFL notices. Generate the Korean subset from public YAML, preserve licensing/name records, load actual print faces before export and verify embedding/selection. Print faces must not change website typography or add profile-page screen font requests.
+Self-host pinned Fontsource Latin fonts and the vendored official Adobe Source Han Serif KR fonts with OFL notices. Korean uses the same compact education-row arrangement as English. Generate the Korean subset from public YAML, preserve licensing/name records, load actual print faces before export and verify embedding/selection. Print faces must not change website typography or add profile-page screen font requests.
 
 `/ko/resume/` and `/en/resume/` preview the same print stylesheet on a centered white paper surface with an aligned toolbar. Small-screen previews reflow; PDF output stays A4. A screen preview alone does not establish PDF pagination or final font rendering.
 

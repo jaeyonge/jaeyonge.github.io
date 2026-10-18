@@ -35,7 +35,9 @@ for (const lang of ['ko', 'en']) {
       expect(fonts).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            familyName: expect.stringMatching(lang === 'ko' ? /^Nanum\s?Gothic/ : /^Source Serif 4/),
+            familyName: expect.stringMatching(
+              lang === 'ko' ? /^Source Han Serif KR/ : /^Source Serif 4/,
+            ),
             isCustomFont: true,
           }),
         ]),

@@ -73,4 +73,4 @@ Workflows validate PRs and deploy validated `dist/` after an authorized push to 
 
 ## Attribution
 
-OpenDesign reference files retain their original Apache-2.0 and nested MIT licenses. Inter, Noto Sans KR, Source Serif 4 and Nanum Gothic are distributed by their pinned font packages under their included OFL licenses. Third-party institutional marks are not covered by the project’s code license; see provenance and explicit source-use conditions before publication.
+OpenDesign reference files retain their original Apache-2.0 and nested MIT licenses. Inter, Noto Sans KR, Source Serif 4 are distributed by their pinned font packages under their included OFL licenses. Source Han Serif KR is vendored from Adobe’s official release under OFL; see vendor/fonts/source-han-serif-kr/README.md. Third-party institutional marks are not covered by the project’s code license; see provenance and explicit source-use conditions before publication.
