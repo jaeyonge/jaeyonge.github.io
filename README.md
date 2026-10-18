@@ -2,7 +2,7 @@
 
 A YAML-based Korean/English personal profile, printable resume and automatic PDF generator, prepared for `jaeyonge.github.io`. Shared authoring rules let Codex, Claude Code and future collaborators continue from the repository rather than the original chat.
 
-Start with **[AGENTS.md](AGENTS.md)**. Claude Code loads the same rules through `CLAUDE.md`. Core editorial choices are in [docs/editorial-decisions.md](docs/editorial-decisions.md).
+Start with **[AGENTS.md](AGENTS.md)**. Claude Code loads the same rules through `CLAUDE.md`. Core editorial choices are in [docs/editorial-decisions.md](docs/editorial-decisions.md). The [guide ownership map](docs/guide-map.md) identifies where principles, current choices, implementation values and review evidence belong.
 
 ## Setup
 
@@ -37,7 +37,7 @@ pnpm test:e2e
 
 The build also generates Korean/English 1200×630 share cards from the portrait and YAML identity/tagline. Static Open Graph/Twitter metadata selects the matching card for each language route, with English at `/` for crawlers. Image URLs are versioned when rendering inputs change. See the [share-card asset contract](docs/assets-guide.md#share-card-assets).
 
-Astro startup prepares compact Korean font subsets from all public YAML text; dev mode refreshes them after YAML changes. `.font-cache/` is ignored and requires no manual downloads. Early preloads plus optional font loading prevent a late typeface swap on slow first visits; readable system fonts remain the fallback. PDF/share-card exports explicitly wait for the intended fonts. See the [font-loading policy](docs/design-guide.md#font-loading).
+Astro startup prepares compact Korean font subsets from all public YAML text; dev mode refreshes them after YAML changes. `.font-cache/` is ignored and requires no manual downloads. Early preloads plus optional font loading prevent a late typeface swap on slow first visits; readable system fonts remain the fallback. PDF/share-card exports explicitly wait for the intended fonts. See the [font-loading policy](docs/design-guide.md#first-paint-and-font-loading).
 
 - `/ko/`, `/en/`: profile pages
 - `/ko/resume/`, `/en/resume/`: print resumes
@@ -65,7 +65,7 @@ Original PDFs, raw logo downloads, extracted work notes, drafts, review records,
 
 Run `pnpm task:start` at each new task. It checks OpenDesign’s latest main; changed files are review candidates under ignored `.design-cache/`. Committed references and `design/upstream-state.json` define the applied revision. CI never silently fetches a newer design version. Site-specific tokens stay in `design/tokens.css`.
 
-Read the [content](docs/content-guide.md), [translation](docs/translation-guide.md), [design](docs/design-guide.md), [update workflow](docs/update-workflow.md) and [evaluation](docs/evaluation-rubric.md) guides. Record concrete evaluation → feedback → revision → recheck in `sources/reviews/`. A self-review is not independent human review.
+Read the [content](docs/content-guide.md), [emphasis](docs/emphasis-guide.md), [translation](docs/translation-guide.md), [design](docs/design-guide.md), [current layout](docs/layout-plan.md), [print](docs/print-guide.md), [update workflow](docs/update-workflow.md) and [evaluation](docs/evaluation-rubric.md) guides. Follow the [maintenance process](docs/guide-map.md#how-to-change-a-rule) when changing a convention; documentation-only verification is scoped in the update workflow. Record concrete evaluation → feedback → revision → recheck in `sources/reviews/`. A self-review is not independent human review.
 
 ## GitHub Pages
 
@@ -73,4 +73,4 @@ Workflows validate PRs and deploy validated `dist/` after an authorized push to 
 
 ## Attribution
 
-OpenDesign reference files retain their original Apache-2.0 and nested MIT licenses. Inter and Noto Sans KR are distributed by their pinned font packages under their included OFL licenses. Third-party institutional marks are not covered by the project’s code license; see provenance and explicit source-use conditions before publication.
+OpenDesign reference files retain their original Apache-2.0 and nested MIT licenses. Inter, Noto Sans KR, Source Serif 4 and Nanum Gothic are distributed by their pinned font packages under their included OFL licenses. Third-party institutional marks are not covered by the project’s code license; see provenance and explicit source-use conditions before publication.

@@ -1,5 +1,7 @@
 # Confirmed editorial decisions
 
+Owner-approved facts and current choices live here. General rules and implementation values belong in their [owning guides](guide-map.md); older source snapshots and plans do not override these decisions.
+
 - One bilingual YAML is the editing source for website, print HTML, PDF and Markdown. Section order is introduction, experience, research, education, awards and languages. No separate technology section.
 - Main strength: understand the business, identify decision-relevant information and actions, then structure reusable standards, workflows and automation using product/technology/data understanding. Use evidence of decomposition, detailed verification, iterative improvement and reuse.
 - Toss Place: owner proposed checking duplicate payment metrics and built the company’s first detection-to-prevention management cycle. Do not use “undiscovered for four years.” The company-first claim applies to that workflow.
@@ -17,13 +19,17 @@
 - Hackathon scope: **Toss Community × OpenAI internal mini hackathon**, not an external/open competition. “Toss Community” means the Toss group of affiliated companies. Keep May 2026 and Workflow-track 1st place.
 - Research topic appears as secondary gray text; the complete original paper title is the primary heading. Preserve three bullets and the paper link.
 - Owner portrait is included in the website hero, with LinkedIn and Google Scholar near the identity at the top. The print resume stays text-focused.
-- School employment rows use one shared logo/name/date grid. Do not let different logo widths change name alignment. Empty award descriptions must not create blank rows or icon-driven excess space.
+- School employment uses the same left text axis for name, role and dates, with the logo only at the right of the name row. Empty award descriptions do not create blank rows or icon-driven excess space; see the current [layout plan](layout-plan.md).
 - Mobile, tablet and desktop responsiveness is a required completion criterion, including portrait and landscape, both languages and themes. See the responsive guide.
 
 - i-Scream Arts uses its original transparent logo in both themes, without a white backing. Preserve that choice in the registry and preparation script.
-- Hero eyebrow: “데이터로 이해하고, 시스템으로 해결합니다.” / “UNDERSTAND WITH DATA. SOLVE WITH SYSTEMS.”
+- Approved eyebrow wording in YAML/share metadata: “데이터로 이해하고, 시스템으로 해결합니다.” / “UNDERSTAND WITH DATA. SOLVE WITH SYSTEMS.” This is not an instruction to restore a duplicate oversized slogan above the name on the profile page.
 - Resume composition is an author-only local development tool. The public site must not include its footer link, route or URL-selection script. Preserve local composition and CLI/profile authoring.
 - Korean employment headings use verified company names: 토스플레이스 주식회사 (official site footer), 주식회사 두잇 (official careers site footer). Preserve the owner-confirmed (주)아이스크림아트; do not infer the placement of 주식회사 from its abbreviation. English brand names remain unless a legal English name is confirmed separately.
 
 - Section headings have no decorative ordinal numbers.
 - Doeat uses the official color logo, transparently prepared from the careers-site original, in both themes without a backing.
+
+- Web employment remains company-first with the logo on the right; each role has its period alongside, newest role first, without a shared web date column. [Current layout](layout-plan.md#경력과-학교-근무) owns the complete composition.
+- The current general-profile PDF is a formal, compact one-page resume in each language. Its selected sections, exact-text constraint, typefaces/sizes and date alignment are specified in the [print guide](print-guide.md). The former three-page target is superseded.
+- Research metadata uses the official full conference name ACM International Conference on Information and Knowledge Management rather than CIKM alone; the shared YAML and evidence link record the approved correction.

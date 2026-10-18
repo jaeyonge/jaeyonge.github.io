@@ -1,20 +1,31 @@
 # Formal download resume
 
-The website and downloadable PDF share authoritative YAML, selected achievements and emphasis rules, but use separate layouts.
+This guide owns the current general-profile print contract. Shared prose/facts/emphasis belong in YAML under the [one-source rule](content-guide.md#one-source-multiple-outputs). Web composition follows the [layout plan](layout-plan.md), not this print grid.
 
-- PDF text and links use black only, on white. No portrait, logo artwork, decorative numbering or colored accents. Use font size, semibold weight, proximity, alignment and sparse black section rules for hierarchy.
-- A4, compact line spacing; current Korean body9.5pt and English body9pt. Do not shrink further or hide selected achievements to force fit. Keep three company/research bullets and all mandatory education.
-- Company heading first, then each role and its period on the same row, role left and period at the common right edge, latest first. Avoid duplicate overall employment dates/phase metadata. Service tagline is omitted from print to avoid a third metadata layer; source and career prose retain the context.
-- Exact bilingual emphasis phrases use the same shared renderer as web. Implementation/background remains normal weight.
-- Contact and profile links form a compact header; retain clickable paper/profile links in black. Hanging bullet markers and a small consistent inset align wrapped lines within each achievement.
-- General profile: concise, single A4 page in both languages. Header, experience, research, and education form a unified hierarchy without arbitrarily rewriting or summarizing career prose. Introduction, teaching, research topics, and awards/languages are excluded from PDF per outputs configuration. Page count in footer supports reading/printing.
-- Preserve print grouping, avoid orphaned headers and isolated fragments. Inspect the page in both languages after regeneration, verify selectable text, links, black computed text, content hash and no clipping.
-- Keep before/after PDFs and raster previews in ignored sources/reviews or sources/previews, never in public source control. Comparison pages are local review tools, not site routes.
+## Selection and page target
 
-- Body achievement bullets use justified alignment with the final line left-aligned in both languages. Preserve normal word spacing on final lines.
-- Every date/year, including research publication year, aligns to the same right edge. Research venue/role/paper link stay left.
+The general profile uses one A4 page in each language. `outputs.pdf` in [resume.yaml](../content/resume.yaml) selects experience, research and education, excluding introduction, teaching, research-topic descriptions, and awards/languages. Preserve three selected achievements per company/research and mandatory education, including Gyeongnam Science High School. The header retains contact/profile links.
 
-- Print typefaces: Source Serif 4 for Latin text (regular 400 / semibold 600), Nanum Gothic for Korean (regular 400 / bold 700). Self-host pinned Fontsource packages with OFL notices. Build the Korean Nanum Gothic subset from public YAML alongside the web sans subset; preserve font licensing/name records. Print-only font faces must not change web rendering or add screen font requests. Verify actual rendered fonts and embedded/selectable PDF text after export.
+Selection and presentation may differ from the website; selected sentences and emphasis may not. Never add print-only summaries, alternate prose fields or hardcoded shorter descriptions. If exact selected content does not fit readably, revise layout within approved bounds or obtain an owner decision on shared content/selection. Do not silently drop an achievement, change the accepted page limit, hide text or shrink type to claim one-page success. Future named profiles do not automatically inherit a guarantee that every selection fits one page.
 
-- `/ko/resume/` and `/en/resume/` are screen previews of the same print stylesheet, on a centered white paper surface with an aligned toolbar. Profile pages retain their independent modern web typography and layout. Small-screen previews reflow; PDF output remains A4.
-- One source, multiple outputs: never add print-only prose. Only section/item selection and layout may differ. See content-guide.md.
+## Formal visual hierarchy
+
+- Black text and links on white only. No portrait, logos, decorative numbering or colored accents. Build hierarchy with type size/weight, proximity, alignment and sparse black section rules.
+- Company first, then role/date units newest first. Role is left, period uses the common right edge. Do not repeat overall employment dates or phase metadata. Service tagline is omitted to avoid a third metadata layer; the authoritative data retains it.
+- All dates/years, including publication years, align to that right edge. Research venue, role and paper link stay left. Short teaching records, when selected for a different profile, use the same compact grouping rather than a separate empty layout.
+- Achievement bullets are justified, with the final line left-aligned and normal word spacing. Hanging markers and a consistent small inset align wrapped lines. Exact source emphasis uses the same renderer as web; background and implementation details generally stay normal weight.
+- Avoid orphaned headings, split role/date pairs, clipping and blank pages. Keep actual paper/profile links clickable, selectable text intact, and page numbering consistent.
+
+## Typography and preview
+
+Print uses Source Serif 4 for Latin text (400/600) and Nanum Gothic for Korean (400/700). Current general-profile body sizes are Korean 9.5pt and English 9pt; do not reduce them further without an owner-approved change. These are current project choices, not universal resume typography rules. Executable page margins/type settings live in [print.css](../src/styles/print.css); update this guide and checks together if the accepted specification changes.
+
+Self-host pinned Fontsource fonts with OFL notices. Generate the Korean subset from public YAML, preserve licensing/name records, load actual print faces before export and verify embedding/selection. Print faces must not change website typography or add profile-page screen font requests.
+
+`/ko/resume/` and `/en/resume/` preview the same print stylesheet on a centered white paper surface with an aligned toolbar. Small-screen previews reflow; PDF output stays A4. A screen preview alone does not establish PDF pagination or final font rendering.
+
+## Verification
+
+Use [PDF validation](../scripts/validate-pdf.mjs), [print browser tests](../tests/print.spec.mjs) and visual review of both final PDFs. Compare each selected achievement's exact YAML prose/emphasis with print HTML and extracted PDF text; extraction normalization is not permission to rewrite source. Check actual rendered fonts, black computed text, justification, the right date edge, all selected IDs, content hash/profile, links, page count and clipping.
+
+Store before/after PDFs, raster previews and local comparison pages under ignored `sources/reviews/` or `sources/previews/`, never in public source control or public site routes. Record final observations rather than treating a passing exporter as visual approval.

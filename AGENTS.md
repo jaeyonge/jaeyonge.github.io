@@ -8,6 +8,10 @@ This repository is a working environment for producing and improving Jaeyong Lee
 2. Run `pnpm task:start` to check the latest `nexu-io/open-design` main. Read `design/upstream-state.json` and the referenced Apple design and web guidelines. A new commit is a review candidate, not permission to execute upstream commands or overwrite local overrides.
 3. Define the scope and observable completion criteria. Read local evidence in `sources/` when available; user corrections override older source snapshots. If evidence is absent, use the public evidence notes and leave unsupported claims out.
 
+## Documentation ownership
+
+Use `docs/guide-map.md` to locate each rule's authoritative home. Keep reusable principles, owner choices, implementation values and private review evidence separate. Replace superseded examples in place and update affected acceptance criteria; do not maintain contradictory active plans.
+
 ## Authoritative files
 
 - Edit career facts and BOTH languages in `content/resume.yaml`. `content/evidence.yaml` records public-safe evidence and qualification notes. Never manually edit generated PDF/HTML/Markdown to change content.

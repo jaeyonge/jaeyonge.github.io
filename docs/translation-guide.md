@@ -14,3 +14,5 @@
 Dates are `YYYY-MM` in data and rendered for each locale. Keep URLs identical. Preserve model names, institutions, role scope, measured vs. planned status and classifier-dependent accuracy ranges. Do not translate inline with browser APIs.
 
 When editing a pair, set `translationReviewed: false` while the counterpart is stale, then review and restore `true`. Validation rejects stale achievement translations. This is an editorial declaration, not proof that machine translation is accurate.
+
+Official publication titles and venue names keep their verified full original form, even when a Korean topic explanation is provided separately. Shared official metadata/URLs should not drift between output languages. Do not replace a full venue name with its acronym in one language to save space. Domain abbreviations such as POS/VAN may remain where natural; avoid unnecessary parenthetical definitions. Naming and vocabulary principles are owned by the [content guide](content-guide.md#official-names-and-domain-vocabulary).
