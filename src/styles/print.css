@@ -1,224 +1,347 @@
 @page {
   size: A4;
-  margin: 15mm 16mm;
+  margin: 8.5mm 11mm;
+  @bottom-right {
+    content: counter(page) ' / ' counter(pages);
+    font-family: 'Source Serif 4', 'Nanum Gothic', serif;
+    font-size: 8pt;
+    color: #000;
+  }
+}
+@media print {
+  @font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url('../../node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-400-normal.woff2')
+      format('woff2');
+  }
+  @font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 600;
+    font-display: block;
+    src: url('../../node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-600-normal.woff2')
+      format('woff2');
+  }
+  @font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url('../../.font-cache/nanum-gothic-400.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+    src: url('../../.font-cache/nanum-gothic-700.woff2') format('woff2');
+  }
 }
 @media print {
   html,
   html[data-theme],
   html:not([data-theme='light']) {
+    --font-text: 'Source Serif 4', 'Nanum Gothic', serif;
+    --font-display: var(--font-text);
     --bg: #fff;
     --surface: #fff;
-    --fg: var(--print-text);
-    --fg-2: var(--print-text);
-    --muted: var(--print-muted);
-    --border: var(--print-border);
-    --border-soft: var(--print-border);
-    --text-link: #174d81;
+    --fg: #000;
+    --fg-2: #000;
+    --muted: #000;
+    --border: #000;
+    --border-soft: #000;
+    --text-link: #000;
     background: #fff;
     color-scheme: light;
   }
   body {
+    font-family: var(--font-text);
     background: #fff;
-    color: var(--print-text);
+    color: #000;
     font-size: 9.5pt;
-    line-height: 1.5;
+    line-height: 1.4;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+  body *,
+  a,
+  a:visited,
+  strong,
+  .text-link {
+    color: #000 !important;
   }
   .site-header,
   .site-footer,
   .print-toolbar,
   .skip-link,
   .hero-actions,
-  .root-language-links {
+  .root-language-links,
+  .hero-portrait,
+  .hero-profile-links,
+  .mobile-sections,
+  .logo,
+  .award-marker,
+  .section-heading > span {
     display: none !important;
   }
   .page,
   .resume-page {
+    width: auto;
     max-width: none;
     margin: 0 !important;
     padding: 0;
   }
   .print-identity {
-    margin: 0 0 5mm;
+    margin: 0 0 4mm;
   }
   .print-identity h1 {
-    font-size: 24pt;
-    margin-bottom: 1mm;
+    font-size: 23pt;
+    line-height: 1.1;
+    letter-spacing: -0.5pt;
+    margin: 0 0 2mm;
   }
   .print-identity p {
-    font-size: 9pt;
-    line-height: 1.5;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin: 0 0 0.7mm;
   }
   .print-links {
-    font-size: 9pt;
+    display: flex;
+    gap: 4mm;
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  a {
+    text-decoration: none;
+  }
+  .print-links a,
+  .research-header .text-link {
+    text-decoration: underline;
+    text-underline-offset: 1.5pt;
+  }
+  .intro-layout {
+    display: block;
   }
   .intro-section,
   .resume-page .intro-section {
-    margin: 0 0 5mm;
     padding: 0;
+    margin: 0 0 3.5mm;
   }
   .resume-page .intro-section h2 {
-    font-size: 12pt;
+    font-size: 10.5pt;
+    margin: 0 0 1mm;
   }
   .intro-copy,
   .resume-page .intro-copy {
     font-size: 9.5pt;
-    line-height: 1.55;
-    margin-top: 2mm;
+    line-height: 1.4;
+    margin: 0;
     max-width: none;
   }
   .chapter {
-    padding: 5mm 0 3mm;
-    border-top: 0.6pt solid var(--print-border);
+    border: 0;
+    padding: 0;
+    margin: 0 0 3.5mm;
   }
   .section-heading {
-    gap: 3mm;
-    margin-bottom: 4mm;
+    display: block;
+    border-bottom: 0.7pt solid #000;
+    padding-bottom: 1mm;
+    margin: 0 0 2.8mm;
     break-after: avoid;
   }
   .section-heading h2 {
-    font-size: 13pt;
+    font-size: 11pt;
+    line-height: 1.3;
+    letter-spacing: 0.15pt;
+    margin: 0;
   }
-  .section-heading > span {
-    font-size: 8pt;
+  html[lang='en'] .section-heading h2 {
+    text-transform: uppercase;
+    letter-spacing: 0.6pt;
+    font-size: 10pt;
   }
   .entry {
     display: block;
     break-inside: avoid;
+    border: 0;
+    margin: 0;
+    padding: 0;
   }
   .entry + .entry {
-    margin-top: 5mm;
-    padding-top: 4mm;
+    margin: 3.5mm 0 0;
+    padding: 0;
+    border: 0;
   }
   .entry-header {
-    margin-bottom: 2mm;
+    display: block;
+    margin: 0 0 1.5mm;
     break-after: avoid;
   }
   .entry-organization {
     display: block;
   }
-  .entry-organization h3,
-  .education-entry h3,
-  .teaching-entry h3 {
+  .entry-organization h3 {
     font-size: 10.5pt;
+    line-height: 1.4;
+    margin: 0 0 0.5mm;
   }
-  .entry-organization .logo,
-  .award-marker {
-    display: none !important;
-  }
-  .research-header .eyebrow {
+  .entry-context {
     display: block;
-    font-size: 8pt;
-    margin: 0 0 1mm;
-    letter-spacing: 0;
+  }
+  .entry-positions {
+    display: grid;
+    gap: 0.6mm;
+  }
+  .entry-position {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 3mm;
+    justify-content: space-between;
   }
   .entry-role,
-  .entry-header .entry-date,
-  .entry-service,
-  .entry-detail {
-    display: inline;
+  .entry-position .entry-date {
+    font-size: 9pt;
+    line-height: 1.4;
+    margin: 0;
+  }
+  .entry-position .entry-date {
+    white-space: nowrap;
+  }
+  .entry-service {
     font-size: 8.5pt;
-    margin: 0 3mm 0 0;
+    line-height: 1.4;
+    margin: 0.5mm 0 0;
   }
   .entry ul {
     font-size: 9.5pt;
-    line-height: 1.55;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    list-style: disc outside;
     padding-left: 4mm;
   }
   .entry li {
-    padding-left: 1mm;
+    padding: 0;
+    margin: 0;
   }
   .entry li + li {
-    margin-top: 1.8mm;
+    margin-top: 1mm;
+  }
+  strong {
+    font-weight: 600;
   }
   .teaching {
-    padding-top: 3mm;
-    margin-top: 4mm;
-    gap: 2mm;
-  }
-  .teaching-entry {
-    gap: 3mm;
-    flex-wrap: nowrap;
+    display: grid;
+    margin-top: 3.5mm;
+    padding: 0;
+    gap: 1.3mm;
+    border: 0;
     break-inside: avoid;
   }
-  .teaching-entry .logo,
-  .education-entry .logo {
-    display: none !important;
+  .teaching-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3mm;
+    padding: 0;
+    border: 0;
+    break-inside: avoid;
   }
-  .teaching-entry h3,
+  .teaching-entry > div {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1 / 3;
+    gap: 0.5mm;
+  }
+  .teaching-entry h3 {
+    font-size: 10.5pt;
+    line-height: 1.4;
+    margin: 0;
+  }
   .teaching-entry p:not(.entry-date),
-  .entry-date {
-    font-size: 8.5pt;
+  .teaching-entry .entry-date {
+    font-size: 9pt;
+    line-height: 1.4;
+    margin: 0;
+  }
+  .teaching-entry p:not(.entry-date) {
+    font-weight: 600;
   }
   .teaching-entry > .entry-date {
-    width: auto;
-    margin-left: auto;
+    grid-column: 2;
+    grid-row: 2;
+    white-space: nowrap;
+    align-self: baseline;
+  }
+  .resume-page #research {
+    break-before: page;
   }
   .research-header {
-    margin-bottom: 2mm;
+    margin: 0 0 1.5mm;
     break-after: avoid;
   }
-  .research-header h3 {
-    font-size: 10.5pt;
+  .research-header .eyebrow {
+    font-size: 8.5pt;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0 0 0.5mm;
+    line-height: 1.4;
   }
-  .research-header .entry-date {
+  .research-header h3 {
+    font-size: 10pt;
+    line-height: 1.35;
+    margin: 0 0 0.7mm;
+  }
+  .research-header .entry-date,
+  .research-header .text-link {
     display: inline;
     font-size: 8.5pt;
-    margin-right: 3mm;
-  }
-  .research-header .text-link {
-    font-size: 8.5pt;
-    margin-top: 0;
+    line-height: 1.4;
+    margin: 0 3mm 0 0;
   }
   .research-header .text-link span {
     display: none;
   }
-  .education-list {
-    gap: 3mm;
-  }
-  .education-entry {
-    gap: 2mm;
-    flex-wrap: nowrap;
-    break-inside: avoid;
-  }
-  .education-entry > div {
-    flex: 1;
-  }
-  .education-entry p:not(.entry-date) {
-    font-size: 9pt;
-    margin-top: 0;
-  }
-  .education-entry > .entry-date {
-    width: auto;
-    white-space: nowrap;
-    padding: 0;
-  }
+  .education-list,
   .awards-list {
-    gap: 3mm;
+    display: grid;
+    gap: 1.8mm;
   }
+  .education-entry,
   .award-entry {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 2mm;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 4mm;
+    padding: 0;
+    margin: 0;
+    border: 0;
     break-inside: avoid;
   }
+  .education-entry h3,
   .award-entry h3 {
     font-size: 9.5pt;
+    line-height: 1.4;
+    margin: 0;
   }
+  .education-entry p:not(.entry-date),
   .award-entry p:not(.entry-date) {
     font-size: 9pt;
-    line-height: 1.5;
-    margin-top: 1mm;
+    line-height: 1.4;
+    margin: 0.3mm 0 0;
   }
+  .education-entry > .entry-date,
   .award-entry > .entry-date {
-    grid-column: auto;
-  }
-  .text-link {
-    color: #174d81;
-  }
-  a {
-    text-decoration: none;
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
   }
   h1,
   h2,
@@ -227,75 +350,183 @@
   }
   p,
   li {
-    orphans: 3;
-    widows: 3;
-  }
-  .logo picture,
-  .logo-auto,
-  .logo-dark {
-    display: none !important;
-  }
-  .logo-light {
-    display: block !important;
+    orphans: 2;
+    widows: 2;
   }
 }
-/* Keep readable 9.5pt body text while removing website spacing from paper. */
+
 @media print {
-  .chapter {
-    padding: 3mm 0 2mm;
+  .print-identity > p:last-of-type {
+    display: inline;
+    margin-right: 4mm;
   }
-  .section-heading {
-    margin-bottom: 3mm;
+  .print-links {
+    display: inline-flex;
   }
-  .entry + .entry {
-    margin-top: 3mm;
-    padding-top: 3mm;
+  .entry-service {
+    display: none;
   }
-  .entry ul {
-    line-height: 1.5;
-  }
-  .entry li + li {
-    margin-top: 1mm;
-  }
-  .resume-page .intro-copy {
-    line-height: 1.5;
-  }
-  .education-list {
-    gap: 2mm;
-    break-inside: avoid;
-  }
-  .awards-list {
-    gap: 2mm;
-  }
-  .research-header .eyebrow {
-    margin-bottom: 0.5mm;
+}
+
+@media print {
+  .entry li {
+    text-align: justify;
+    text-align-last: start;
   }
   .teaching {
-    margin-top: 3mm;
-    padding-top: 2mm;
-  }
-}
-@media print {
-  .intro-layout {
-    display: block;
-  }
-  .hero-portrait,
-  .hero-profile-links {
-    display: none !important;
+    gap: 3.5mm;
   }
   .teaching-entry {
+    grid-template-rows: auto auto;
+    gap: 0 3mm;
+  }
+  .print-research-meta {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 2mm;
+    align-items: baseline;
+    gap: 4mm;
+    font-size: 8.5pt;
+    line-height: 1.4;
   }
-  .teaching-entry > .entry-date {
-    grid-column: 2;
-    grid-row: 1;
+  .print-research-meta .entry-date {
+    margin: 0;
+    text-align: right;
   }
-  .award-marker {
-    display: none !important;
+  .print-research-meta .text-link {
+    margin: 0 0 0 3mm;
   }
-  .awards-list {
-    gap: 2mm;
+  .entry-date {
+    text-align: right;
+  }
+  .education-entry,
+  .award-entry {
+    align-items: start;
+  }
+}
+
+@media print {
+  .teaching-entry {
+    display: block;
+  }
+  .teaching-entry .print-teaching-position {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 3mm;
+  }
+  .teaching-entry > h3 {
+    margin-bottom: 0.5mm;
+  }
+  .teaching-entry .print-teaching-position .entry-date {
+    white-space: nowrap;
+  }
+}
+
+@media print {
+  html[lang='ko'],
+  html[lang='ko'][data-theme] {
+    --font-text: 'Nanum Gothic', sans-serif;
+    --font-display: var(--font-text);
+  }
+  html[lang='ko'] strong {
+    font-weight: 700;
+  }
+  .resume-page #research {
+    break-before: auto;
+  }
+  html[lang='ko'] body,
+  html[lang='ko'] .entry ul {
+    line-height: 1.25;
+  }
+  html[lang='ko'] .print-identity {
+    margin-bottom: 2mm;
+  }
+  html[lang='ko'] .print-identity h1 {
+    font-size: 20pt;
+    margin-bottom: 1mm;
+  }
+  html[lang='ko'] .chapter {
+    margin-bottom: 2mm;
+  }
+  html[lang='ko'] .section-heading {
+    margin-bottom: 1.5mm;
+    padding-bottom: 0.5mm;
+  }
+  html[lang='ko'] .entry + .entry {
+    margin-top: 1.5mm;
+  }
+  html[lang='ko'] .entry li + li {
+    margin-top: 0.6mm;
+  }
+  html[lang='ko'] .entry-header,
+  html[lang='ko'] .research-header {
+    margin-bottom: 0.8mm;
+  }
+  html[lang='ko'] .research-header h3 {
+    font-size: 9.5pt;
+    line-height: 1.25;
+  }
+  html[lang='ko'] .education-list {
+    gap: 0.8mm;
+  }
+  html[lang='ko'] .education-entry h3,
+  html[lang='ko'] .education-entry p:not(.entry-date) {
+    line-height: 1.3;
+  }
+}
+
+/* Keep full authoritative prose: compact English leading and education rows. */
+@media print {
+  html[lang='en'],
+  html[lang='en'][data-theme] {
+    --font-text: 'Source Serif 4', serif;
+    --font-display: var(--font-text);
+  }
+  html[lang='en'] strong {
+    font-weight: 600;
+  }
+  html[lang='en'] body,
+  html[lang='en'] .entry ul {
+    font-size: 9pt;
+    line-height: 1.25;
+  }
+  html[lang='en'] .print-identity {
+    margin-bottom: 2mm;
+  }
+  html[lang='en'] .print-identity h1 {
+    font-size: 18pt;
+    margin-bottom: 1mm;
+  }
+  html[lang='en'] .chapter {
+    margin-bottom: 2mm;
+  }
+  html[lang='en'] .section-heading {
+    margin-bottom: 1.5mm;
+    padding-bottom: 0.5mm;
+  }
+  html[lang='en'] .entry-header,
+  html[lang='en'] .research-header {
+    margin-bottom: 0.8mm;
+  }
+  html[lang='en'] .entry + .entry {
+    margin-top: 1.5mm;
+  }
+  html[lang='en'] .entry li + li {
+    margin-top: 0.6mm;
+  }
+  html[lang='en'] .education-list {
+    gap: 0.8mm;
+  }
+  html[lang='en'] .education-entry > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 2mm;
+  }
+  html[lang='en'] .education-entry h3 {
+    font-size: 9pt;
+  }
+  html[lang='en'] .education-entry p:not(.entry-date) {
+    font-size: 8.5pt;
   }
 }

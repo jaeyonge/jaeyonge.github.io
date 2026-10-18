@@ -50,6 +50,7 @@ evidence:
       metric logging.'
   pedagogy-scope:
     basis: Published paper and owner-provided career records
+    venueSource: https://cikm2025.org/calls/applied-research-papers
     note: Research scope from publisher abstract; not a claim that all methods were individually designed.
   pricing-policy:
     basis: Owner-provided career records

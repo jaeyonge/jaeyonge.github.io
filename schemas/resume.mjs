@@ -1,18 +1,20 @@
 import { z } from 'zod';
 const pair = z.object({ ko: z.string(), en: z.string() }).strict();
 const month = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/);
-const highlight = z.object({
-  id: z.string().min(1),
-  text: pair,
-  label: pair.optional(),
-  emphasis: z
-    .object({ ko: z.array(z.string().min(1)).min(1), en: z.array(z.string().min(1)).min(1) })
-    .strict()
-    .optional(),
-  facts: z.record(z.string(), z.number()),
-  evidenceId: z.string(),
-  translationReviewed: z.literal(true),
-});
+const highlight = z
+  .object({
+    id: z.string().min(1),
+    text: pair,
+    label: pair.optional(),
+    emphasis: z
+      .object({ ko: z.array(z.string().min(1)).min(1), en: z.array(z.string().min(1)).min(1) })
+      .strict()
+      .optional(),
+    facts: z.record(z.string(), z.number()),
+    evidenceId: z.string(),
+    translationReviewed: z.literal(true),
+  })
+  .strict();
 const employment = z.object({
   id: z.string(),
   company: pair,
@@ -31,6 +33,17 @@ const employment = z.object({
 });
 export const resumeSchema = z.object({
   schemaVersion: z.literal(1),
+  outputs: z
+    .object({
+      pdf: z
+        .object({
+          sections: z.array(z.enum(['about', 'experience', 'research', 'education', 'awards'])),
+          teaching: z.boolean(),
+          researchTopics: z.boolean(),
+        })
+        .strict(),
+    })
+    .strict(),
   profile: z.object({
     name: pair,
     role: pair,

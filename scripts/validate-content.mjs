@@ -64,4 +64,7 @@ for (const feature of data.hero.featured) {
 }
 
 for (const entry of [...data.experience, ...data.research])
-  for (const h of entry.highlights) for (const lang of ['ko', 'en']) emphasisSegments(h, lang);
+  for (const h of entry.highlights)
+    for (const lang of ['ko', 'en']) {
+      emphasisSegments(h, lang);
+    }

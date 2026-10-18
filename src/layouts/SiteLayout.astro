@@ -4,12 +4,14 @@ import { socialImagePath, socialSize } from '../lib/social.mjs';
 import { fontAssets, fontCss } from '../lib/fonts.mjs';
 import '../styles/global.css';
 import '../styles/print.css';
+import printStyles from '../styles/print.css?inline';
 const {
   lang = 'en',
   print = false,
   languageGateway = false,
   title = data.profile.name[lang],
 } = Astro.props;
+const previewStyles = printStyles.replaceAll('@media print', '@media screen');
 const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
 const other = lang === 'ko' ? 'en' : 'ko';
 const tail = Astro.url.pathname.replace(/^\/(ko|en)/, '');
@@ -135,6 +137,65 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
     <main id="main" class:list={['page', print && 'resume-page']}>
       <slot />
     </main>
+    {print && <style is:inline set:html={previewStyles} />}
+    {print && <style is:inline>
+      @media screen {
+        html[data-page='resume'] body {
+          background: #e9e9ec;
+        }
+        html[data-page='resume'] .print-toolbar {
+          display: flex !important;
+          width: calc(100% - 32px);
+          max-width: 210mm;
+          margin: 20px auto;
+          padding: 0;
+          gap: 12px;
+          font:
+            14px/1.5 Inter,
+            sans-serif;
+        }
+        html[data-page='resume'] .print-toolbar .button {
+          font: inherit;
+          padding: 8px 14px;
+          min-height: 40px;
+          border: 1px solid #aaa;
+          border-radius: 5px;
+          background: #fff;
+        }
+        html[data-page='resume'] .resume-page {
+          width: calc(100% - 32px);
+          max-width: 210mm;
+          margin: 0 auto 32px !important;
+          padding: 8.5mm 11mm;
+          background: #fff;
+          box-shadow: 0 2px 14px #0002;
+        }
+        @media (max-width: 600px) {
+          html[data-page='resume'] .resume-page {
+            padding: 20px 16px;
+          }
+          html[data-page='resume'] .print-toolbar {
+            flex-wrap: wrap;
+          }
+          html[data-page='resume'] .entry-position,
+          html[data-page='resume'] .print-research-meta,
+          html[data-page='resume'] .education-entry {
+            display: block;
+          }
+          html[data-page='resume'] .entry-date {
+            text-align: left;
+            white-space: normal;
+          }
+          html[data-page='resume'] .print-links {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          html[data-page='resume'] .print-identity > p:last-of-type {
+            display: block;
+          }
+        }
+      }
+    </style>}
     {!languageGateway && (
       <footer class="site-footer">
         <div>

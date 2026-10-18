@@ -5,6 +5,7 @@ import { renderText, emphasisSegments, period, monthLabel } from '../lib/format.
 const { lang, print = false } = Astro.props;
 const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
 const headings = u.section;
+const include = (section) => !print || data.outputs.pdf.sections.includes(section);
 ---
 
 {print && (
@@ -24,79 +25,72 @@ const headings = u.section;
     </div>
   </header>
 )}
-<section id="about" class:list={['intro-section', !print && 'hero']} aria-labelledby="about-title">
-  <div class:list={['intro-layout', !print && 'with-portrait']}>
-    <div class="intro-main">
-      {print ? (
-        <h2 id="about-title">{headings[0]}</h2>
-      ) : (
-        <>
-          <h1 id="about-title">{data.profile.name[lang]}</h1>
-          <p class="hero-role">{data.profile.role[lang]}</p>
-        </>
-      )}
-      <p class="intro-copy">{data.hero.summary[lang]}</p>
-      {!print && (
-        <>
-          <div class="hero-profile-links">
-            {data.profile.links.map((l) => (
-              <a href={l.url}>
-                {l.label}
+{include('about') && (
+  <section id="about" class:list={['intro-section', !print && 'hero']} aria-labelledby="about-title">
+    <div class:list={['intro-layout', !print && 'with-portrait']}>
+      <div class="intro-main">
+        {print ? (
+          <h2 id="about-title">{headings[0]}</h2>
+        ) : (
+          <>
+            <h1 id="about-title">{data.profile.name[lang]}</h1>
+            <p class="hero-role">{data.profile.role[lang]}</p>
+          </>
+        )}
+        <p class="intro-copy">{data.hero.summary[lang]}</p>
+        {!print && (
+          <>
+            <div class="hero-profile-links">
+              {data.profile.links.map((l) => (
+                <a href={l.url}>
+                  {l.label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+            <div class="hero-actions">
+              <a class="button primary" href={`/downloads/jaeyong-lee-resume-${lang}.pdf`} download>
+                {u.download}
+                <span aria-hidden="true">↓</span>
+              </a>
+              <a class="text-link" href={`mailto:${data.profile.email}`}>
+                {u.contact}
                 <span aria-hidden="true">↗</span>
               </a>
-            ))}
-          </div>
-          <div class="hero-actions">
-            <a class="button primary" href={`/downloads/jaeyong-lee-resume-${lang}.pdf`} download>
-              {u.download}
-              <span aria-hidden="true">↓</span>
-            </a>
-            <a class="text-link" href={`mailto:${data.profile.email}`}>
-              {u.contact}
-              <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </>
+            </div>
+          </>
+        )}
+      </div>
+      {!print && (
+        <figure class="hero-portrait">
+          <img
+            src={data.profile.portrait.src}
+            width={data.profile.portrait.width}
+            height={data.profile.portrait.height}
+            alt={data.profile.portrait.alt[lang]}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </figure>
       )}
     </div>
-    {!print && (
-      <figure class="hero-portrait">
-        <img
-          src={data.profile.portrait.src}
-          width={data.profile.portrait.width}
-          height={data.profile.portrait.height}
-          alt={data.profile.portrait.alt[lang]}
-          loading="eager"
-          fetchpriority="high"
-        />
-      </figure>
-    )}
-  </div>
-</section>
-<section id="experience" class="chapter" aria-labelledby="experience-title">
-  <div class="section-heading">
-    <span aria-hidden="true">01</span>
-    <h2 id="experience-title">{headings[1]}</h2>
-  </div>
-  <div class="entries">
-    {selectedExperience().map((e) => (
-      <article class:list={['experience', 'entry', !print && 'case-study']} data-entry={e.id}>
-        <header class="entry-header">
-          <div class="entry-organization">
-            <Logo id={e.logo} />
-            <h3>{e.company[lang]}</h3>
-          </div>
-          <div class="entry-context">
-            {print ? (
-              <>
-                <p class="entry-role">{e.role[lang]}</p>
-                <p class="entry-date">
-                  {period(e, lang, u.present)} · {e.location[lang]}
-                </p>
-                <p class="entry-service">{e.service[lang]}</p>
-                {e.detail && <p class="entry-detail">{e.detail[lang]}</p>}
-              </>
-            ) : (
+  </section>
+)}
+{include('experience') && (
+  <section id="experience" class="chapter" aria-labelledby="experience-title">
+    <div class="section-heading">
+      <span aria-hidden="true">01</span>
+      <h2 id="experience-title">{headings[1]}</h2>
+    </div>
+    <div class="entries">
+      {selectedExperience().map((e) => (
+        <article class:list={['experience', 'entry', !print && 'case-study']} data-entry={e.id}>
+          <header class="entry-header">
+            <div class="entry-organization">
+              <Logo id={e.logo} />
+              <h3>{e.company[lang]}</h3>
+            </div>
+            <div class="entry-context">
               <div class="entry-positions">
                 {(e.positions ?? [e]).map((position) => (
                   <div class="entry-position">
@@ -107,130 +101,160 @@ const headings = u.section;
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-        </header>
-        <ul>
-          {e.highlights.map((h) => (
-            <li id={`achievement-${h.id}`} data-highlight={h.id}>
-              {print ? (
-                renderText(h, lang)
-              ) : (
+              {print && <p class="entry-service">{e.service[lang]}</p>}
+            </div>
+          </header>
+          <ul>
+            {e.highlights.map((h) => (
+              <li id={`achievement-${h.id}`} data-highlight={h.id}>
                 <span class="achievement-copy">
                   {emphasisSegments(h, lang).map((part) =>
                     part.strong ? <strong>{part.text}</strong> : part.text,
                   )}
                 </span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </article>
-    ))}
-  </div>
-  <div class="teaching">
-    {data.teaching.map((e) => (
-      <article class="teaching-entry">
-        <Logo id={e.logo} />
-        <div>
-          <h3>{e.company[lang]}</h3>
-          <p>{e.role[lang]}</p>
-        </div>
-        <p class="entry-date">{period(e, lang, u.present)}</p>
-      </article>
-    ))}
-  </div>
-</section>
-<section id="research" class="chapter" aria-labelledby="research-title">
-  <div class="section-heading">
-    <span aria-hidden="true">02</span>
-    <h2 id="research-title">{headings[2]}</h2>
-  </div>
-  {selectedResearch().map((r) => (
-    <article class:list={['research-entry', 'entry', !print && 'research-study']} data-research={r.id}>
-      <header class="research-header">
-        <p class="eyebrow">{r.topic[lang]}</p>
-        <h3>{r.paperTitle}</h3>
-        <p class="entry-date">
-          {r.venue} · {r.year} · {r.role[lang]}
-        </p>
-        <a class="text-link" href={r.paper} aria-label={`${u.paper}: ${r.paperTitle}`}>
-          {u.paper}
-          <span aria-hidden="true">↗</span>
-        </a>
-      </header>
-      <ul>
-        {r.highlights.map((h) => (
-          <li>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+    {(!print || data.outputs.pdf.teaching) && (
+      <div class="teaching">
+        {data.teaching.map((e) => (
+          <article class="teaching-entry">
+            <Logo id={e.logo} />
             {print ? (
-              renderText(h, lang)
+              <>
+                <h3>{e.company[lang]}</h3>
+                <div class="print-teaching-position">
+                  <p>
+                    <strong>{e.role[lang]}</strong>
+                  </p>
+                  <p class="entry-date">{period(e, lang, u.present).replace(' - ', '–')}</p>
+                </div>
+              </>
             ) : (
+              <>
+                <div>
+                  <h3>{e.company[lang]}</h3>
+                  <p>{e.role[lang]}</p>
+                </div>
+                <p class="entry-date">{period(e, lang, u.present)}</p>
+              </>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+)}
+{include('research') && (
+  <section id="research" class="chapter" aria-labelledby="research-title">
+    <div class="section-heading">
+      <span aria-hidden="true">02</span>
+      <h2 id="research-title">{headings[2]}</h2>
+    </div>
+    {selectedResearch().map((r) => (
+      <article class:list={['research-entry', 'entry', !print && 'research-study']} data-research={r.id}>
+        <header class="research-header">
+          {(!print || data.outputs.pdf.researchTopics) && <p class="eyebrow">{r.topic[lang]}</p>}
+          <h3>{r.paperTitle}</h3>
+          {print ? (
+            <div class="print-research-meta">
+              <div>
+                {r.venue} · {r.role[lang]}{' '}
+                <a class="text-link" href={r.paper} aria-label={`${u.paper}: ${r.paperTitle}`}>
+                  {u.paper}
+                </a>
+              </div>
+              <p class="entry-date">{r.year}</p>
+            </div>
+          ) : (
+            <>
+              <p class="entry-date">
+                {r.venue} · {r.year} · {r.role[lang]}
+              </p>
+              <a class="text-link" href={r.paper} aria-label={`${u.paper}: ${r.paperTitle}`}>
+                {u.paper}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </>
+          )}
+        </header>
+        <ul>
+          {r.highlights.map((h) => (
+            <li>
               <span class="achievement-copy">
                 {emphasisSegments(h, lang).map((part) =>
                   part.strong ? <strong>{part.text}</strong> : part.text,
                 )}
               </span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </article>
-  ))}
-</section>
-<section id="education" class="chapter" aria-labelledby="education-title">
-  <div class="section-heading">
-    <span aria-hidden="true">03</span>
-    <h2 id="education-title">{headings[3]}</h2>
-  </div>
-  <div class="education-list">
-    {data.education.map((e) => (
-      <article class="education-entry">
-        <Logo id={e.logo} />
-        <div>
-          <h3>{e.school[lang]}</h3>
-          <p>
-            {e.program[lang]}
-            {e.status[lang] && (
-              <>
-                {' '}
-                · <strong>{e.status[lang]}</strong>
-              </>
-            )}
-          </p>
-        </div>
-        <p class="entry-date">{period(e, lang, u.present)}</p>
+            </li>
+          ))}
+        </ul>
       </article>
     ))}
-  </div>
-</section>
-<section id="awards" class="chapter" aria-labelledby="awards-title">
-  <div class="section-heading">
-    <span aria-hidden="true">04</span>
-    <h2 id="awards-title">{headings[4]}</h2>
-  </div>
-  <div class="awards-list">
-    {data.awards.map((a) => (
-      <article class="award-entry">
-        <span class="award-marker" aria-hidden="true">
-          ✳
-        </span>
-        <div>
-          <h3>{a.title[lang]}</h3>
-          {a.description[lang] && <p>{a.description[lang]}</p>}
-        </div>
-        <p class="entry-date">{monthLabel(a.date, lang)}</p>
-      </article>
-    ))}
-    {data.languages.map((l) => (
-      <article class="award-entry language-entry">
-        <span class="award-marker" aria-hidden="true">
-          Aa
-        </span>
-        <div>
-          <h3>{l.title[lang]}</h3>
-          <p>{l.description[lang]}</p>
-        </div>
-      </article>
-    ))}
-  </div>
-</section>
+  </section>
+)}
+{include('education') && (
+  <section id="education" class="chapter" aria-labelledby="education-title">
+    <div class="section-heading">
+      <span aria-hidden="true">03</span>
+      <h2 id="education-title">{headings[3]}</h2>
+    </div>
+    <div class="education-list">
+      {data.education.map((e) => (
+        <article class="education-entry">
+          <Logo id={e.logo} />
+          <div>
+            <h3>{e.school[lang]}</h3>
+            <p>
+              {e.program[lang]}
+              {e.status[lang] && (
+                <>
+                  {' '}
+                  · <strong>{e.status[lang]}</strong>
+                </>
+              )}
+            </p>
+          </div>
+          <p class="entry-date">{period(e, lang, u.present)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+)}
+{include('awards') && (
+  <section id="awards" class="chapter" aria-labelledby="awards-title">
+    <div class="section-heading">
+      <span aria-hidden="true">04</span>
+      <h2 id="awards-title">{headings[4]}</h2>
+    </div>
+    <div class="awards-list">
+      {data.awards.map((a) => (
+        <article class="award-entry">
+          <span class="award-marker" aria-hidden="true">
+            ✳
+          </span>
+          <div>
+            <h3>{a.title[lang]}</h3>
+            {a.description[lang] && <p>{a.description[lang]}</p>}
+          </div>
+          <p class="entry-date">{monthLabel(a.date, lang)}</p>
+        </article>
+      ))}
+      {data.languages.map((l) => (
+        <article class="award-entry language-entry">
+          <span class="award-marker" aria-hidden="true">
+            Aa
+          </span>
+          <div>
+            <h3>{l.title[lang]}</h3>
+            {!print && <p>{l.description[lang]}</p>}
+          </div>
+          {print && <p class="entry-date">{l.description[lang]}</p>}
+        </article>
+      ))}
+    </div>
+  </section>
+)}

@@ -148,7 +148,7 @@ for (const scenario of [
       expect(rootHtml.indexOf('location.replace')).toBeGreaterThan(0);
       expect(rootHtml.indexOf('location.replace')).toBeLessThan(rootHtml.indexOf('</head>'));
       release();
-      await expect(page).toHaveURL(`http://127.0.0.1:4322/${scenario.target}/?from=share#experience`);
+      await expect(page).toHaveURL(new RegExp(`/${scenario.target}/\\?from=share#experience$`));
       await expect(page.locator('html')).toHaveAttribute('lang', scenario.target);
       await expect(page.locator('#about-title')).toBeVisible();
     } finally {
@@ -333,7 +333,7 @@ for (const lang of ['ko', 'en'])
       await expect(p).toHaveURL(/#research$/);
       await expect(p.locator('#research-title')).toBeInViewport();
       await p.goto(`/${lang}/resume/`);
-      await expect(p.locator('.achievement-copy')).toHaveCount(0);
+      await expect(p.locator('.achievement-copy')).toHaveCount(15);
     } finally {
       await c.close();
     }

@@ -494,7 +494,7 @@ teaching:
     logo: sejong-science-high
 research:
   - id: pedagogy-r1
-    venue: CIKM
+    venue: ACM International Conference on Information and Knowledge Management
     year: 2025
     role:
       ko: 공동저자
@@ -746,3 +746,11 @@ profiles:
       - pedagogy-r1
       - drawing-assessment
 updated: 2026-10-17
+outputs:
+  pdf:
+    sections:
+      - experience
+      - research
+      - education
+    teaching: false
+    researchTopics: false
