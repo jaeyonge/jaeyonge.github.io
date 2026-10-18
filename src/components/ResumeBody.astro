@@ -79,7 +79,6 @@ const include = (section) => !print || data.outputs.pdf.sections.includes(sectio
 {include('experience') && (
   <section id="experience" class="chapter" aria-labelledby="experience-title">
     <div class="section-heading">
-      <span aria-hidden="true">01</span>
       <h2 id="experience-title">{headings[1]}</h2>
     </div>
     <div class="entries">
@@ -151,7 +150,6 @@ const include = (section) => !print || data.outputs.pdf.sections.includes(sectio
 {include('research') && (
   <section id="research" class="chapter" aria-labelledby="research-title">
     <div class="section-heading">
-      <span aria-hidden="true">02</span>
       <h2 id="research-title">{headings[2]}</h2>
     </div>
     {selectedResearch().map((r) => (
@@ -199,7 +197,6 @@ const include = (section) => !print || data.outputs.pdf.sections.includes(sectio
 {include('education') && (
   <section id="education" class="chapter" aria-labelledby="education-title">
     <div class="section-heading">
-      <span aria-hidden="true">03</span>
       <h2 id="education-title">{headings[3]}</h2>
     </div>
     <div class="education-list">
@@ -227,7 +224,6 @@ const include = (section) => !print || data.outputs.pdf.sections.includes(sectio
 {include('awards') && (
   <section id="awards" class="chapter" aria-labelledby="awards-title">
     <div class="section-heading">
-      <span aria-hidden="true">04</span>
       <h2 id="awards-title">{headings[4]}</h2>
     </div>
     <div class="awards-list">

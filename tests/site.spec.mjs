@@ -1,3 +1,4 @@
+import { chooseTheme } from './helpers.mjs';
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 import { data } from '../src/lib/content.mjs';
@@ -47,7 +48,7 @@ for (const lang of ['ko', 'en'])
       page.on('pageerror', (e) => errors.push(e.message));
       await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
       await page.goto(`/${lang}/`);
-      await page.selectOption('#theme', theme);
+      await chooseTheme(page, theme);
       await page.evaluate(() => document.fonts.ready);
       expect(await page.locator('section').evaluateAll((nodes) => nodes.map((n) => n.id))).toEqual([
         'about',
@@ -89,7 +90,7 @@ test('mobile Korean dark mode has no overflow and manual theme wins', async ({ p
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
   await page.goto('/ko/');
-  await page.selectOption('#theme', 'dark');
+  await chooseTheme(page, 'dark');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.getByRole('link', { name: '언어 선택' }).click();
@@ -301,7 +302,7 @@ for (const device of devices)
 test('i-Scream Arts keeps a transparent presentation in both themes', async ({ page }) => {
   for (const theme of ['light', 'dark']) {
     await page.goto('/ko/');
-    await page.selectOption('#theme', theme);
+    await chooseTheme(page, theme);
     const logo = page.locator('[data-logo="iscream-arts"]');
     await logo.scrollIntoViewIfNeeded();
     expect(await logo.evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgba(0, 0, 0, 0)');
@@ -343,7 +344,7 @@ for (const theme of ['light', 'dark'])
   test(`${theme}: PDF action text meets normal-text contrast`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/ko/');
-    await page.selectOption('#theme', theme);
+    await chooseTheme(page, theme);
     const ratio = await page.locator('.hero .button.primary').evaluate((e) => {
       const c = getComputedStyle(e);
       const rgb = (s) =>

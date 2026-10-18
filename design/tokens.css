@@ -11,7 +11,6 @@
   --small-size: 13px;
   --nav-bg: rgba(255, 255, 255, 0.88);
   --logo-mat: #fff;
-  --white-wordmark-surface: #202124;
   --logo-size: 50px;
   --wordmark-width: 134px;
   --motion-fast: 180ms;
@@ -19,12 +18,16 @@
   --text-link: #0066cc;
   --hero-space: 64px;
   --entry-gap: 54px;
+  --page-end-space: 24px;
+  --footer-padding: 24px;
+  --menu-radius: 12px;
+  --menu-width: 180px;
+  --menu-item-height: 40px;
   --print-text: #202124;
   --print-muted: #5b6068;
   --print-border: #d5d8dc;
 }
 html[data-theme='dark'] {
-  --white-wordmark-surface: transparent;
   --bg: #101012;
   --surface: #1b1b1e;
   --surface-warm: #151518;
@@ -42,7 +45,6 @@ html[data-theme='dark'] {
 }
 @media (prefers-color-scheme: dark) {
   html:not([data-theme='light']) {
-    --white-wordmark-surface: transparent;
     --bg: #101012;
     --surface: #1b1b1e;
     --surface-warm: #151518;

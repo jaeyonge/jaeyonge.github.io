@@ -5,6 +5,7 @@ import { fontAssets, fontCss } from '../lib/fonts.mjs';
 import '../styles/global.css';
 import '../styles/print.css';
 import printStyles from '../styles/print.css?inline';
+import Chevron from '../components/Chevron.astro';
 const {
   lang = 'en',
   print = false,
@@ -85,9 +86,12 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
               <a href={`/${lang}/#${id}`}>{u.section[i + 1]}</a>
             ))}
           </div>
-          <details class="mobile-sections">
-            <summary aria-label={u.menu}>{u.sectionMenu}</summary>
-            <div>
+          <details class="mobile-sections" data-header-menu>
+            <summary aria-label={u.menu}>
+              {u.sectionMenu}
+              <Chevron />
+            </summary>
+            <div class="header-popover">
               {['about', 'experience', 'research', 'education', 'awards'].map((id, i) => (
                 <a href={`/${lang}/#${id}`}>{u.section[i]}</a>
               ))}
@@ -102,6 +106,45 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
               <option value="light">{u.light}</option>
               <option value="dark">{u.dark}</option>
             </select>
+            <details class="theme-picker" data-header-menu hidden>
+              <summary aria-label={u.theme}>
+                <svg
+                  class="theme-compact-icon"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                >
+                  <circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M8 2.5a5.5 5.5 0 0 0 0 11Z" fill="currentColor" />
+                </svg>
+                <span data-theme-label>{u.system}</span>
+                <Chevron />
+              </summary>
+              <div class="header-popover theme-options" role="group" aria-label={u.theme}>
+                {['system', 'light', 'dark'].map((value) => (
+                  <button type="button" data-theme-choice={value} aria-pressed="false">
+                    <span>{u[value]}</span>
+                    <svg
+                      class="choice-check"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="m3 8 3 3 7-7"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+            </details>
             <a
               class="language-switch"
               href={`/${other}${tail}`}
@@ -215,7 +258,18 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
     <script>
       const theme = document.querySelector<HTMLSelectElement>('#theme');
       if (theme) {
+        const picker = document.querySelector<HTMLDetailsElement>('.theme-picker');
+        const choices = [...document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]')];
+        const syncThemeControl = () => {
+          const label = theme.selectedOptions[0].textContent;
+          const current = picker?.querySelector('[data-theme-label]');
+          if (current) current.textContent = label;
+          choices.forEach((button) =>
+            button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme.value)),
+          );
+        };
         theme.value = document.documentElement.dataset.theme || 'system';
+        syncThemeControl();
         theme.addEventListener('change', () => {
           const value = theme.value;
           if (value === 'system') delete document.documentElement.dataset.theme;
@@ -223,8 +277,59 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
           try {
             localStorage.setItem('resume-theme', value);
           } catch {}
+          syncThemeControl();
         });
+        choices.forEach((button) =>
+          button.addEventListener('click', () => {
+            theme.value = button.dataset.themeChoice!;
+            theme.dispatchEvent(new Event('change'));
+            if (picker) picker.open = false;
+            picker?.querySelector('summary')?.focus();
+          }),
+        );
+        if (picker) {
+          picker.hidden = false;
+          theme.hidden = true;
+        }
       }
+      const menus = [...document.querySelectorAll<HTMLDetailsElement>('[data-header-menu]')];
+      menus.forEach((menu) => {
+        menu.addEventListener('toggle', () => {
+          if (menu.open)
+            menus.forEach((other) => {
+              if (other !== menu) other.open = false;
+            });
+        });
+        menu.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            menu.open = false;
+            menu.querySelector('summary')?.focus();
+          }
+          if (!menu.open || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+          const items = [...menu.querySelectorAll<HTMLButtonElement | HTMLAnchorElement>('button, a')];
+          const index = items.indexOf(document.activeElement as HTMLButtonElement);
+          const target =
+            event.key === 'Home'
+              ? 0
+              : event.key === 'End'
+                ? items.length - 1
+                : index < 0
+                  ? event.key === 'ArrowDown'
+                    ? 0
+                    : items.length - 1
+                  : (index + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+          event.preventDefault();
+          items[target]?.focus();
+        });
+        menu.addEventListener('focusout', (event) => {
+          if (!menu.contains(event.relatedTarget as Node)) menu.open = false;
+        });
+      });
+      document.addEventListener('click', (event) =>
+        menus.forEach((menu) => {
+          if (!menu.contains(event.target as Node)) menu.open = false;
+        }),
+      );
       document.querySelectorAll<HTMLAnchorElement>('[data-language]').forEach((link) =>
         link.addEventListener('click', () => {
           try {

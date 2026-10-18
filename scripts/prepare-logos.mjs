@@ -16,25 +16,64 @@ async function copy(id, file, presentation, width, height, darkFile = file) {
     height,
   };
 }
-await copy(
+// Public derivatives are sized for the 80px wordmark / 36px crest UI, up to 4x density.
+async function raster(id, source, file, presentation, width, darkSource = source, darkFile = file) {
+  const write = async (input, output) =>
+    sharp(new URL(input, raw).pathname)
+      .resize({ width, withoutEnlargement: true })
+      .png({ compressionLevel: 9 })
+      .toFile(new URL(output, out).pathname);
+  const meta = await write(source, file);
+  if (darkFile !== file) await write(darkSource, darkFile);
+  registry[id] = {
+    light: '/assets/logos/' + file,
+    dark: '/assets/logos/' + darkFile,
+    presentation,
+    width: meta.width,
+    height: meta.height,
+  };
+}
+await raster(
   'toss-place',
   'toss-place-wordmark.png',
+  'toss-place-web.png',
   'wordmark',
-  4882,
-  800,
+  400,
   'toss-place-wordmark-white.png',
+  'toss-place-white-web.png',
 );
-await copy('doeat', 'doeat-wordmark.svg', 'wordmark', 120, 34);
+// Official careers PNG supplies the color artwork. White is negative space,
+// including the face/letter cutouts, rather than a theme-dependent backing.
+const { data: doeatPixels, info: doeatInfo } = await sharp(new URL('doeat-wordmark.png', raw).pathname)
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+for (let p = 0; p < doeatPixels.length; p += 4) {
+  const channels = [doeatPixels[p], doeatPixels[p + 1], doeatPixels[p + 2]];
+  // Undo the white matte at antialiased edges using the two original dominant inks.
+  // Preserve opaque artwork; make white negative space transparent without a pale fringe.
+  const ink = channels[0] - channels[1] > 8 ? [238, 78, 52] : [43, 39, 35];
+  const alpha = Math.min(1, Math.max(...channels.map((c, i) => (255 - c) / (255 - ink[i]))));
+  for (let c = 0; c < 3; c++)
+    doeatPixels[p + c] = alpha
+      ? Math.max(0, Math.min(255, Math.round((channels[c] - 255 * (1 - alpha)) / alpha)))
+      : 0;
+  doeatPixels[p + 3] = Math.round(doeatPixels[p + 3] * alpha);
+}
+const doeatMeta = await sharp(doeatPixels, { raw: doeatInfo })
+  .trim()
+  .resize({ width: 400, withoutEnlargement: true })
+  .png({ compressionLevel: 9 })
+  .toFile(new URL('doeat-color-web.png', out).pathname);
+registry.doeat = {
+  light: '/assets/logos/doeat-color-web.png',
+  dark: '/assets/logos/doeat-color-web.png',
+  presentation: 'wordmark',
+  width: doeatMeta.width,
+  height: doeatMeta.height,
+};
 await copy('iscream-arts', 'iscream-arts-wordmark.png', 'wordmark', 412, 144);
-await copy('snu', 'snu-emblem.png', 'mark light-mat', 2116, 2195);
-await copy(
-  'sejong-science-high',
-  'sejong-science-high-wordmark-dark.png',
-  'wordmark',
-  220,
-  42,
-  'sejong-science-high-wordmark.png',
-);
+await raster('snu', 'snu-emblem.png', 'snu-emblem-web.png', 'mark light-mat', 160);
 // A vector clip keeps every pixel within the official circular crest unchanged.
 const g = await readFile(new URL('gyeongnam-science-high-emblem.jpg', raw));
 await writeFile(
@@ -48,10 +87,10 @@ registry['gyeongnam-science-high'] = {
   width: 142,
   height: 145,
 };
-// SVG alpha mask: remove only the border-connected neutral white background.
+// Remove only the border-connected neutral white background in raster alpha.
 // Preserve the original raster, colors, lettering and enclosed white crest details.
 const seoul = await readFile(new URL('seoul-high-wordmark.png', raw));
-const { data, info } = await sharp(seoul).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+const { data, info } = await sharp(seoul).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 const { width: w, height: h } = info;
 const seen = new Uint8Array(w * h);
 const queue = [];
@@ -85,30 +124,15 @@ for (let k = 0; k < queue.length; k++) {
   add(x, y - 1);
   add(x, y + 1);
 }
-let holes = '';
-for (let y = 0; y < h; y++)
-  for (let x = 0; x < w;) {
-    if (!seen[y * w + x]) {
-      x++;
-      continue;
-    }
-    const start = x;
-    while (x < w && seen[y * w + x]) x++;
-    holes += `<rect x="${start}" y="${y}" width="${x - start}" height="1"/>`;
-  }
-const mask = `<defs><mask id="bg" maskUnits="userSpaceOnUse" x="0" y="0" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="white"/><g fill="black">${holes}</g></mask></defs>`;
-const img = `<image width="${w}" height="${h}" href="data:image/png;base64,${seoul.toString('base64')}" mask="url(#bg)"/>`;
-await writeFile(
-  new URL('seoul-high.svg', out),
-  `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="42" viewBox="0 0 36 42">${mask}${img}</svg>`,
-);
-await writeFile(
-  new URL('seoul-high-wordmark.svg', out),
-  `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${mask}${img}</svg>`,
-);
+// Bake transparency once. Adjacent SVG mask rows produced antialiasing seams at UI sizes.
+for (let p = 0; p < seen.length; p++) if (seen[p]) data[p * info.channels + 3] = 0;
+await sharp(data, { raw: info })
+  .extract({ left: 0, top: 0, width: 36, height: 42 })
+  .png({ compressionLevel: 9 })
+  .toFile(new URL('seoul-high-crest.png', out).pathname);
 registry['seoul-high'] = {
-  light: '/assets/logos/seoul-high.svg',
-  dark: '/assets/logos/seoul-high.svg',
+  light: '/assets/logos/seoul-high-crest.png',
+  dark: '/assets/logos/seoul-high-crest.png',
   presentation: 'mark',
   width: 36,
   height: 42,
@@ -131,4 +155,4 @@ await writeFile(
   new URL('../content/logos.json', import.meta.url),
   JSON.stringify(registry, null, 2) + '\n',
 );
-console.log('Prepared 7 organizations; public SVG masks preserve original official artwork.');
+console.log('Prepared 7 organizations; small public derivatives preserve official artwork.');
