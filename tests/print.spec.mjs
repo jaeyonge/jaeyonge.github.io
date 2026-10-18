@@ -20,8 +20,20 @@ for (const lang of ['ko', 'en']) {
     }
     await expect(page.locator('#about, .teaching, .research-header .eyebrow, #awards')).toHaveCount(0);
 
+    // Use the A4 content width (210mm minus two 11mm margins), rounded
+    // conservatively, so the test catches rows that only fit on a wide screen.
+    await page.setViewportSize({ width: 710, height: 1058 });
     await page.emulateMedia({ media: 'print', colorScheme: 'light' });
     await page.evaluate(() => document.fonts.ready);
+    if (lang === 'en') {
+      const educationRows = await page.locator('.education-entry > div').evaluateAll((rows) =>
+        rows.map((row) => ({
+          school: row.querySelector('h3').getBoundingClientRect().top,
+          program: row.querySelector('p').getBoundingClientRect().top,
+        })),
+      );
+      for (const row of educationRows) expect(Math.abs(row.school - row.program)).toBeLessThan(3);
+    }
     const cdp = await page.context().newCDPSession(page);
     try {
       await cdp.send('DOM.enable');

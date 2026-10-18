@@ -522,7 +522,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0 2mm;
+    gap: 0 1mm;
   }
   html[lang='en'] .education-entry h3 {
     font-size: 9pt;
