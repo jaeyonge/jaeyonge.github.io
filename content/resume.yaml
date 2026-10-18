@@ -239,21 +239,22 @@ experience:
         emphasis:
           ko:
             - 사내 도구 wisdom을 개발·배포했습니다.
-            - 실제 등록 로그 재현율을 45%에서 71%로 높였습니다.
+            - 실제 등록 로그를 기준으로 측정한 재현율을 45%에서 71%로 높였습니다.
           en:
             - developed and released the internal tool wisdom
-            - improving recall against registered logs from 45% to 71%
+            - increasing recall from 45% to 71%
         label:
           ko: 로그 설계부터 QA까지 이어지는 업무 자동화
           en: Connected workflows from log design to QA
         text:
           ko:
             로그 설계·등록·QA의 업무 절차를 정리하고 이를 연결한 사내 도구 wisdom을 개발·배포했습니다. AI 로그 설계 도구를 30개
-            사례에서 3회씩 평가하며 개선해 실제 등록 로그 재현율을 45%에서 71%로 높였습니다.
+            사례에서 3회씩 평가하고 반복 개선해, 실제 등록 로그를 기준으로 측정한 재현율을 45%에서 71%로 높였습니다.
           en: Structured log design, registration, and QA workflows, then developed and
-            released the internal tool wisdom to connect them. Evaluated an AI
-            log-design tool on 30 cases with 3 runs per case, improving recall
-            against registered logs from 45% to 71%.
+            released the internal tool wisdom to connect them. Evaluated and
+            iteratively refined the AI log-design tool across 30 cases with 3
+            runs per case, increasing recall from 45% to 71% against the
+            reference set of registered logs.
         facts: {}
         evidenceId: log-workflow
         translationReviewed: true
@@ -417,21 +418,23 @@ experience:
       - id: drawing-pipeline
         emphasis:
           ko:
-            - 학생 100명 이상의 드로잉 행동 분석을 자동화했습니다.
+            - 학생 100명 이상의 드로잉 행동을 분석하고 리포트를 생성하는 과정을 자동화했습니다.
           en:
-            - automate drawing-behavior analysis for more than 100 students
+            - automate drawing-behavior analysis and reporting for more than 100
+              students
         label:
           ko: 드로잉 행동 분석의 자동화
           en: Automated analysis of drawing behavior
         text:
           ko:
             디지털 드로잉 원본과 로그 데이터에서 색상 수·선 길이·채워진 면적을 추출하는 파이프라인을 Python과 Docker Compose로
-            구축했습니다. 수집·특징 추출·GPT-4V 리포트 생성을 연결해 학생 100명 이상의 드로잉 행동 분석을 자동화했습니다.
+            구축했습니다. 데이터 수집부터 특징 추출, GPT-4V 기반 리포트 생성까지 연결해 학생 100명 이상의 드로잉 행동을
+            분석하고 리포트를 생성하는 과정을 자동화했습니다.
           en: Built a Python and Docker Compose pipeline to extract behavioral features
             from digital drawings and logs, including color counts, stroke
             lengths, and filled areas. Connected data collection, feature
             extraction, and GPT-4V report generation to automate
-            drawing-behavior analysis for more than 100 students.
+            drawing-behavior analysis and reporting for more than 100 students.
         facts: {}
         evidenceId: drawing-pipeline
         translationReviewed: true
@@ -447,11 +450,13 @@ experience:
         text:
           ko:
             드로잉 데이터 조회, AI 이미지 캡션 생성, OpenAI API 사용량·비용 모니터링을 지원하는 사내 Streamlit 앱을
-            개발했습니다. 데이터 엔지니어링 팀과 API 사용 기록을 저장·조회할 데이터베이스 스키마를 제안했습니다.
+            개발했습니다. 데이터 엔지니어링 팀과 사용량·비용 모니터링에 필요한 API 사용 기록을 저장·조회할 데이터베이스 스키마를
+            제안했습니다.
           en: Developed an internal Streamlit application for drawing-data retrieval, AI
             image captioning, and OpenAI API usage and cost monitoring.
             Collaborated with data engineers to propose a database schema for
-            storing and querying API usage records.
+            storing API usage records and retrieving them for usage and cost
+            monitoring.
         facts: {}
         evidenceId: internal-tools
         translationReviewed: true
@@ -504,54 +509,58 @@ research:
       - id: pedagogy-scope
         emphasis:
           ko:
-            - 5개 영역에서 비교하는 연구에 참여했습니다.
+            - WBEB 데이터셋 구축에 기여했습니다.
           en:
-            - Contributed to research comparing educational reasoning models
+            - Contributed to building WBEB
         label:
-          ko: 교육 과제 5개 영역 비교
-          en: Five educational task domains
+          ko: 교육용 언어모델 평가 데이터셋 구축
+          en: Educational evaluation dataset construction
         text:
           ko:
-            교육용 추론 모델의 성능을 교과 지식·교수법 지식·학습자의 지식 상태 추적·서술형 답안 채점·교사의 의사결정 등 5개 영역에서 비교하는
-            연구에 참여했습니다.
-          en: 'Contributed to research comparing educational reasoning models across 5
-            domains: subject knowledge, pedagogical knowledge, knowledge
-            tracing, essay scoring, and teacher decision-making.'
+            교육용 언어모델의 성능을 비교하는 WBEB 데이터셋 구축에 기여했습니다. 교과 지식·교수법 지식·학습자의 지식 상태 추적·서술형 답안
+            채점·교사의 의사결정 등 5개 영역을 다룹니다.
+          en: 'Contributed to building WBEB, an evaluation dataset covering 5 domains:
+            subject knowledge, pedagogical knowledge, knowledge tracing, essay
+            scoring, and teacher decision-making.'
         facts: {}
         evidenceId: pedagogy-scope
         translationReviewed: true
       - id: pedagogy-infrastructure
         emphasis:
           ko:
-            - 다중 GPU 분산 처리 기반의 평가 인프라를 구축했습니다.
+            - Pedagogy-R1의 성능을 범용 언어모델 및 기존 추론 모델과 비교 평가했습니다.
+            - 다중 GPU 분산 평가 인프라를 구축했습니다.
           en:
-            - Built a multi-GPU distributed evaluation infrastructure
+            - Built multi-GPU evaluation infrastructure
         label:
-          ko: 다중 GPU 평가 인프라 구축
-          en: Multi-GPU evaluation infrastructure
+          ko: 파인튜닝 모델 비교 평가와 평가 인프라 구축
+          en: Fine-tuned model evaluation and infrastructure
         text:
-          ko: 여러 교육 과제에서 언어모델의 성능을 평가할 수 있도록 다중 GPU 분산 처리 기반의 평가 인프라를 구축했습니다.
-          en: Built a multi-GPU distributed evaluation infrastructure to assess language
-            models across educational tasks.
+          ko:
+            추론 데이터로 파인튜닝한 Pedagogy-R1의 성능을 범용 언어모델 및 기존 추론 모델과 비교 평가했습니다. 여러 교육 과제의 평가를
+            실행할 다중 GPU 분산 평가 인프라를 구축했습니다.
+          en: Built multi-GPU evaluation infrastructure to compare Pedagogy-R1, fine-tuned
+            on reasoning data, against general-purpose language models and
+            existing reasoning models across educational tasks.
         facts: {}
         evidenceId: pedagogy-infrastructure
         translationReviewed: true
       - id: pedagogy-reproducibility
         emphasis:
           ko:
-            - 벤치마킹 파이프라인에 통합했습니다.
+            - 평가를 추적·재현하는 벤치마킹 파이프라인을 구축했습니다.
           en:
-            - Integrated dataset versioning and automated metric logging
+            - Built a reproducible benchmarking pipeline
         label:
           ko: 평가 과정의 추적과 재현
           en: Traceable, reproducible evaluations
         text:
           ko:
-            데이터셋 버전 관리와 평가 지표 자동 기록을 하나의 벤치마킹 파이프라인에 통합했습니다. 실험에 사용한 데이터와 결과를 추적하고 평가를
-            재현할 수 있도록 했습니다.
-          en: Integrated dataset versioning and automated metric logging into a
-            benchmarking pipeline, making experimental data and results
-            traceable and evaluations reproducible.
+            평가를 추적·재현하는 벤치마킹 파이프라인을 구축했습니다. 데이터셋 버전 관리와 평가 지표 자동 기록을 통합해 각 평가 결과를 실험에
+            사용한 데이터 버전과 연결하고, 같은 데이터로 평가를 재현할 수 있도록 했습니다.
+          en: Built a reproducible benchmarking pipeline integrating dataset versioning
+            and automated metric logging to link each evaluation result to the
+            dataset version used in the experiment.
         facts: {}
         evidenceId: pedagogy-infrastructure
         translationReviewed: true
@@ -573,19 +582,20 @@ research:
           ko:
             - 과학 개념 이해도를 자동 평가하는 연구를 주도했습니다.
           en:
-            - Led research
-            - to assess their understanding of gas particles
+            - Led research to automatically assess students’ understanding of
+              gas particles
         label:
           ko: 학생 1,028명의 과학 개념 평가
           en: Assessing 1,028 students’ understanding
         text:
           ko:
-            학생 1,028명의 기체 입자 그림과 글 답안을 활용해 과학 개념 이해도를 자동 평가하는 연구를 주도했습니다. 기체를 입자로 표현했는지와
-            입자가 공간에 어떻게 분포하는지를 평가했습니다.
-          en: Led research using drawings and written responses from 1,028 students to
-            assess their understanding of gas particles. Evaluated whether
-            responses represented matter as particles and how those particles
-            were distributed in space.
+            학생 1,028명의 기체 입자 그림과 글 답안을 활용해 과학 개념 이해도를 자동 평가하는 연구를 주도했습니다. 기체를 입자 또는 연속적인
+            물질로 표현했는지, 입자가 퍼져 있거나 한곳에 모여 있는지를 평가했습니다.
+          en: Led research to automatically assess students’ understanding of gas
+            particles using drawings and written responses from 1,028 students.
+            Evaluated whether students represented gas as discrete particles or
+            continuous matter, and whether those particles were dispersed or
+            concentrated.
         facts: {}
         evidenceId: drawing-paper
         translationReviewed: true
@@ -600,11 +610,11 @@ research:
           en: Combining drawing and written assessments
         text:
           ko:
-            Inception-v3와 SVM으로 그림 답안을 분류하고, 글 답안에서 산출한 과학 개념 점수를 결합하는 그림·글 통합 평가 모델을
+            Inception-v3와 SVM으로 그림 답안을 분류하고, 과학 개념의 의미 점수 사전으로 글 답안을 점수화해 그림·글 통합 평가 모델을
             개발했습니다.
           en: Developed an integrated assessment model combining Inception-v3 and SVM
-            classification of drawings with scientific-concept scores derived
-            from written responses.
+            classification of drawings with written-response scores from a
+            dictionary that assigns scores to scientific concepts.
         facts: {}
         evidenceId: drawing-paper
         translationReviewed: true
@@ -613,15 +623,16 @@ research:
           ko:
             - 최종 분류 모델에 따라 정확도 85.9~95.6%를 확인했습니다.
           en:
-            - accuracy ranged from 85.9% to 95.6%, depending on the final
+            - accuracy ranging from 85.9% to 95.6% depending on the final
               classifier
         label:
           ko: 사람의 평가와 정확도 비교
           en: Validation against human ratings
         text:
-          ko: 통합 모델의 평가 결과를 사람의 평가와 비교해 검증했으며, 최종 분류 모델에 따라 정확도 85.9~95.6%를 확인했습니다.
-          en: Validated the combined assessment against human ratings; accuracy ranged
-            from 85.9% to 95.6%, depending on the final classifier.
+          ko: 그림·글 통합 모델을 사람의 평가와 비교해 검증했으며, 최종 분류 모델에 따라 정확도 85.9~95.6%를 확인했습니다.
+          en: Validated the combined drawing-and-writing assessment against human ratings,
+            with accuracy ranging from 85.9% to 95.6% depending on the final
+            classifier.
         facts: {}
         evidenceId: drawing-paper
         translationReviewed: true

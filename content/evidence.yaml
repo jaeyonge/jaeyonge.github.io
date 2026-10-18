@@ -49,9 +49,17 @@ evidence:
       'Owner-provided individual contribution: distributed evaluation, dataset versioning and automatic
       metric logging.'
   pedagogy-scope:
-    basis: Published paper and owner-provided career records
+    basis: Published paper and owner clarification (2026-10-18)
     venueSource: https://cikm2025.org/calls/applied-research-papers
-    note: Research scope from publisher abstract; not a claim that all methods were individually designed.
+    note: Owner confirms dataset construction and performance evaluation as main
+      individual contributions. WBEB scope and reasoning-data instruction tuning
+      are research context confirmed in the publisher abstract and arXiv
+      sections 2–4. Fine-tuned model evaluation is not a claim of personal
+      ownership of model training. Do not infer individual ownership of every
+      collection, translation or curation step. arXiv is a preprint version; no
+      version-specific performance figures are added.
+    paperSource: https://doi.org/10.1145/3746252.3761133
+    methodsSource: https://arxiv.org/html/2505.18467v1
   pricing-policy:
     basis: Owner-provided career records
     note:

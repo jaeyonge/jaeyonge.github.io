@@ -499,7 +499,7 @@
     margin-bottom: 1mm;
   }
   html[lang='en'] .chapter {
-    margin-bottom: 2mm;
+    margin-bottom: 1.5mm;
   }
   html[lang='en'] .section-heading {
     margin-bottom: 1.5mm;
@@ -510,7 +510,7 @@
     margin-bottom: 0.8mm;
   }
   html[lang='en'] .entry + .entry {
-    margin-top: 1.5mm;
+    margin-top: 1mm;
   }
   html[lang='en'] .entry li + li {
     margin-top: 0.6mm;

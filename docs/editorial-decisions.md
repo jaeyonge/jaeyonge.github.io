@@ -33,3 +33,5 @@ Owner-approved facts and current choices live here. General rules and implementa
 - Web employment remains company-first with the logo on the right; each role has its period alongside, newest role first, without a shared web date column. [Current layout](layout-plan.md#경력과-학교-근무) owns the complete composition.
 - The current general-profile PDF is a formal, compact one-page resume in each language. Its selected sections, exact-text constraint, typefaces/sizes and date alignment are specified in the [print guide](print-guide.md). The former three-page target is superseded.
 - Research metadata uses the official full conference name ACM International Conference on Information and Knowledge Management rather than CIKM alone; the shared YAML and evidence link record the approved correction.
+
+- Pedagogy-R1: owner confirms dataset construction and performance evaluation as the main individual contributions. Describe reasoning-data fine-tuning as research context; do not claim personal ownership of model training. Emphasis should surface dataset/evaluation contributions rather than participation or the number of benchmark domains.
