@@ -492,7 +492,7 @@
     line-height: 1.25;
   }
   html[lang='en'] .print-identity {
-    margin-bottom: 2mm;
+    margin-bottom: 1.2mm;
   }
   html[lang='en'] .print-identity h1 {
     font-size: 18pt;
@@ -502,12 +502,12 @@
     margin-bottom: 1.5mm;
   }
   html[lang='en'] .section-heading {
-    margin-bottom: 1.5mm;
+    margin-bottom: 1mm;
     padding-bottom: 0.5mm;
   }
   html[lang='en'] .entry-header,
   html[lang='en'] .research-header {
-    margin-bottom: 0.8mm;
+    margin-bottom: 0.4mm;
   }
   html[lang='en'] .entry + .entry {
     margin-top: 1mm;
@@ -516,7 +516,7 @@
     margin-top: 0.6mm;
   }
   html[lang='en'] .education-list {
-    gap: 0.8mm;
+    gap: 0.4mm;
   }
   html[lang='en'] .education-entry > div {
     display: flex;

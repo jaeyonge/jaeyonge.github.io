@@ -27,6 +27,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm check
+      - name: Preserve failed PDF outputs for pagination review
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-pdf-outputs
+          path: dist/downloads/*.pdf
+          if-no-files-found: ignore
+          retention-days: 7
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

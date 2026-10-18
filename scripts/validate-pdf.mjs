@@ -18,14 +18,30 @@ for (const lang of ['ko', 'en']) {
   const doc = await loadingTask.promise;
   let text = '';
   let links = 0;
+  let lastContentBaseline = Infinity;
   for (let i = 1; i <= doc.numPages; i++) {
     const page = await doc.getPage(i);
     const c = await page.getTextContent();
     const t = c.items.map((x) => x.str || '').join('');
+    // Ignore only the generated page counter, never body content. Keep a
+    // reserve below the last text baseline so a locally passing layout is not
+    // balanced on the next-page boundary on another OS.
+    for (const item of c.items) {
+      if (!item.str?.trim() || /^\d+\s*\/\s*\d+$/.test(item.str.trim())) continue;
+      lastContentBaseline = Math.min(lastContentBaseline, item.transform[5]);
+    }
     assert(t.replace(/\s/g, '').length > 30, `Blank page ${i}`);
     text += t;
     links += (await page.getAnnotations()).filter((x) => x.url).length;
   }
+  const minimumBaseline = ((8.5 + 3) * 72) / 25.4;
+  assert(
+    lastContentBaseline >= minimumBaseline,
+    `${path}: only ${((lastContentBaseline * 25.4) / 72 - 8.5).toFixed(1)} mm below last baseline; need at least 3 mm beyond bottom page margin for cross-platform pagination`,
+  );
+  console.log(
+    `PDF pagination reserve (${lang}): ${((lastContentBaseline * 25.4) / 72 - 8.5).toFixed(1)} mm beyond bottom page margin.`,
+  );
   const normalizeText = (value) => value.normalize('NFKC').replace(/[’ʼ]/g, "'").replace(/\s/g, '');
   const compact = normalizeText(text);
   for (const entry of [...selectedExperience(), ...selectedResearch()])
