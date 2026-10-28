@@ -6,13 +6,13 @@ Start with **[AGENTS.md](AGENTS.md)**. Claude Code loads the same rules through 
 
 ## Setup
 
-Use Node.js 24 LTS (`.nvmrc`) and pnpm 10.8.0. Install dependencies and Chromium:
+Use Node.js 24 LTS (`.nvmrc`) and pnpm 10.8.0. Install dependencies and the Chromium/WebKit test browsers:
 
 ```sh
 corepack enable
 corepack prepare pnpm@10.8.0 --activate
 pnpm install --frozen-lockfile
-pnpm exec playwright install chromium
+pnpm exec playwright install chromium webkit
 pnpm task:start
 pnpm dev
 ```

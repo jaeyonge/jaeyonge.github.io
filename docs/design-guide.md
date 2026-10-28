@@ -24,6 +24,8 @@ Related controls share surface, border, radius, typography, item spacing, hover/
 - Keep the popup inside the viewport. A compact icon may replace a visible label on narrow screens only when its accessible name and usable touch target remain.
 - Enhance progressively. Section anchors remain native `details/summary` navigation without JS. The native theme select remains available if the custom theme picker cannot initialize. A no-JS select does not imply that manual theme changes run without JS; OS-theme CSS and readable content still work.
 
+Pointer activation must not close a menu before its action runs. WebKit can blur a summary without focusing the clicked button; preserve focus inside the menu through mouse activation while keeping keyboard focus-leave dismissal. Validate the painted theme after real pointer and touch selection in Chromium and WebKit, not only a changed data attribute.
+
 Theme handling has three separate states to verify: initial OS preference, explicit manual choice, and return to system preference. Manual choice wins until the user selects system again; later OS changes then take effect. Logo policy and loading checks belong in the [assets guide](assets-guide.md).
 
 Use subtle opacity/transform motion only where it helps feedback. Never hide essential content pending JS/animation. Honor reduced motion. For visual review, capture the settled state or disable nonessential motion; an intermediate rotating-chevron frame is not the final alignment. Verify actual light/dark text and action contrast, including button foregrounds.

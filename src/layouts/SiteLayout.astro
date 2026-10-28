@@ -294,6 +294,15 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
       }
       const menus = [...document.querySelectorAll<HTMLDetailsElement>('[data-header-menu]')];
       menus.forEach((menu) => {
+        // WebKit does not focus buttons on pointer activation by default. Move
+        // focus inside the menu before summary blur can close it and cancel click.
+        menu.addEventListener('mousedown', (event) => {
+          const button = (event.target as Element).closest('button');
+          if (button && menu.contains(button)) {
+            event.preventDefault();
+            button.focus({ preventScroll: true });
+          }
+        });
         menu.addEventListener('toggle', () => {
           if (menu.open)
             menus.forEach((other) => {

@@ -5,6 +5,10 @@ export default defineConfig({
   testDir: 'tests',
   testMatch: '*.spec.mjs',
   use: { baseURL, browserName: 'chromium' },
+  projects: [
+    { name: 'chromium' },
+    { name: 'webkit', testMatch: ['theme.spec.mjs', 'menus.spec.mjs'], use: { browserName: 'webkit' } },
+  ],
   webServer: {
     command: `node scripts/static-server.mjs dist ${port}`,
     url: `${baseURL}/ko/`,

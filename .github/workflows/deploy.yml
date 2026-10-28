@@ -25,7 +25,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright install --with-deps chromium webkit
       - run: pnpm check
       - name: Preserve failed PDF outputs for pagination review
         if: failure()
