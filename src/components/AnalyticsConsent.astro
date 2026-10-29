@@ -23,7 +23,7 @@ const u = Object.fromEntries(Object.entries(data.ui).map(([key, pair]) => [key, 
         ✓
       </span>
     </button>
-    <button type="button" class="button secondary" data-analytics-choice="granted">
+    <button type="button" class="button primary" data-analytics-choice="granted">
       <span class="analytics-choice-label">{u.analyticsAllow}</span>
       <span class="analytics-choice-check" aria-hidden="true">
         ✓
@@ -82,6 +82,10 @@ const u = Object.fromEntries(Object.entries(data.ui).map(([key, pair]) => [key, 
     min-height: 44px;
     padding: 8px 30px;
     font-size: 13px;
+  }
+  .analytics-actions .primary {
+    /* Keep label contrast in both themes; hover still uses elevation/motion. */
+    --accent-hover: var(--accent);
   }
   .analytics-choice-check {
     visibility: hidden;

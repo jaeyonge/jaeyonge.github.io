@@ -208,6 +208,36 @@ test('consent buttons have equal boxes and independently centered labels in eith
     await page.goto(`https://jaeyonge.github.io/${lang}/`);
     for (const theme of ['light', 'dark']) {
       await page.emulateMedia({ colorScheme: theme });
+      const allow = page.locator('[data-analytics-choice="granted"]');
+      const decline = page.locator('[data-analytics-choice="denied"]');
+      await expect(allow).toHaveClass(/primary/);
+      await expect(decline).toHaveClass(/secondary/);
+      for (const hovered of [false, true]) {
+        if (hovered) await allow.hover();
+        else await page.mouse.move(0, 0);
+        // Wait for the shared color transition before measuring painted colors.
+        await expect
+          .poll(() =>
+            allow.evaluate((button) => {
+              const style = getComputedStyle(button);
+              const luminance = (color) => {
+                const channels = color
+                  .match(/[\d.]+/g)
+                  .slice(0, 3)
+                  .map(Number)
+                  .map((n) => n / 255);
+                const linear = channels.map((n) =>
+                  n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4,
+                );
+                return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+              };
+              const a = luminance(style.color),
+                b = luminance(style.backgroundColor);
+              return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+            }),
+          )
+          .toBeGreaterThanOrEqual(4.5);
+      }
       for (const width of [320, 390, 820, 1180, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         await page.locator('[data-analytics-settings]').click();
