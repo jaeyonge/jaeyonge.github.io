@@ -74,3 +74,7 @@ Workflows validate PRs and deploy validated `dist/` after an authorized push to 
 ## Attribution
 
 OpenDesign reference files retain their original Apache-2.0 and nested MIT licenses. Inter, Noto Sans KR, Source Serif 4 are distributed by their pinned font packages under their included OFL licenses. Source Han Serif KR is vendored from Adobe’s official release under OFL; see vendor/fonts/source-han-serif-kr/README.md. Third-party institutional marks are not covered by the project’s code license; see provenance and explicit source-use conditions before publication.
+
+## Visit analytics
+
+Owner-authorized GA4 uses consent-gated production-only collection. Read [the measurement and account setup guide](docs/analytics-guide.md) before editing events or dashboards. The measurement ID is public configuration; account secrets do not belong in the repository. Local previews, automated tests and exports send no real analytics.

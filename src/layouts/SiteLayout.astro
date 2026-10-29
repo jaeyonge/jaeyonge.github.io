@@ -6,12 +6,14 @@ import '../styles/global.css';
 import '../styles/print.css';
 import printStyles from '../styles/print.css?inline';
 import Chevron from '../components/Chevron.astro';
+import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 const {
   lang = 'en',
   print = false,
   languageGateway = false,
   title = data.profile.name[lang],
 } = Astro.props;
+const analyticsEnabled = import.meta.env.PROD && !print && !languageGateway;
 const previewStyles = printStyles.replaceAll('@media print', '@media screen');
 const u = Object.fromEntries(Object.entries(data.ui).map(([k, v]) => [k, v[lang]]));
 const other = lang === 'ko' ? 'en' : 'ko';
@@ -249,12 +251,18 @@ const socialAlt = `${data.profile.name[lang]} · ${data.profile.role[lang]} · $
           </span>
         </div>
         <div class="footer-links">
+          {analyticsEnabled && (
+            <button type="button" class="analytics-settings" data-analytics-settings hidden>
+              {u.analyticsSettings}
+            </button>
+          )}
           {data.profile.links.map((l) => (
             <a href={l.url}>{l.label} ↗</a>
           ))}
         </div>
       </footer>
     )}
+    {analyticsEnabled && <AnalyticsConsent lang={lang} />}
     <script>
       const theme = document.querySelector<HTMLSelectElement>('#theme');
       if (theme) {

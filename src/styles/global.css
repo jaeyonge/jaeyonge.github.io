@@ -1573,3 +1573,21 @@ html:has(.mobile-sections[open]) {
     transition: none;
   }
 }
+
+.analytics-settings {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-link);
+  font: inherit;
+  cursor: pointer;
+  text-align: start;
+}
+.analytics-settings[hidden] {
+  display: none;
+}
+@media print {
+  .analytics-settings {
+    display: none !important;
+  }
+}

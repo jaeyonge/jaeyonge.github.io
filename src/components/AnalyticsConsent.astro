@@ -1,0 +1,93 @@
+---
+import { data } from '../lib/content.mjs';
+const { lang } = Astro.props;
+const u = Object.fromEntries(Object.entries(data.ui).map(([key, pair]) => [key, pair[lang]]));
+---
+
+<aside class="analytics-consent" data-analytics-panel aria-labelledby="analytics-title" hidden>
+  <h2 id="analytics-title">{u.analyticsTitle}</h2>
+  <p>{u.analyticsDescription}</p>
+  <details>
+    <summary>{u.analyticsDetails}</summary>
+    <p>
+      {u.analyticsExplanation}{' '}
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+        {u.analyticsGooglePrivacy}
+      </a>
+    </p>
+  </details>
+  <div class="analytics-actions">
+    <button type="button" class="button secondary" data-analytics-choice="denied">
+      {u.analyticsDecline}
+      <span class="analytics-choice-check" aria-hidden="true">
+        ✓
+      </span>
+    </button>
+    <button type="button" class="button secondary" data-analytics-choice="granted">
+      {u.analyticsAllow}
+      <span class="analytics-choice-check" aria-hidden="true">
+        ✓
+      </span>
+    </button>
+  </div>
+</aside>
+<script>
+  import { initAnalytics } from '../lib/analytics.mjs';
+  initAnalytics();
+</script>
+<style>
+  .analytics-consent[hidden] {
+    display: none;
+  }
+  .analytics-consent {
+    position: fixed;
+    z-index: 20;
+    right: 20px;
+    bottom: 20px;
+    width: min(440px, calc(100% - 40px));
+    max-height: calc(100dvh - 100px);
+    overflow: auto;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--menu-radius);
+    background: var(--bg);
+    color: var(--fg);
+    box-shadow: var(--elev-raised);
+  }
+  .analytics-consent h2 {
+    margin: 0 0 8px;
+    font-size: 17px;
+  }
+  .analytics-consent p {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  .analytics-consent summary {
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .analytics-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .analytics-actions button {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .analytics-choice-check {
+    visibility: hidden;
+    margin-left: 6px;
+  }
+  [aria-pressed='true'] .analytics-choice-check {
+    visibility: visible;
+  }
+  @media print {
+    .analytics-consent {
+      display: none !important;
+    }
+  }
+</style>

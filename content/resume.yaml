@@ -162,6 +162,39 @@ ui:
     en: Built evaluation infrastructure for educational language models and
       developed automated assessment combining student drawings and written
       responses.
+  analyticsTitle:
+    ko: 방문 분석을 허용할까요?
+    en: Allow visit analytics?
+  analyticsDescription:
+    ko:
+      Google Analytics 쿠키를 사용해 방문 경로와 섹션 노출 시간, 링크 클릭을 분석합니다. 거절해도 모든 내용을 볼 수 있으며,
+      페이지 하단에서 언제든 설정을 바꿀 수 있습니다.
+    en: Google Analytics uses cookies to measure referrals, section exposure time
+      and link clicks. You can decline and still use the whole site, and change
+      your choice in the footer.
+  analyticsDetails:
+    ko: 수집 항목과 설정 자세히 보기
+    en: Details about data and settings
+  analyticsExplanation:
+    ko:
+      허용한 방문의 대략적인 지역·기기·언어와 페이지 이용 현황을 Google에 전송합니다. 이름·이메일·전화번호는 분석 이벤트에 보내지 않고
+      광고·개인화 기능은 사용하지 않습니다. 화면 노출은 실제로 읽었다는 뜻이 아닙니다.
+    en: For visits you allow, approximate location, device, language and site
+      activity are sent to Google. Analytics events do not include names, emails
+      or phone numbers, and advertising and personalization features are
+      disabled. Screen exposure does not establish that content was read.
+  analyticsGooglePrivacy:
+    ko: Google 개인정보처리방침
+    en: Google Privacy Policy
+  analyticsAllow:
+    ko: 허용
+    en: Allow
+  analyticsDecline:
+    ko: 거절
+    en: Decline
+  analyticsSettings:
+    ko: 방문 분석 설정
+    en: Analytics settings
 experience:
   - id: toss-place
     company:

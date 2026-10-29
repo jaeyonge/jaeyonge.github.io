@@ -7,7 +7,11 @@ export default defineConfig({
   use: { baseURL, browserName: 'chromium' },
   projects: [
     { name: 'chromium' },
-    { name: 'webkit', testMatch: ['theme.spec.mjs', 'menus.spec.mjs'], use: { browserName: 'webkit' } },
+    {
+      name: 'webkit',
+      testMatch: ['theme.spec.mjs', 'menus.spec.mjs', 'analytics.spec.mjs'],
+      use: { browserName: 'webkit' },
+    },
   ],
   webServer: {
     command: `node scripts/static-server.mjs dist ${port}`,

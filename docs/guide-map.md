@@ -18,6 +18,8 @@ This map tells future collaborators where to read and update a rule. It is not a
 | Acceptance criteria                                 | [evaluation rubric](evaluation-rubric.md), [tests](../tests/)                                                            | Observable evidence of compliance; link to the owning rule rather than restating its entire specification                    |
 | Observations and task evidence                      | Ignored `sources/reviews/<task-id>.md`                                                                                   | Defect → location/evidence → reader impact → fix → recheck, screenshots and limits; never public raw notes                   |
 
+Visit analytics measurement, consent, account setup and reporting are owned by [analytics-guide.md](analytics-guide.md); executable settings live in [analytics.json](../content/analytics.json).
+
 ## How to change a rule
 
 1. Identify whether feedback changes a general principle, a current choice, an implementation value or only a defect. Do not promote every CSS tweak into a universal rule.
