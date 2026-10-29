@@ -198,3 +198,44 @@ test('blocked Google tag does not break content, menus or local consent controls
   await expect(page.locator('[data-analytics-panel]')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('consent buttons have equal boxes and independently centered labels in either selection state', async ({
+  page,
+  baseURL,
+}) => {
+  await production(page, baseURL);
+  for (const lang of ['ko', 'en']) {
+    await page.goto(`https://jaeyonge.github.io/${lang}/`);
+    for (const theme of ['light', 'dark']) {
+      await page.emulateMedia({ colorScheme: theme });
+      for (const width of [320, 390, 820, 1180, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.locator('[data-analytics-settings]').click();
+        for (const selected of ['granted', 'denied']) {
+          await page.locator('[data-analytics-choice]').evaluateAll((buttons, value) => {
+            for (const button of buttons)
+              button.setAttribute('aria-pressed', String(button.dataset.analyticsChoice === value));
+          }, selected);
+          const boxes = await page.locator('[data-analytics-choice]').evaluateAll((buttons) =>
+            buttons.map((button) => {
+              const box = button.getBoundingClientRect(),
+                label = button.querySelector('.analytics-choice-label').getBoundingClientRect();
+              return {
+                width: box.width,
+                height: box.height,
+                dx: Math.abs((box.left + box.right - label.left - label.right) / 2),
+                dy: Math.abs((box.top + box.bottom - label.top - label.bottom) / 2),
+              };
+            }),
+          );
+          expect(Math.abs(boxes[0].width - boxes[1].width)).toBeLessThan(0.5);
+          expect(boxes[0].height).toBe(boxes[1].height);
+          for (const box of boxes) {
+            expect(box.dx).toBeLessThan(0.5);
+            expect(box.dy).toBeLessThan(0.5);
+          }
+        }
+      }
+    }
+  }
+});

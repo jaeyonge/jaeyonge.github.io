@@ -18,13 +18,13 @@ const u = Object.fromEntries(Object.entries(data.ui).map(([key, pair]) => [key, 
   </details>
   <div class="analytics-actions">
     <button type="button" class="button secondary" data-analytics-choice="denied">
-      {u.analyticsDecline}
+      <span class="analytics-choice-label">{u.analyticsDecline}</span>
       <span class="analytics-choice-check" aria-hidden="true">
         ✓
       </span>
     </button>
     <button type="button" class="button secondary" data-analytics-choice="granted">
-      {u.analyticsAllow}
+      <span class="analytics-choice-label">{u.analyticsAllow}</span>
       <span class="analytics-choice-check" aria-hidden="true">
         ✓
       </span>
@@ -73,14 +73,24 @@ const u = Object.fromEntries(Object.entries(data.ui).map(([key, pair]) => [key, 
     gap: 10px;
   }
   .analytics-actions button {
-    flex: 1;
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 0;
     min-height: 44px;
-    padding: 8px 12px;
+    padding: 8px 30px;
     font-size: 13px;
   }
   .analytics-choice-check {
     visibility: hidden;
-    margin-left: 6px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    text-align: center;
   }
   [aria-pressed='true'] .analytics-choice-check {
     visibility: visible;
